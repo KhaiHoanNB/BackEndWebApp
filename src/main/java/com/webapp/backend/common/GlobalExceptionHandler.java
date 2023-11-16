@@ -1,4 +1,4 @@
-package com.webapp.webapp.common;
+package com.webapp.backend.common;
 
 import jakarta.validation.ConstraintViolationException;
 import org.apache.logging.log4j.LogManager;

@@ -1,8 +1,8 @@
-package com.webapp.webapp.service;
+package com.webapp.backend.service;
 
-import com.webapp.webapp.common.GlobalExceptionHandler;
-import com.webapp.webapp.entity.Warehouse;
-import com.webapp.webapp.repository.WarehouseRepository;
+import com.webapp.backend.common.GlobalExceptionHandler;
+import com.webapp.backend.entity.Warehouse;
+import com.webapp.backend.repository.WarehouseRepository;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

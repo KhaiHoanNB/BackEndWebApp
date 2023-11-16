@@ -1,6 +1,6 @@
-package com.webapp.webapp.repository;
+package com.webapp.backend.repository;
 
-import com.webapp.webapp.entity.Order;
+import com.webapp.backend.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {

@@ -1,10 +1,9 @@
-package com.webapp.webapp.entity;
+package com.webapp.backend.entity;
 
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Generated;
 import lombok.NoArgsConstructor;
 
 import java.util.HashSet;

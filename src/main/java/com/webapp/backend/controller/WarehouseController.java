@@ -1,8 +1,8 @@
-package com.webapp.webapp.controller;
+package com.webapp.backend.controller;
 
 
-import com.webapp.webapp.entity.Warehouse;
-import com.webapp.webapp.service.WarehouseService;
+import com.webapp.backend.entity.Warehouse;
+import com.webapp.backend.service.WarehouseService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,8 +1,8 @@
-package com.webapp.webapp.service;
+package com.webapp.backend.service;
 
-import com.webapp.webapp.entity.Order;
-import com.webapp.webapp.entity.OrderDetail;
-import com.webapp.webapp.repository.OrderRepository;
+import com.webapp.backend.entity.Order;
+import com.webapp.backend.entity.OrderDetail;
+import com.webapp.backend.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

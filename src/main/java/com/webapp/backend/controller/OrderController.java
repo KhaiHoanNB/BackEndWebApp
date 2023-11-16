@@ -1,12 +1,10 @@
-package com.webapp.webapp.controller;
+package com.webapp.backend.controller;
 
-import com.webapp.webapp.entity.Order;
-import com.webapp.webapp.entity.Warehouse;
-import com.webapp.webapp.service.OrderService;
+import com.webapp.backend.entity.Order;
+import com.webapp.backend.service.OrderService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

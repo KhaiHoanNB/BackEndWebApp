@@ -1,4 +1,4 @@
-package com.webapp.webapp.entity;
+package com.webapp.backend.entity;
 
 
 import jakarta.persistence.*;
@@ -6,8 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.core.config.plugins.validation.constraints.NotBlank;
-
-import java.util.Date;
 
 @Data
 @Entity
