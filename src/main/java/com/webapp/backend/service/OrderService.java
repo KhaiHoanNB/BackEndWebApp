@@ -80,4 +80,23 @@ public class OrderService {
 
         }
     }
+
+    public void deleteOrder(Long id) throws Exception {
+
+        Optional<Order> existedOrderOptional = repository.findById(id);
+
+        if (existedOrderOptional.isPresent()) {
+
+            repository.deleteById(id);
+
+        } else {
+
+            throw new Exception("This order is not existed");
+
+        }
+    }
+
+    public void deleteAllOrder() {
+        repository.deleteAll();
+    }
 }

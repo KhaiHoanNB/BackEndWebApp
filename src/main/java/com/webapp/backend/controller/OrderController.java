@@ -44,4 +44,22 @@ public class OrderController {
 
         }
 
+        @DeleteMapping("/deleteOrder/{id}")
+        public ResponseEntity<String> deleteOrder(@PathVariable(name = "id") Long id) throws Exception {
+
+            service.deleteOrder(id);
+
+            return ResponseEntity.ok("Add product successfully");
+
+        }
+
+    @DeleteMapping("/deleteAllOrder")
+    public ResponseEntity<String> deleteAllOrder() throws Exception {
+
+        service.deleteAllOrder();
+
+        return ResponseEntity.ok("Add product successfully");
+
+    }
+
 }
