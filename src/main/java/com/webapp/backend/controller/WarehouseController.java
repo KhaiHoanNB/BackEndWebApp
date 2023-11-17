@@ -29,7 +29,7 @@ public class WarehouseController {
     }
 
     @DeleteMapping("/deleteProduct/{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable(name = ("id")) Long id) {
+    public ResponseEntity<String> deleteProduct(@PathVariable(name = ("id")) Long id) throws Exception {
 
         service.deleteProduct(id);
 

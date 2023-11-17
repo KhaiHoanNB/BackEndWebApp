@@ -16,7 +16,14 @@ public class OrderService {
     OrderRepository repository;
 
 
-    public void addOrder(Order order) {
+    public void addOrder(Order order) throws Exception {
+
+        Optional<Order> existedOrderOptional = repository.findById(order.getId());
+
+        if (existedOrderOptional.isPresent()) {
+
+            throw new Exception("This order is existed");
+        }
 
         order.setStatus(0);
         Double totalCashOrder = caculatedTotalCashOrder(order.getOrderDetails());
@@ -24,6 +31,7 @@ public class OrderService {
         order.setTotalCash(totalCashOrder);
 
         repository.save(order);
+
     }
 
     private Double caculatedTotalCashOrder(List<OrderDetail> orderDetails) {

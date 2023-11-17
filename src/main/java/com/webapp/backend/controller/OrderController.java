@@ -17,7 +17,7 @@ public class OrderController {
         OrderService service;
 
         @PostMapping("/addOrder")
-        public ResponseEntity<String> addOrder(@Valid @RequestBody Order order) {
+        public ResponseEntity<String> addOrder(@Valid @RequestBody Order order) throws Exception {
 
             service.addOrder(order);
 

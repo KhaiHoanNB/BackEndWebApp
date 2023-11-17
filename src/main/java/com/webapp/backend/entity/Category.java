@@ -23,14 +23,17 @@ public class Category {
 
 
     @Column
-    @NotBlank
     @NotNull
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private List<Product> products;
+
+
+    @Column
+    private String description;
 }

@@ -25,7 +25,9 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    @NotBlank
     private Category category;
+
+    @Column
+    private String description;
 
 }

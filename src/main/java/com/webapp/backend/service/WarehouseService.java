@@ -7,6 +7,8 @@ import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -19,11 +21,21 @@ public class WarehouseService {
 
     public void addProduct(Warehouse warehouse) {
 
+        warehouse.setCreatedTime(LocalDateTime.now());
+        warehouse.setUpdatedTime(LocalDateTime.now());
+
         repository.save(warehouse);
         LOGGER.info("Add " + warehouse.toString());
     }
 
-    public void deleteProduct(Long id) {
+    public void deleteProduct(Long id) throws Exception {
+
+        Optional<Warehouse> existingWarehouseOptional = repository.findById(id);
+
+        if (!existingWarehouseOptional.isPresent()) {
+
+            throw new Exception("This prduct is not existed");
+        }
 
         repository.deleteById(id);
     }
@@ -38,7 +50,6 @@ public class WarehouseService {
             existingWarehouse.setQuantity(updatedWarehouse.getQuantity());
             existingWarehouse.setUpdatedTime(updatedWarehouse.getUpdatedTime());
             existingWarehouse.setProduct(updatedWarehouse.getProduct());
-
 
             repository.save(existingWarehouse);
 
