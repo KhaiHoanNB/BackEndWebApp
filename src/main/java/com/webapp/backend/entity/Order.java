@@ -25,22 +25,29 @@ public class Order {
     @NotNull
     private User shipper;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER)
     @NotNull
-    @JoinTable(
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "orderdetail_id")
-    )
-    private List<OrderDetail> orderDetails;
+    private Product product;
+
+    @Column(name = "quantity")
+    @NotNull
+    private Integer quantity;
+
+    @Column(name = "price")
+    @NotNull
+    private Double price;
+
+    @Column(name = "total_cash")
+    private Double totalCash;
 
     @Column
     private Integer status;
 
-    @Column
-    private Double totalCash;
-
     @Column(name = "created_time")
     @NotNull
     private LocalDateTime createdTime;
+
+    @Column(name = "confirm_time")
+    private LocalDateTime confirmTime;
 
 }

@@ -105,14 +105,4 @@ public class OrderController {
         return ResponseEntity.ok("Add product successfully");
 
     }
-
-    @DeleteMapping("/returnOrderDetail/{orderID}")
-    public ResponseEntity<String> returnOrderDetail(
-            @PathVariable(name = "orderID") Long orderId,
-            @RequestParam(name = "orderDetailId") Long orderDetailId) throws Exception {
-
-        service.returnOrderDetail(orderDetailId);
-
-        return ResponseEntity.ok("Deleted order detail successfully");
-    }
 }

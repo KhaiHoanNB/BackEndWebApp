@@ -1,7 +1,7 @@
 package com.webapp.backend.service;
 
+import com.webapp.backend.common.CustomException;
 import com.webapp.backend.common.GlobalExceptionHandler;
-import com.webapp.backend.common.NotFoundException;
 import com.webapp.backend.entity.Warehouse;
 import com.webapp.backend.repository.WarehouseRepository;
 import org.apache.logging.log4j.LogManager;
@@ -34,7 +34,7 @@ public class WarehouseService {
 
         if (!existingWarehouseOptional.isPresent()) {
 
-            throw new NotFoundException("This prduct is not existed");
+            throw new CustomException("This prduct is not existed");
         }
 
         repository.deleteById(id);
@@ -55,7 +55,7 @@ public class WarehouseService {
 
         } else {
 
-            throw new NotFoundException("This prduct is not existed");
+            throw new CustomException("This prduct is not existed");
 
         }
     }

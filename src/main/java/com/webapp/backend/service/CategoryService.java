@@ -1,7 +1,7 @@
 package com.webapp.backend.service;
 
 
-import com.webapp.backend.common.NotFoundException;
+import com.webapp.backend.common.CustomException;
 import com.webapp.backend.entity.Category;
 import com.webapp.backend.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class CategoryService {
         Optional<Category> existedOrderOptional = repository.findById(id);
 
         if (!existedOrderOptional.isPresent()) {
-            throw new NotFoundException("This category is not existed");
+            throw new CustomException("This category is not existed");
         }
 
         repository.deleteById(id);

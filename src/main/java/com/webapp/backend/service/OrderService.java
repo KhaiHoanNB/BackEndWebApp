@@ -1,19 +1,18 @@
 package com.webapp.backend.service;
 
 import com.webapp.backend.common.Constants;
-import com.webapp.backend.common.NotFoundException;
-import com.webapp.backend.common.TooLargeQuantityException;
+import com.webapp.backend.common.CustomException;
 import com.webapp.backend.entity.Order;
-import com.webapp.backend.entity.OrderDetail;
 import com.webapp.backend.entity.User;
 import com.webapp.backend.entity.Warehouse;
-import com.webapp.backend.repository.OrderDetailRepository;
 import com.webapp.backend.repository.OrderRepository;
 import com.webapp.backend.repository.UserRepository;
 import com.webapp.backend.repository.WarehouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,88 +23,77 @@ public class OrderService {
     OrderRepository repository;
 
     @Autowired
-    OrderDetailRepository orderDetailRepository;
-
-    @Autowired
     UserRepository userRepository;
 
     @Autowired
     WarehouseRepository warehouseRepository;
 
 
+    @Transactional
     public void addOrder(Order order) throws Exception {
 
         Optional<Order> existedOrderOptional = repository.findById(order.getId());
 
         if (existedOrderOptional.isPresent()) {
 
-            throw new NotFoundException("This order is existed");
+            throw new CustomException("This order is existed");
         }
 
-        List<OrderDetail> orderDetails = order.getOrderDetails();
-
-        updateWarehouse(orderDetails);
-
         order.setStatus(Constants.STATUS_NOT_CONFIRM);
-        Double totalCashOrder = caculatedTotalCashOrder(order.getOrderDetails());
+
+        Double totalCashOrder = order.getPrice() * order.getQuantity();
 
         order.setTotalCash(totalCashOrder);
 
+        order.setCreatedTime(LocalDateTime.now());
+
         repository.save(order);
 
+        updateWarehouse(order);
+
     }
 
-    private void updateWarehouse(List<OrderDetail> orderDetails) throws TooLargeQuantityException {
-        for (int i = 0; i < orderDetails.size(); i++) {
+    private void updateWarehouse(Order order) throws CustomException {
 
-            OrderDetail orderDetail = orderDetails.get(i);
+        Warehouse warehouse = warehouseRepository.findByProductId(order.getProduct().getId());
 
-            Warehouse warehouse = warehouseRepository.findByProductId(orderDetail.getProduct().getId());
+        Integer theRestQuantity = warehouse.getQuantity() - order.getQuantity();
 
-            Integer theRestQuantity = warehouse.getQuantity() - orderDetail.getQuantity();
-
-            if(theRestQuantity < 0){
-                throw new TooLargeQuantityException("The quantity is too large");
-            } else {
-                warehouse.setQuantity(theRestQuantity);
-                warehouseRepository.save(warehouse);
-            }
+        if (theRestQuantity < 0) {
+            throw new CustomException("The quantity is too large");
+        } else {
+            warehouse.setQuantity(theRestQuantity);
+            warehouseRepository.save(warehouse);
         }
-    }
-
-    private Double caculatedTotalCashOrder(List<OrderDetail> orderDetails) {
-
-        Double totalCash = 0.0;
-
-        for (int i = 0; i < orderDetails.size(); i++) {
-
-            orderDetails.get(i).setTotalCash(orderDetails.get(i).getPrice()*orderDetails.get(i).getQuantity());
-
-            totalCash += orderDetails.get(i).getTotalCash();
-        }
-        return totalCash;
     }
 
     public void updateOrder(Order updateOrder) throws Exception {
 
         Optional<Order> existedOrderOptional = repository.findById(updateOrder.getId());
 
-        if (existedOrderOptional.isPresent()) {
-             Order existedOrder = existedOrderOptional.get();
+        if (!existedOrderOptional.isPresent()) {
 
-            existedOrder.setOrderDetails(updateOrder.getOrderDetails());
-            Double totalCashOrder = caculatedTotalCashOrder(updateOrder.getOrderDetails());
+            throw new CustomException("This order is not existed");
 
-            existedOrder.setTotalCash(totalCashOrder);
+        } else {
+
+            Order existedOrder = existedOrderOptional.get();
+
+            if (existedOrder.getStatus() == Constants.STATUS_CONFIRMED) {
+                throw new CustomException("Can not update order confirmed");
+            }
+
+            existedOrder.setQuantity(updateOrder.getQuantity());
             existedOrder.setShipper(updateOrder.getShipper());
+            existedOrder.setProduct(updateOrder.getProduct());
+            existedOrder.setShipper(updateOrder.getShipper());
+            existedOrder.setPrice(updateOrder.getPrice());
+
+            existedOrder.setTotalCash(updateOrder.getPrice() * updateOrder.getQuantity());
 
             existedOrder.setCreatedTime(updateOrder.getCreatedTime());
 
             repository.save(existedOrder);
-
-        } else {
-
-            throw new NotFoundException("This order is not existed");
 
         }
     }
@@ -123,7 +111,7 @@ public class OrderService {
 
         } else {
 
-            throw new NotFoundException("This order is not existed");
+            throw new CustomException("This order is not existed");
 
         }
     }
@@ -132,44 +120,34 @@ public class OrderService {
 
         Optional<Order> existedOrderOptional = repository.findById(id);
 
-        if (existedOrderOptional.isPresent()) {
-
-            repository.deleteById(id);
-
-        } else {
-
-            throw new NotFoundException("This order is not existed");
-
+        if (!existedOrderOptional.isPresent()) {
+            throw new CustomException("This order is not existed");
         }
+
+        Order order = existedOrderOptional.get();
+
+        if (!(order.getStatus() == Constants.STATUS_NOT_CONFIRM)) {
+            throw new CustomException("You do not have permission to delete this order");
+        }
+
+        updateDeleteOrderWarehouse(order);
+
+        repository.deleteById(id);
+    }
+
+    private void updateDeleteOrderWarehouse(Order order) {
+
+        Warehouse warehouse = warehouseRepository.findByProductId(order.getProduct().getId());
+
+        warehouse.setQuantity(warehouse.getQuantity() + order.getQuantity());
+        warehouseRepository.save(warehouse);
+
     }
 
     public void deleteAllOrder() {
         repository.deleteAll();
     }
 
-    public void returnOrderDetail(Long orderDetailId) throws Exception {
-
-        Optional<OrderDetail> existedOrderDetailOptional = orderDetailRepository.findById(orderDetailId);
-
-        if (!existedOrderDetailOptional.isPresent()) {
-
-            throw new NotFoundException("This order item is not existed");
-
-        } else {
-
-            OrderDetail orderDetail = existedOrderDetailOptional.get();
-
-            Warehouse warehouse = warehouseRepository.findByProductId(orderDetail.getProduct().getId());
-
-            warehouse.setQuantity(warehouse.getQuantity() + orderDetail.getQuantity());
-
-            warehouseRepository.save(warehouse);
-
-            orderDetailRepository.deleteById(orderDetailId);
-
-        }
-
-    }
 
     public Order getOrder(Long orderId) throws Exception {
 
@@ -181,7 +159,7 @@ public class OrderService {
 
         } else {
 
-            throw new NotFoundException("This order is not existed");
+            throw new CustomException("This order is not existed");
 
         }
     }
@@ -194,25 +172,25 @@ public class OrderService {
 
         Optional<User> userOptional = userRepository.findById(shipperId);
 
-        if(!userOptional.isPresent()){
-            throw new NotFoundException("The shipper is not existed");
+        if (!userOptional.isPresent()) {
+            throw new CustomException("The shipper is not existed");
         }
 
         return repository.findOrderByShipperId(shipperId);
 
     }
 
-    public void returnOrder(Long orderId) throws NotFoundException {
+    public void returnOrder(Long orderId) throws CustomException {
 
         Optional<Order> existedOrderDetailOptional = repository.findById(orderId);
 
-        if(!existedOrderDetailOptional.isPresent()){
-            throw new NotFoundException("This order is not existed");
+        if (!existedOrderDetailOptional.isPresent()) {
+            throw new CustomException("This order is not existed");
         }
 
         Order order = existedOrderDetailOptional.get();
 
-        updateReturnWarehouse(order.getOrderDetails());
+        updateReturnWarehouse(order);
 
         order.setStatus(Constants.STATUS_RETURN);
 
@@ -220,18 +198,14 @@ public class OrderService {
 
     }
 
-    private void updateReturnWarehouse(List<OrderDetail> orderDetails) {
+    private void updateReturnWarehouse(Order order) {
 
-        for (int i = 0; i < orderDetails.size(); i++) {
+        Warehouse warehouse = warehouseRepository.findByProductId(order.getProduct().getId());
 
-            OrderDetail orderDetail = orderDetails.get(i);
+        warehouse.setQuantity(warehouse.getQuantity() + order.getQuantity());
 
-            Warehouse warehouse = warehouseRepository.findByProductId(orderDetail.getProduct().getId());
+        warehouseRepository.save(warehouse);
 
-            warehouse.setQuantity(warehouse.getQuantity() + orderDetail.getQuantity());
-
-            warehouseRepository.save(warehouse);
-
-        }
     }
 }
+
