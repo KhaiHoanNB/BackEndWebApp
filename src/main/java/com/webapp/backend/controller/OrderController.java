@@ -4,7 +4,6 @@ import com.webapp.backend.entity.Order;
 import com.webapp.backend.service.OrderService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.EnableMBeanExport;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +28,7 @@ public class OrderController {
     }
 
     @GetMapping("/getAllOrder")
-    public ResponseEntity<List<Order>> addOrder() throws Exception {
+    public ResponseEntity<List<Order>> getAllOrder() throws Exception {
 
         List<Order> orders = service.getAllOrder();
 
@@ -58,6 +57,15 @@ public class OrderController {
         service.addOrder(order);
 
         return ResponseEntity.ok("Add product successfully");
+
+    }
+
+    @PostMapping("/returnOrder/{orderId}")
+    public ResponseEntity<String> returnOrder(@PathVariable(name = "orderId") Long orderId) throws Exception {
+
+        service.returnOrder(orderId);
+
+        return ResponseEntity.ok("Return order successfully");
 
     }
 
@@ -98,12 +106,12 @@ public class OrderController {
 
     }
 
-    @DeleteMapping("/deleteOrderDetail/{orderID}")
-    public ResponseEntity<String> deleteAllOrder(
+    @DeleteMapping("/returnOrderDetail/{orderID}")
+    public ResponseEntity<String> returnOrderDetail(
             @PathVariable(name = "orderID") Long orderId,
             @RequestParam(name = "orderDetailId") Long orderDetailId) throws Exception {
 
-        service.deleteOrderDetail(orderDetailId);
+        service.returnOrderDetail(orderDetailId);
 
         return ResponseEntity.ok("Deleted order detail successfully");
     }

@@ -34,7 +34,7 @@ public class OrderDetail {
     private Double totalCash;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
     @NotNull
     private Order order;

@@ -23,6 +23,26 @@ public class GlobalExceptionHandler {
 
     }
 
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<String> handleNotFoundException(NotFoundException e) {
+
+        LOGGER.error(e.getMessage());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The contend is not existed");
+
+    }
+
+    @ExceptionHandler(TooLargeQuantityException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<String> handleTooLargeQuantityException(TooLargeQuantityException e) {
+
+        LOGGER.error(e.getMessage());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The quantity is too large");
+
+    }
+
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<String> handleValidateException(ConstraintViolationException e) {

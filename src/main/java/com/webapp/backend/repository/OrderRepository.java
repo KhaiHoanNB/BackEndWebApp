@@ -11,5 +11,5 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
 
     @Query("SELECT o FROM Order o WHERE o.shipper.id = :shipperId")
-    List<Order> findByShipperId(@Param("shipperId") Long shipperId);
+    List<Order> findOrderByShipperId(@Param("shipperId") Long shipperId);
 }
