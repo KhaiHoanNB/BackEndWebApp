@@ -1,7 +1,6 @@
 package com.webapp.backend.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,12 +22,10 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "shipper_id", referencedColumnName = "id")
-    @NotBlank
     @NotNull
     private User shipper;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @NotBlank
     @NotNull
     @JoinTable(
             joinColumns = @JoinColumn(name = "order_id"),
@@ -44,7 +41,6 @@ public class Order {
 
     @Column(name = "created_time")
     @NotNull
-    @NotBlank
     private Date createdTime;
 
 }

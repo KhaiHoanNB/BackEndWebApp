@@ -1,7 +1,6 @@
 package com.webapp.backend.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,17 +19,14 @@ public class OrderDetail {
 
     @OneToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id")
-    @jakarta.validation.constraints.NotBlank
     @NotNull
     private Product product;
 
     @Column(name = "quantity")
-    @NotBlank
     @NotNull
     private int quantity;
 
     @Column(name = "price")
-    @NotBlank
     @NotNull
     private Double price;
 
@@ -40,6 +36,6 @@ public class OrderDetail {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    @NotBlank
+    @NotNull
     private Order order;
 }
