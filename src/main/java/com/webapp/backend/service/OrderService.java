@@ -1,8 +1,12 @@
 package com.webapp.backend.service;
 
+import com.webapp.backend.common.Constants;
 import com.webapp.backend.entity.Order;
 import com.webapp.backend.entity.OrderDetail;
+import com.webapp.backend.entity.User;
+import com.webapp.backend.repository.OrderDetailRepository;
 import com.webapp.backend.repository.OrderRepository;
+import com.webapp.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +19,12 @@ public class OrderService {
     @Autowired
     OrderRepository repository;
 
+    @Autowired
+    OrderDetailRepository orderDetailRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
 
     public void addOrder(Order order) throws Exception {
 
@@ -25,7 +35,7 @@ public class OrderService {
             throw new Exception("This order is existed");
         }
 
-        order.setStatus(0);
+        order.setStatus(Constants.STATUS_NOT_CONFIRM);
         Double totalCashOrder = caculatedTotalCashOrder(order.getOrderDetails());
 
         order.setTotalCash(totalCashOrder);
@@ -78,7 +88,7 @@ public class OrderService {
         if (existedOrderOptional.isPresent()) {
 
             Order existedOrder = existedOrderOptional.get();
-            existedOrder.setStatus(1);
+            existedOrder.setStatus(Constants.STATUS_CONFIRMED);
 
             repository.save(existedOrder);
 
@@ -106,5 +116,52 @@ public class OrderService {
 
     public void deleteAllOrder() {
         repository.deleteAll();
+    }
+
+    public void deleteOrderDetail(Long orderDetailId) throws Exception {
+
+        Optional<OrderDetail> existedOrderDetailOptional = orderDetailRepository.findById(orderDetailId);
+
+        if (existedOrderDetailOptional.isPresent()) {
+
+            orderDetailRepository.deleteById(orderDetailId);
+
+        } else {
+
+            throw new Exception("This order item is not existed");
+
+        }
+
+    }
+
+    public Order getOrder(Long orderId) throws Exception {
+
+        Optional<Order> existedOrderDetailOptional = repository.findById(orderId);
+
+        if (existedOrderDetailOptional.isPresent()) {
+
+            return existedOrderDetailOptional.get();
+
+        } else {
+
+            throw new Exception("This order is not existed");
+
+        }
+    }
+
+    public List<Order> getAllOrder() {
+        return repository.findAll();
+    }
+
+    public List<Order> getOrdersOfShipper(Long shipperId) throws Exception {
+
+        Optional<User> userOptional = userRepository.findById(shipperId);
+
+        if(!userOptional.isPresent()){
+            throw new Exception("The shipper is not existed");
+        }
+
+        return repository.findByShipperId(shipperId);
+
     }
 }

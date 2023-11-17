@@ -4,54 +4,90 @@ import com.webapp.backend.entity.Order;
 import com.webapp.backend.service.OrderService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.EnableMBeanExport;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/order")
 @Validated
 public class OrderController {
 
-        @Autowired
-        OrderService service;
+    @Autowired
+    OrderService service;
 
-        @PostMapping("/addOrder")
-        public ResponseEntity<String> addOrder(@Valid @RequestBody Order order) throws Exception {
+    @GetMapping("/getOrder/{orderId}")
+    public ResponseEntity<String> addOrder(@PathVariable(name = "orderId") Long orderId) throws Exception {
 
-            service.addOrder(order);
+        service.getOrder(orderId);
 
-            return ResponseEntity.ok("Add product successfully");
+        return ResponseEntity.ok("Add product successfully");
 
+    }
+
+    @GetMapping("/getAllOrder")
+    public ResponseEntity<List<Order>> addOrder() throws Exception {
+
+        List<Order> orders = service.getAllOrder();
+
+        if(orders.isEmpty()){
+            return ResponseEntity.noContent().build();
         }
+        return ResponseEntity.ok(orders);
 
+    }
 
-        @PutMapping("/updateOrder")
-        public ResponseEntity<String> updateOrder(@Valid @RequestBody Order order) throws Exception {
+    @GetMapping("/getOrdersOfShipper/{shipperId}")
+    public ResponseEntity<List<Order>> getOrdersOfShipper(@PathVariable(name = "shipperId") Long shipperId) throws Exception {
 
-            service.updateOrder(order);
+        List<Order> orders = service.getOrdersOfShipper(shipperId);
 
-            return ResponseEntity.ok("Add product successfully");
-
+        if(orders.isEmpty()){
+            return ResponseEntity.noContent().build();
         }
+        return ResponseEntity.ok(orders);
 
-        @PutMapping("/comfirmOrder/{id}")
-        public ResponseEntity<String> confirmOrder(@PathVariable(name = "id") Long id) throws Exception {
+    }
 
-            service.confirmOrder(id);
+    @PostMapping("/addOrder")
+    public ResponseEntity<String> addOrder(@Valid @RequestBody Order order) throws Exception {
 
-            return ResponseEntity.ok("Add product successfully");
+        service.addOrder(order);
 
-        }
+        return ResponseEntity.ok("Add product successfully");
 
-        @DeleteMapping("/deleteOrder/{id}")
-        public ResponseEntity<String> deleteOrder(@PathVariable(name = "id") Long id) throws Exception {
+    }
 
-            service.deleteOrder(id);
 
-            return ResponseEntity.ok("Add product successfully");
+    @PutMapping("/updateOrder")
+    public ResponseEntity<String> updateOrder(@Valid @RequestBody Order order) throws Exception {
 
-        }
+        service.updateOrder(order);
+
+        return ResponseEntity.ok("Add product successfully");
+
+    }
+
+    @PutMapping("/comfirmOrder/{id}")
+    public ResponseEntity<String> confirmOrder(@PathVariable(name = "id") Long id) throws Exception {
+
+        service.confirmOrder(id);
+
+        return ResponseEntity.ok("Add product successfully");
+
+    }
+
+    @DeleteMapping("/deleteOrder/{id}")
+    public ResponseEntity<String> deleteOrder(@PathVariable(name = "id") Long id) throws Exception {
+
+        service.deleteOrder(id);
+
+        return ResponseEntity.ok("Add product successfully");
+
+    }
 
     @DeleteMapping("/deleteAllOrder")
     public ResponseEntity<String> deleteAllOrder() throws Exception {
@@ -62,4 +98,13 @@ public class OrderController {
 
     }
 
+    @DeleteMapping("/deleteOrderDetail/{orderID}")
+    public ResponseEntity<String> deleteAllOrder(
+            @PathVariable(name = "orderID") Long orderId,
+            @RequestParam(name = "orderDetailId") Long orderDetailId) throws Exception {
+
+        service.deleteOrderDetail(orderDetailId);
+
+        return ResponseEntity.ok("Deleted order detail successfully");
+    }
 }
