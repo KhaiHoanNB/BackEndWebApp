@@ -1,11 +1,11 @@
 package com.webapp.backend.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.logging.log4j.core.config.plugins.validation.constraints.NotBlank;
 
 @Data
 @NoArgsConstructor
@@ -20,7 +20,7 @@ public class OrderDetail {
 
     @OneToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id")
-    @NotBlank
+    @jakarta.validation.constraints.NotBlank
     @NotNull
     private Product product;
 

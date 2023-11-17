@@ -2,10 +2,10 @@ package com.webapp.backend.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.logging.log4j.core.config.plugins.validation.constraints.NotBlank;
 
 @Data
 @Entity
@@ -21,5 +21,11 @@ public class Product {
     @Column(unique = true, length = 255, nullable = false)
     @NotBlank
     private String name;
+
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    @NotBlank
+    private Category category;
 
 }
