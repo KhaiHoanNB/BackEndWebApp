@@ -6,9 +6,10 @@ import com.webapp.backend.service.WarehouseService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/warehouse")
@@ -20,7 +21,7 @@ public class WarehouseController {
 
 
     @PostMapping("/addProduct")
-    public ResponseEntity<String> addProduct( @Valid @RequestBody Warehouse warehouse, BindingResult bindingResult) {
+    public ResponseEntity<String> addProduct( @Valid @RequestBody Warehouse warehouse) {
 
         service.addProduct(warehouse);
 
@@ -52,6 +53,32 @@ public class WarehouseController {
         service.deleteAllProduct();
 
         return ResponseEntity.ok("Deleted all products successfully");
+
+    }
+
+    @GetMapping("/getAllProduct")
+    public ResponseEntity<List<Warehouse>> getAllProduct() throws Exception {
+
+        List<Warehouse> products =  service.getAllProduct();
+
+        if(products.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(products);
+
+    }
+
+    @GetMapping("/getProduct/{warehousetId}")
+    public ResponseEntity<Warehouse> getProduct(@PathVariable(name = "warehousetId") Long warehousetId) throws Exception {
+
+        Warehouse product =  service.getProduct(warehousetId);
+
+        if(product == null){
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(product);
 
     }
 

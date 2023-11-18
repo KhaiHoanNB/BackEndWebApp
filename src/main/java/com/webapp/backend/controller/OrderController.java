@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Parameter;
 import java.util.List;
 
 @RestController
@@ -19,11 +20,11 @@ public class OrderController {
     OrderService service;
 
     @GetMapping("/getOrder/{orderId}")
-    public ResponseEntity<String> addOrder(@PathVariable(name = "orderId") Long orderId) throws Exception {
+    public ResponseEntity<Order> getOrder(@PathVariable(name = "orderId") Long orderId) throws Exception {
 
-        service.getOrder(orderId);
+       Order order =  service.getOrder(orderId);
 
-        return ResponseEntity.ok("Add product successfully");
+        return ResponseEntity.ok(order);
 
     }
 
@@ -69,6 +70,15 @@ public class OrderController {
 
     }
 
+    @PostMapping("/confirmReturnOrder/{orderId}")
+    public ResponseEntity<String> ConfirmReturnOrder(@PathVariable(name = "orderId") Long orderId) throws Exception {
+
+        service.confirmReturnOrder(orderId);
+
+        return ResponseEntity.ok("Return order successfully");
+
+    }
+
 
     @PutMapping("/updateOrder")
     public ResponseEntity<String> updateOrder(@Valid @RequestBody Order order) throws Exception {
@@ -84,14 +94,15 @@ public class OrderController {
 
         service.confirmOrder(id);
 
-        return ResponseEntity.ok("Add product successfully");
+        return ResponseEntity.ok("Confirm product successfully");
 
     }
 
     @DeleteMapping("/deleteOrder/{id}")
-    public ResponseEntity<String> deleteOrder(@PathVariable(name = "id") Long id) throws Exception {
+    public ResponseEntity<String> deleteOrder(@PathVariable(name = "id") Long orderId,
+                                              @RequestParam(name = "shipperId") Long shipperID) throws Exception {
 
-        service.deleteOrder(id);
+        service.deleteOrder(orderId, shipperID);
 
         return ResponseEntity.ok("Add product successfully");
 

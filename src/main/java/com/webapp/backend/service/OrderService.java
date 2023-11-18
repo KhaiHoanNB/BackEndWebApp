@@ -75,27 +75,24 @@ public class OrderService {
 
             throw new CustomException("This order is not existed");
 
-        } else {
-
-            Order existedOrder = existedOrderOptional.get();
-
-            if (existedOrder.getStatus() == Constants.STATUS_CONFIRMED) {
-                throw new CustomException("Can not update order confirmed");
-            }
-
-            existedOrder.setQuantity(updateOrder.getQuantity());
-            existedOrder.setShipper(updateOrder.getShipper());
-            existedOrder.setProduct(updateOrder.getProduct());
-            existedOrder.setShipper(updateOrder.getShipper());
-            existedOrder.setPrice(updateOrder.getPrice());
-
-            existedOrder.setTotalCash(updateOrder.getPrice() * updateOrder.getQuantity());
-
-            existedOrder.setCreatedTime(updateOrder.getCreatedTime());
-
-            repository.save(existedOrder);
-
         }
+
+        Order existedOrder = existedOrderOptional.get();
+
+        if (!(existedOrder.getStatus() == Constants.STATUS_NOT_CONFIRM)) {
+            throw new CustomException("You only can update not_confirmed order.");
+        }
+
+        existedOrder.setQuantity(updateOrder.getQuantity());
+        existedOrder.setPrice(updateOrder.getPrice());
+
+        existedOrder.setTotalCash(updateOrder.getPrice() * updateOrder.getQuantity());
+
+        existedOrder.setCreatedTime(updateOrder.getCreatedTime());
+
+        repository.save(existedOrder);
+
+
     }
 
     public void confirmOrder(Long id) throws Exception {
@@ -116,9 +113,9 @@ public class OrderService {
         }
     }
 
-    public void deleteOrder(Long id) throws Exception {
+    public void deleteOrder(Long orderId, Long shipperId) throws Exception {
 
-        Optional<Order> existedOrderOptional = repository.findById(id);
+        Optional<Order> existedOrderOptional = repository.findById(orderId);
 
         if (!existedOrderOptional.isPresent()) {
             throw new CustomException("This order is not existed");
@@ -130,9 +127,13 @@ public class OrderService {
             throw new CustomException("You do not have permission to delete this order");
         }
 
+        if(!(order.getShipper().getId() == shipperId)){
+            throw new CustomException("You do not have permission to delete this order");
+        }
+
         updateDeleteOrderWarehouse(order);
 
-        repository.deleteById(id);
+        repository.deleteById(orderId);
     }
 
     private void updateDeleteOrderWarehouse(Order order) {
@@ -182,15 +183,15 @@ public class OrderService {
 
     public void returnOrder(Long orderId) throws CustomException {
 
-        Optional<Order> existedOrderDetailOptional = repository.findById(orderId);
+        Optional<Order> existedOrderOptional = repository.findById(orderId);
 
-        if (!existedOrderDetailOptional.isPresent()) {
+        if (!existedOrderOptional.isPresent()) {
             throw new CustomException("This order is not existed");
         }
 
-        Order order = existedOrderDetailOptional.get();
+        Order order = existedOrderOptional.get();
 
-        updateReturnWarehouse(order);
+//        updateReturnWarehouse(order);
 
         order.setStatus(Constants.STATUS_RETURN);
 
@@ -205,6 +206,30 @@ public class OrderService {
         warehouse.setQuantity(warehouse.getQuantity() + order.getQuantity());
 
         warehouseRepository.save(warehouse);
+
+    }
+
+    public void confirmReturnOrder(Long orderId) throws CustomException {
+
+        Optional<Order> existedOrderOptional = repository.findById(orderId);
+
+        if (!existedOrderOptional.isPresent()) {
+
+            throw new CustomException("This order is not existed");
+
+        }
+
+        Order existedOrder = existedOrderOptional.get();
+
+        if(existedOrder.getStatus() == Constants.STATUS_RETURN){
+
+            existedOrder.setStatus(Constants.STATUS_CONFIRMED_RETURN);
+
+            updateReturnWarehouse(existedOrder);
+
+            repository.save(existedOrder);
+
+        }
 
     }
 }
