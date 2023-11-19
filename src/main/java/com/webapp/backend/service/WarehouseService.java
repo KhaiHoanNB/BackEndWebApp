@@ -1,11 +1,10 @@
 package com.webapp.backend.service;
 
 import com.webapp.backend.common.CustomException;
-import com.webapp.backend.common.GlobalExceptionHandler;
-import com.webapp.backend.entity.Product;
 import com.webapp.backend.entity.Warehouse;
 import com.webapp.backend.repository.WarehouseRepository;
-import org.apache.logging.log4j.LogManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,7 @@ import java.util.Optional;
 @Service
 public class WarehouseService {
 
-    private static final org.apache.logging.log4j.Logger LOGGER =  LogManager.getLogger(GlobalExceptionHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WarehouseService.class);
 
     @Autowired
     WarehouseRepository repository;
