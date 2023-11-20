@@ -20,6 +20,9 @@ public class CategoryService {
     public void saveCategory(CategoryDto categoryDto) throws Exception {
 
         Category category = new Category();
+        category.setId(categoryDto.getId());
+        category.setName(categoryDto.getName());
+        category.setDescription(categoryDto.getDescription());
 
         repository.save(category);
     }
