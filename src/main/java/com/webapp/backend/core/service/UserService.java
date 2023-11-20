@@ -45,21 +45,10 @@ public class UserService implements UserDetailsService, GenericService<User, Lon
                 .build();
 
         List<Role> list = new ArrayList<>();
-        List<RoleDto> roles = request.getRoles();
-        for (RoleDto roleDto : roles) {
-            if (roleDto == null) continue;
 
-            Role role = roleService.getByName(roleDto.getName());
-            if (role == null) {
-                role = Role.builder()
-                        .name(roleDto.getName())
-                        .description(roleDto.getDescription())
-                        .build();
-                role = roleService.save(role);
-            }
+        Role role = roleService.getByName("ROLE_SHIPPER");
 
-            list.add(role);
-        }
+        list.add(role);
 
         user.setRoles(list);
 
