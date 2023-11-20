@@ -71,7 +71,7 @@ public class OrderController {
     }
 
     @PostMapping("/confirmReturnOrder/{orderId}")
-    public ResponseEntity<String> ConfirmReturnOrder(@PathVariable(name = "orderId") Long orderId) throws Exception {
+    public ResponseEntity<String> confirmReturnOrder(@PathVariable(name = "orderId") Long orderId) throws Exception {
 
         service.confirmReturnOrder(orderId);
 
