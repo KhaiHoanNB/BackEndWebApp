@@ -3,9 +3,9 @@ package com.webapp.backend.service;
 
 import com.webapp.backend.common.Constants;
 import com.webapp.backend.common.CustomException;
-import com.webapp.backend.common.Report;
 import com.webapp.backend.core.entities.User;
 import com.webapp.backend.core.repositories.UserRepository;
+import com.webapp.backend.dto.ReportDto;
 import com.webapp.backend.entity.Order;
 import com.webapp.backend.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +26,9 @@ public class ReportService {
     @Autowired
     UserRepository userRepository;
 
-    public Report getOrdersByDateAndShipper(String date, Long shipperId) throws CustomException {
+    public ReportDto getOrdersByDateAndShipper(String date, Long shipperId) throws CustomException {
 
-        Report report = new Report();
+        ReportDto report = new ReportDto();
 
         Optional<User> userOptional = userRepository.findById(shipperId);
 
@@ -74,7 +74,7 @@ public class ReportService {
         return report;
     }
 
-    public List<Report> getAllReport(String date) {
+    public List<ReportDto> getAllReport(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
         LocalDate dateFormated = LocalDate.parse(date, formatter);
@@ -84,11 +84,11 @@ public class ReportService {
 
         List<User> users = userRepository.findAll();
 
-        List<Report> reports = new ArrayList<>();
+        List<ReportDto> reports = new ArrayList<>();
 
         for (int i = 0; i < users.size(); i++) {
 
-            Report report = new Report();
+            ReportDto report = new ReportDto();
 
             User user = users.get(i);
 
@@ -120,7 +120,7 @@ public class ReportService {
 
         for (int i = 0; i < reports.size(); i++) {
 
-            Report report = reports.get(i);
+            ReportDto report = reports.get(i);
 
             if(report.getPendingOrder().size() == 0
                     && report.getSuccessfulOrder().size() == 0

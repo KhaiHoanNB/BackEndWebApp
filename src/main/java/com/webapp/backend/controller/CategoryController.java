@@ -1,8 +1,8 @@
 package com.webapp.backend.controller;
 
 
+import com.webapp.backend.dto.CategoryDto;
 import com.webapp.backend.entity.Category;
-import com.webapp.backend.entity.Order;
 import com.webapp.backend.service.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +21,9 @@ public class CategoryController {
     CategoryService service;
 
     @PostMapping("/addCategory")
-    public ResponseEntity<String> addCategory(@Valid @RequestBody Category category) throws Exception {
+    public ResponseEntity<String> addCategory(@Valid @RequestBody CategoryDto categoryDto) throws Exception {
 
-        service.saveCategory(category);
+        service.saveCategory(categoryDto);
 
         return ResponseEntity.ok("Add category successfully");
 

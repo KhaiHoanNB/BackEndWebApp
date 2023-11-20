@@ -2,6 +2,7 @@ package com.webapp.backend.service;
 
 
 import com.webapp.backend.common.CustomException;
+import com.webapp.backend.dto.CategoryDto;
 import com.webapp.backend.entity.Category;
 import com.webapp.backend.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,9 @@ public class CategoryService {
     @Autowired
     CategoryRepository repository;
 
-    public void saveCategory(Category category) throws Exception {
+    public void saveCategory(CategoryDto categoryDto) throws Exception {
+
+        Category category = new Category();
 
         repository.save(category);
     }

@@ -1,4 +1,4 @@
-package com.webapp.backend.common;
+package com.webapp.backend.dto;
 
 import com.webapp.backend.core.entities.User;
 import com.webapp.backend.entity.Order;
@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Report {
+public class ReportDto {
 
     private User shipper;
 

@@ -2,8 +2,7 @@ package com.webapp.backend.controller;
 
 
 import com.webapp.backend.common.CustomException;
-import com.webapp.backend.common.Report;
-import com.webapp.backend.entity.Order;
+import com.webapp.backend.dto.ReportDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,10 +18,10 @@ public class ReportController {
     ReportService reportService;
 
     @GetMapping("getAllReport/{date}")
-    public ResponseEntity<List<Report>> getSuccessfulOrderByDate(@PathVariable(name = "date") String date){
+    public ResponseEntity<List<ReportDto>> getSuccessfulOrderByDate(@PathVariable(name = "date") String date){
 
 
-        List<Report> listOrder = reportService.getAllReport(date);
+        List<ReportDto> listOrder = reportService.getAllReport(date);
 
         if(listOrder.isEmpty()){
             return ResponseEntity.noContent().build();
@@ -35,7 +34,7 @@ public class ReportController {
 
 
     @GetMapping("getReportByDateAndShipper/{date}")
-    public ResponseEntity<Report> getSuccessfulOrderByDateAndShipper(
+    public ResponseEntity<ReportDto> getSuccessfulOrderByDateAndShipper(
                                         @PathVariable(name = "date") String date,
                                         @RequestParam(name = "shipperId") Long shipperId) throws CustomException {
 
