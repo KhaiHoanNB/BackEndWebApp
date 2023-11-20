@@ -1,5 +1,6 @@
 package com.webapp.backend.entity;
 
+import com.webapp.backend.core.entities.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

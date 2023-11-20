@@ -2,11 +2,11 @@ package com.webapp.backend.service;
 
 import com.webapp.backend.common.Constants;
 import com.webapp.backend.common.CustomException;
+import com.webapp.backend.core.entities.User;
+import com.webapp.backend.core.repositories.UserRepository;
 import com.webapp.backend.entity.Order;
-import com.webapp.backend.entity.User;
 import com.webapp.backend.entity.Warehouse;
 import com.webapp.backend.repository.OrderRepository;
-import com.webapp.backend.repository.UserRepository;
 import com.webapp.backend.repository.WarehouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -32,6 +32,7 @@ public class OpenAPIConfig {
                 .description("This API exposes endpoints to manage tutorials.")
                 .license(mitLicense);
 
+
         return new OpenAPI().info(info).servers(List.of(devServer));
     }
 }

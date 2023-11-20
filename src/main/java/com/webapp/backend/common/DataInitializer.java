@@ -1,14 +1,12 @@
 package com.webapp.backend.common;
 
+import com.webapp.backend.core.entities.Role;
+import com.webapp.backend.core.repositories.RoleRepository;
 import com.webapp.backend.entity.Category;
-import com.webapp.backend.entity.Role;
 import com.webapp.backend.repository.CategoryRepository;
-import com.webapp.backend.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -40,8 +38,8 @@ public class DataInitializer implements CommandLineRunner {
     private void initializeRoles() {
 
         if (roleRepository.count() == 0) {
-            roleRepository.save(new Role(1,"ROLE_SHIPPER", "Ship order to customer"));
-            roleRepository.save(new Role(2,"ROLE_ADMIN", "Ship order to customer"));
+            roleRepository.save(new Role("ROLE_SHIPPER", "Ship order to customer"));
+            roleRepository.save(new Role("ROLE_ADMIN", "Ship order to customer"));
         }
     }
 }
