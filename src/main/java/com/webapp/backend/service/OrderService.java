@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,6 +52,16 @@ public class OrderService {
         repository.save(order);
 
         updateWarehouse(order);
+
+    }
+
+    public List<Order> getAllOrderByDate(String date) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+
+        LocalDate dateFormated = LocalDate.parse(date, formatter);
+
+        return repository.findOrdersByDate(dateFormated);
 
     }
 
@@ -230,6 +242,16 @@ public class OrderService {
             repository.save(existedOrder);
 
         }
+
+    }
+
+    public List<Order> getOrdersOfShipperByDate(Long shipperId, String date) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+
+        LocalDate dateFormated = LocalDate.parse(date, formatter);
+
+        return repository.findOrdersByDateAndShipperId(dateFormated, shipperId);
 
     }
 }

@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Parameter;
 import java.util.List;
 
 @RestController
@@ -28,6 +27,18 @@ public class OrderController {
 
     }
 
+    @GetMapping("/getAllOrderByDate/{date}")
+    public ResponseEntity<List<Order>> getOrder(@PathVariable(name = "date") String date) throws Exception {
+
+        List<Order> orders =  service.getAllOrderByDate(date);
+
+        if(orders.isEmpty()){
+            ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(orders);
+
+    }
+
     @GetMapping("/getAllOrder")
     public ResponseEntity<List<Order>> getAllOrder() throws Exception {
 
@@ -44,6 +55,19 @@ public class OrderController {
     public ResponseEntity<List<Order>> getOrdersOfShipper(@PathVariable(name = "shipperId") Long shipperId) throws Exception {
 
         List<Order> orders = service.getOrdersOfShipper(shipperId);
+
+        if(orders.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(orders);
+
+    }
+
+    @GetMapping("/getOrdersOfShipperByDate/{date}")
+    public ResponseEntity<List<Order>> getOrdersOfShipper(@PathVariable(name = "date") String date,
+                                                          @RequestParam(name = "shipperId") Long shipperId) throws Exception {
+
+        List<Order> orders = service.getOrdersOfShipperByDate(shipperId,date);
 
         if(orders.isEmpty()){
             return ResponseEntity.noContent().build();

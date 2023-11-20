@@ -1,6 +1,8 @@
 package com.webapp.backend.controller;
 
 
+import com.webapp.backend.common.CustomException;
+import com.webapp.backend.common.Report;
 import com.webapp.backend.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +18,11 @@ public class ReportController {
     @Autowired
     ReportService reportService;
 
-    @GetMapping("getSuccessfulOrderByDate/{date}")
-    public ResponseEntity<List<Order>> getSuccessfulOrderByDate(@PathVariable(name = "date") String date){
+    @GetMapping("getAllReport/{date}")
+    public ResponseEntity<List<Report>> getSuccessfulOrderByDate(@PathVariable(name = "date") String date){
 
 
-        List<Order> listOrder = reportService.getSuccessfulOrderByDate(date);
+        List<Report> listOrder = reportService.getAllReport(date);
 
         if(listOrder.isEmpty()){
             return ResponseEntity.noContent().build();
@@ -32,19 +34,12 @@ public class ReportController {
 
 
 
-    @GetMapping("getSuccessfulOrderByDateAndShipper/{date}")
-    public ResponseEntity<List<Order>> getSuccessfulOrderByDateAndShipper(
+    @GetMapping("getReportByDateAndShipper/{date}")
+    public ResponseEntity<Report> getSuccessfulOrderByDateAndShipper(
                                         @PathVariable(name = "date") String date,
-                                        @RequestParam(name = "shipperId") Long shipperId){
+                                        @RequestParam(name = "shipperId") Long shipperId) throws CustomException {
 
-
-        List<Order> listOrder = reportService.getSuccessfulOrderByDateAndShipper(date, shipperId);
-
-        if(listOrder.isEmpty()){
-            return ResponseEntity.noContent().build();
-        }
-
-        return ResponseEntity.ok(listOrder);
+        return ResponseEntity.ok(reportService.getOrdersByDateAndShipper(date, shipperId));
 
     }
 
