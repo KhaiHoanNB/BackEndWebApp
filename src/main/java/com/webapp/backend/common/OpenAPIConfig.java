@@ -2,6 +2,9 @@ package com.webapp.backend.common;
 
 import java.util.List;
 
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,6 +36,16 @@ public class OpenAPIConfig {
                 .license(mitLicense);
 
 
-        return new OpenAPI().info(info).servers(List.of(devServer));
+        return new OpenAPI().addSecurityItem(new SecurityRequirement().
+                addList("Bearer Authentication"))
+                .components(new Components().addSecuritySchemes
+                        ("Bearer Authentication", createAPIKeyScheme()))
+                .info(info).servers(List.of(devServer));
+    }
+
+    private SecurityScheme createAPIKeyScheme() {
+        return new SecurityScheme().type(SecurityScheme.Type.HTTP)
+                .bearerFormat("JWT")
+                .scheme("bearer");
     }
 }
