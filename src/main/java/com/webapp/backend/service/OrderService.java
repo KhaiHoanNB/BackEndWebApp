@@ -59,6 +59,13 @@ public class OrderService {
             throw new CustomException("This product is not existed");
         }
 
+        Optional<User> shipper = userRepository.findById(orderDto.getShipperId());
+
+        if(!shipper.isPresent() || !shipper.get().getRoles().stream()
+                .anyMatch(role -> role.getAuthority().equals("ROLE_SHIPPER"))){
+            throw new CustomException("The shipper is not existed");
+        }
+
         Order order = new Order();
 
         order.setShipper(userOptional.get());

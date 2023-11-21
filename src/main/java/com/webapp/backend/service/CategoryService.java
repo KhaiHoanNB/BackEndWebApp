@@ -20,7 +20,7 @@ public class CategoryService {
     @Autowired
     CategoryRepository repository;
 
-    public void saveCategory(CategoryDto categoryDto) throws Exception {
+    public Category saveCategory(CategoryDto categoryDto) throws Exception {
 
         if(categoryDto.getId() != null && repository.findById(categoryDto.getId()).isPresent()){
             throw new CustomException("The id of category is existed");
@@ -31,7 +31,7 @@ public class CategoryService {
         category.setName(categoryDto.getName());
         category.setDescription(categoryDto.getDescription());
 
-        repository.save(category);
+        return repository.save(category);
     }
 
     public void deleteCategory(Long id) throws Exception {

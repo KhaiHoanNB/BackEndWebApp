@@ -21,11 +21,9 @@ public class CategoryController {
     CategoryService service;
 
     @PostMapping("/addCategory")
-    public ResponseEntity<String> addCategory(@Valid @RequestBody CategoryDto categoryDto) throws Exception {
+    public ResponseEntity<Category> addCategory(@Valid @RequestBody CategoryDto categoryDto) throws Exception {
 
-        service.saveCategory(categoryDto);
-
-        return ResponseEntity.ok("Add category successfully");
+        return ResponseEntity.ok(service.saveCategory(categoryDto));
 
     }
 

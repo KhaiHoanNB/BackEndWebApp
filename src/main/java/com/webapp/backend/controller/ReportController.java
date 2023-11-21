@@ -31,8 +31,6 @@ public class ReportController {
 
     }
 
-
-
     @GetMapping("getReportByDateAndShipper/{date}")
     public ResponseEntity<ReportDto> getSuccessfulOrderByDateAndShipper(
                                         @PathVariable(name = "date") String date,
