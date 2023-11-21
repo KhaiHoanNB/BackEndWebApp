@@ -59,7 +59,7 @@ public class ReportService {
 
             if (order.getStatus().equals(Constants.STATUS_CONFIRMED)) {
                 report.getSuccessfulOrder().add(order);
-                totalCash += order.getTotalCash();
+                totalCash += order.getCash();
             } else if (order.getStatus().equals(Constants.STATUS_CONFIRMED_RETURN)) {
                 report.getReturnedOrder().add(order);
             } else {
@@ -68,6 +68,8 @@ public class ReportService {
 
         }
 
+        report.setShipperName(user.getUsername());
+        report.setShipperId(user.getId());
         report.setTotalCash(totalCash);
         report.setDate(dateFormated);
 
@@ -92,7 +94,8 @@ public class ReportService {
 
             User user = users.get(i);
 
-            report.setShipper(user);
+            report.setShipperName(user.getUsername());
+            report.setShipperId(user.getId());
 
             double totalCash = 0;
 
@@ -103,7 +106,7 @@ public class ReportService {
                 if (user.getId() == order.getShipper().getId()) {
                     if (order.getStatus().equals(Constants.STATUS_CONFIRMED)) {
                         report.getSuccessfulOrder().add(order);
-                        totalCash += order.getTotalCash();
+                        totalCash += order.getCash();
                     } else if (order.getStatus().equals(Constants.STATUS_CONFIRMED_RETURN)) {
                         report.getReturnedOrder().add(order);
                     } else {

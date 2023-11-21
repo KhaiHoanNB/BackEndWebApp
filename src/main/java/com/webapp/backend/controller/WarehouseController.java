@@ -39,11 +39,9 @@ public class WarehouseController {
     }
 
     @PutMapping("/updateProduct")
-    public ResponseEntity<String> updateProduct(@Valid @RequestBody Warehouse warehouse) throws Exception {
+    public ResponseEntity<Warehouse> updateProduct(@RequestBody WarehouseDto warehouseDto) throws Exception {
 
-        service.updateProduct(warehouse);
-
-        return ResponseEntity.ok("Updated product successfully");
+        return ResponseEntity.ok(service.updateProduct(warehouseDto));
 
     }
 

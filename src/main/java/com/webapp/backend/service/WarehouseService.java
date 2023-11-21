@@ -80,24 +80,37 @@ public class WarehouseService {
         repository.deleteById(id);
     }
 
-    public void updateProduct(Warehouse updatedWarehouse) throws Exception {
+    public Warehouse updateProduct(WarehouseDto updatedWarehouse) throws Exception {
 
         Optional<Warehouse> existingWarehouseOptional = repository.findById(updatedWarehouse.getId());
 
-        if (existingWarehouseOptional.isPresent()) {
-            Warehouse existingWarehouse = existingWarehouseOptional.get();
-
-            existingWarehouse.setQuantity(updatedWarehouse.getQuantity());
-            existingWarehouse.setUpdatedTime(updatedWarehouse.getUpdatedTime());
-            existingWarehouse.setProduct(updatedWarehouse.getProduct());
-
-            repository.save(existingWarehouse);
-
-        } else {
-
+        if (!existingWarehouseOptional.isPresent()) {
             throw new CustomException("This prduct is not existed");
-
         }
+        Warehouse existingWarehouse = existingWarehouseOptional.get();
+
+        ProductDto productDto = updatedWarehouse.getProductDto();
+
+        existingWarehouse.getProduct().setDescription(productDto.getDescription());
+        existingWarehouse.getProduct().setName(productDto.getName());
+
+        Optional<Category> categoryOptional = categoryRepository.findById(productDto.getCategoryId());
+
+        if(!categoryOptional.isPresent()){
+            throw new CustomException("The category is not existed");
+        }
+
+        existingWarehouse.getProduct().setCategory(categoryOptional.get());
+
+        existingWarehouse.setQuantity(updatedWarehouse.getQuantity());
+        existingWarehouse.setUpdatedTime(LocalDateTime.now());
+
+        Warehouse savedWarehouse = repository.save(existingWarehouse);
+
+        LOGGER.info("Change warehouse" + savedWarehouse);
+
+        return savedWarehouse;
+
     }
 
     public void deleteAllProduct() {

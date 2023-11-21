@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class WarehouseDto {
 
+    private Long id;
+
     private ProductDto productDto;
 
     private Integer quantity;

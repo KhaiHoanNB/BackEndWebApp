@@ -73,7 +73,7 @@ public class OrderService {
 
         Double totalCashOrder = orderDto.getPrice() * orderDto.getQuantity();
 
-        order.setTotalCash(totalCashOrder);
+        order.setCash(totalCashOrder);
 
         order.setCreatedTime(LocalDateTime.now());
 
@@ -126,7 +126,7 @@ public class OrderService {
         existedOrder.setQuantity(updateOrder.getQuantity());
         existedOrder.setPrice(updateOrder.getPrice());
 
-        existedOrder.setTotalCash(updateOrder.getPrice() * updateOrder.getQuantity());
+        existedOrder.setCash(updateOrder.getPrice() * updateOrder.getQuantity());
 
         return repository.save(existedOrder);
     }

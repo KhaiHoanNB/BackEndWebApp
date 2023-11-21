@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -14,13 +15,15 @@ import java.util.List;
 @AllArgsConstructor
 public class ReportDto {
 
-    private User shipper;
+    private Long shipperId;
 
-    private List<Order> successfulOrder;
+    private String shipperName;
 
-    private List<Order> returnedOrder;
+    private List<Order> successfulOrder = new ArrayList<>();
 
-    private List<Order> pendingOrder;
+    private List<Order> returnedOrder= new ArrayList<>();
+
+    private List<Order> pendingOrder= new ArrayList<>();
 
     private LocalDate date;
 

@@ -1,6 +1,7 @@
 package com.webapp.backend.core.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,7 @@ public class User extends BaseEntity implements UserDetails {
 
     @NotNull
     @Column(length = 64, nullable = false)
+    @JsonIgnore
     private String password;
 
     @Column(name = "first_name", length = 50)
@@ -43,6 +45,7 @@ public class User extends BaseEntity implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
+    @JsonIgnore
     private List<Role> roles = new ArrayList<>();
 
     @Override

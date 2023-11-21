@@ -1,5 +1,6 @@
 package com.webapp.backend.core.auditing;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
@@ -15,12 +16,14 @@ public class AuditableEntity implements Serializable {
 
     @Serial
     @Transient
+    @JsonIgnore
     private static final long serialVersionUID = 1L;
 
     @Column(
             name = "create_date",
             nullable = false
     )
+    @JsonIgnore
     private LocalDateTime createDate;
 
     @Column(
@@ -28,12 +31,14 @@ public class AuditableEntity implements Serializable {
             length = 100,
             nullable = false
     )
+    @JsonIgnore
     private String createdBy;
 
     @Column(
             name = "modify_date",
             nullable = true
     )
+    @JsonIgnore
     private LocalDateTime modifyDate;
 
     @Column(
@@ -41,6 +46,7 @@ public class AuditableEntity implements Serializable {
             length = 100,
             nullable = true
     )
+    @JsonIgnore
     private String modifiedBy;
 
     public LocalDateTime getCreateDate() {

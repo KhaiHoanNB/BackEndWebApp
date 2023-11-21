@@ -1,6 +1,7 @@
 package com.webapp.backend.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -28,9 +29,11 @@ public class Warehouse {
     private Integer quantity;
 
     @Column(name = "created_time")
+    @JsonIgnore
     private LocalDateTime createdTime;
 
     @Column(name = "updated_time")
+    @JsonIgnore
     private LocalDateTime updatedTime;
 
 }

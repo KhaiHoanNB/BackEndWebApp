@@ -1,5 +1,6 @@
 package com.webapp.backend.core.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.webapp.backend.core.auditing.AuditListener;
 import com.webapp.backend.core.auditing.AuditableEntity;
 import jakarta.persistence.*;
@@ -11,6 +12,7 @@ import java.util.UUID;
 @EntityListeners(AuditListener.class)
 public class BaseEntity extends AuditableEntity {
     @Serial
+    @JsonIgnore
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -18,6 +20,7 @@ public class BaseEntity extends AuditableEntity {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
+    @JsonIgnore
     @Column(name = "uuid")
     private UUID uuid;
 

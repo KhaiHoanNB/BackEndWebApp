@@ -1,5 +1,6 @@
 package com.webapp.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.webapp.backend.core.entities.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -24,6 +25,7 @@ public class Order {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "shipper_id", referencedColumnName = "id")
     @NotNull
+    @JsonIgnore
     private User shipper;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -40,7 +42,7 @@ public class Order {
     private Double price;
 
     @Column(name = "total_cash")
-    private Double totalCash;
+    private Double cash;
 
     @Column
     private Integer status;
