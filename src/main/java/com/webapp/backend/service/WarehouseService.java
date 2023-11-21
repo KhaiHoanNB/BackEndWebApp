@@ -21,7 +21,7 @@ import java.util.Optional;
 @Service
 public class WarehouseService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(WarehouseService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger("info_trace");
 
     @Autowired
     WarehouseRepository repository;

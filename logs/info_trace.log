@@ -1,0 +1,1 @@
+2023-11-21 14:06:44.313 [http-nio-8080-exec-1] INFO  info_trace - Add Warehouse(id=3, product=Product(id=3, name=Hoa xương rồng, category=Category(id=1, name=Hoa, products=[], description=Tất cả các loại hoa tươi), description=cao 20cm), quantity=1000, createdTime=2023-11-21T14:06:44.240296400, updatedTime=null)

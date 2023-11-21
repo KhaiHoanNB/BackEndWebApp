@@ -21,12 +21,13 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "shipper_id", referencedColumnName = "id")
     @NotNull
     private User shipper;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
     @NotNull
     private Product product;
 

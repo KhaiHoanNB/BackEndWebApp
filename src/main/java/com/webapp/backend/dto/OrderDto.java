@@ -19,6 +19,4 @@ public class OrderDto {
 
     private Double price;
 
-    private Integer status;
-
 }

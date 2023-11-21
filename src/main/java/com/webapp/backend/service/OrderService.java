@@ -13,6 +13,8 @@ import com.webapp.backend.repository.ProductRepository;
 import com.webapp.backend.repository.WarehouseRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +28,8 @@ import java.util.Optional;
 @Service
 public class OrderService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OrderService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger("info_trace");
+
 
     @Autowired
     OrderRepository repository;
@@ -63,6 +66,10 @@ public class OrderService {
         order.setProduct(productOptional.get());
 
         order.setStatus(Constants.STATUS_NOT_CONFIRM);
+
+        order.setQuantity(orderDto.getQuantity());
+
+        order.setPrice(orderDto.getPrice());
 
         Double totalCashOrder = orderDto.getPrice() * orderDto.getQuantity();
 
@@ -133,7 +140,11 @@ public class OrderService {
         }
 
         Order existedOrder = existedOrderOptional.get();
+        if(!(existedOrder.getStatus() == Constants.STATUS_NOT_CONFIRM)){
+            throw new CustomException("Only confirm unconfirmed order");
+        }
         existedOrder.setStatus(Constants.STATUS_CONFIRMED);
+        existedOrder.setConfirmTime(LocalDateTime.now());
 
         LOGGER.info("Confirm order " + existedOrder.toString());
 
@@ -237,6 +248,9 @@ public class OrderService {
 
         Order order = existedOrderOptional.get();
 
+        if(!(order.getStatus() == Constants.STATUS_CONFIRMED)){
+            throw new CustomException("Only return confirmed order");
+        }
 //        updateReturnWarehouse(order);
 
         order.setStatus(Constants.STATUS_RETURN);
@@ -255,9 +269,9 @@ public class OrderService {
 
     }
 
-    public Order confirmReturnOrder(Long orderId) throws CustomException {
+    public Order confirmReturnOrder(Integer orderId) throws CustomException {
 
-        Optional<Order> existedOrderOptional = repository.findById(orderId);
+        Optional<Order> existedOrderOptional = repository.findById(Long.valueOf(orderId));
 
         if (!existedOrderOptional.isPresent()) {
 

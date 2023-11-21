@@ -22,6 +22,10 @@ public class CategoryService {
 
     public void saveCategory(CategoryDto categoryDto) throws Exception {
 
+        if(categoryDto.getId() != null && repository.findById(categoryDto.getId()).isPresent()){
+            throw new CustomException("The id of category is existed");
+        }
+
         Category category = new Category();
         category.setId(categoryDto.getId());
         category.setName(categoryDto.getName());

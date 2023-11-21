@@ -61,13 +61,10 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:6.0.13" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:6.0.13" level="project" />
     <orderEntry type="library" name="Maven: jakarta.annotation:jakarta.annotation-api:2.1.1" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:2.0.9" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aspects:6.0.13" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-web:3.1.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:3.1.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-logging:3.1.5" level="project" />
-    <orderEntry type="library" name="Maven: ch.qos.logback:logback-classic:1.4.11" level="project" />
-    <orderEntry type="library" name="Maven: ch.qos.logback:logback-core:1.4.11" level="project" />
     <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-to-slf4j:2.20.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-api:2.20.0" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:jul-to-slf4j:2.0.9" level="project" />
@@ -153,5 +150,8 @@
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-core:6.1.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-crypto:6.1.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-web:6.1.5" level="project" />
+    <orderEntry type="library" name="Maven: ch.qos.logback:logback-classic:1.4.11" level="project" />
+    <orderEntry type="library" name="Maven: ch.qos.logback:logback-core:1.4.11" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:2.0.9" level="project" />
   </component>
 </module>

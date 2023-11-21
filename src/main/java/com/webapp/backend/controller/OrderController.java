@@ -3,9 +3,11 @@ package com.webapp.backend.controller;
 import com.webapp.backend.dto.OrderDto;
 import com.webapp.backend.entity.Order;
 import com.webapp.backend.service.OrderService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +15,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/order")
-@Validated
 public class OrderController {
 
     @Autowired
@@ -77,8 +78,9 @@ public class OrderController {
 
     }
 
+    @RolesAllowed("ROLE_SHIPPER")
     @PostMapping("/addOrder")
-    public ResponseEntity<Order> addOrder(@Valid @RequestBody OrderDto orderDto) throws Exception {
+    public ResponseEntity<Order> addOrder(@RequestBody OrderDto orderDto) throws Exception {
 
         Order order = service.addOrder(orderDto);
 
@@ -94,7 +96,7 @@ public class OrderController {
     }
 
     @PostMapping("/confirmReturnOrder/{orderId}")
-    public ResponseEntity<Order> confirmReturnOrder(@PathVariable(name = "orderId") Long orderId) throws Exception {
+    public ResponseEntity<Order> confirmReturnOrder(@PathVariable(name = "orderId") Integer orderId) throws Exception {
 
         return ResponseEntity.ok(service.confirmReturnOrder(orderId));
 
