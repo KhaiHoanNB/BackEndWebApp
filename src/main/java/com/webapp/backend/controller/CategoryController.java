@@ -39,14 +39,14 @@ public class CategoryController {
     }
 
     @GetMapping("/getAllCategories")
-    public ResponseEntity<List<Category>> getAllCategories() throws Exception {
+    public ResponseEntity<List<CategoryDto>> getAllCategories() throws Exception {
 
-        List<Category> categories = service.getAllCategories();
+        List<CategoryDto> categorieDtos = service.getAllCategories();
 
-        if(categories.isEmpty()){
+        if(categorieDtos.isEmpty()){
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(categories);
+        return ResponseEntity.ok(categorieDtos);
 
     }
 

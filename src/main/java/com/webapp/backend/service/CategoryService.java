@@ -8,8 +8,11 @@ import com.webapp.backend.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
@@ -39,10 +42,18 @@ public class CategoryService {
 
     }
 
-    public List<Category> getAllCategories() {
+    public List<CategoryDto> getAllCategories() {
+        List<Category> listCategories = repository.findAll();
 
-        return repository.findAll();
+        if (listCategories.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        return listCategories.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
+
 
     public Category getCategory(Long categoryId) {
         Optional<Category> categoryOptional = repository.findById(categoryId);
@@ -52,6 +63,15 @@ public class CategoryService {
         }
 
         return null;
+    }
+
+    public CategoryDto convertToDto(Category category) {
+
+        CategoryDto categoryDto = new CategoryDto();
+        categoryDto.setId(category.getId());
+        categoryDto.setName(category.getName());
+        categoryDto.setDescription(category.getDescription());
+        return categoryDto;
     }
 }
 

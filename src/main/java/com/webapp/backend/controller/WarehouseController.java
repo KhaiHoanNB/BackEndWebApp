@@ -1,6 +1,8 @@
 package com.webapp.backend.controller;
 
 
+import com.webapp.backend.common.CustomException;
+import com.webapp.backend.dto.WarehouseDto;
 import com.webapp.backend.entity.Warehouse;
 import com.webapp.backend.service.WarehouseService;
 import jakarta.validation.Valid;
@@ -21,11 +23,9 @@ public class WarehouseController {
 
 
     @PostMapping("/addProduct")
-    public ResponseEntity<String> addProduct( @Valid @RequestBody Warehouse warehouse) {
+    public ResponseEntity<Warehouse> addProduct( @Valid @RequestBody WarehouseDto warehouseDto) throws CustomException {
 
-        service.addProduct(warehouse);
-
-        return ResponseEntity.ok("Add product successfully");
+        return ResponseEntity.ok(service.addProduct(warehouseDto));
 
     }
 

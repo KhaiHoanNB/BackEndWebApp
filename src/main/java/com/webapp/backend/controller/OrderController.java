@@ -1,5 +1,6 @@
 package com.webapp.backend.controller;
 
+import com.webapp.backend.dto.OrderDto;
 import com.webapp.backend.entity.Order;
 import com.webapp.backend.service.OrderService;
 import jakarta.validation.Valid;
@@ -77,48 +78,40 @@ public class OrderController {
     }
 
     @PostMapping("/addOrder")
-    public ResponseEntity<String> addOrder(@Valid @RequestBody Order order) throws Exception {
+    public ResponseEntity<Order> addOrder(@Valid @RequestBody OrderDto orderDto) throws Exception {
 
-        service.addOrder(order);
+        Order order = service.addOrder(orderDto);
 
-        return ResponseEntity.ok("Add product successfully");
+        return ResponseEntity.ok(order);
 
     }
 
     @PostMapping("/returnOrder/{orderId}")
-    public ResponseEntity<String> returnOrder(@PathVariable(name = "orderId") Long orderId) throws Exception {
+    public ResponseEntity<Order> returnOrder(@PathVariable(name = "orderId") Long orderId) throws Exception {
 
-        service.returnOrder(orderId);
-
-        return ResponseEntity.ok("Return order successfully");
+        return ResponseEntity.ok(service.returnOrder(orderId));
 
     }
 
     @PostMapping("/confirmReturnOrder/{orderId}")
-    public ResponseEntity<String> confirmReturnOrder(@PathVariable(name = "orderId") Long orderId) throws Exception {
+    public ResponseEntity<Order> confirmReturnOrder(@PathVariable(name = "orderId") Long orderId) throws Exception {
 
-        service.confirmReturnOrder(orderId);
-
-        return ResponseEntity.ok("Return order successfully");
+        return ResponseEntity.ok(service.confirmReturnOrder(orderId));
 
     }
 
 
     @PutMapping("/updateOrder")
-    public ResponseEntity<String> updateOrder(@Valid @RequestBody Order order) throws Exception {
+    public ResponseEntity<Order> updateOrder(@Valid @RequestBody OrderDto orderDto) throws Exception {
 
-        service.updateOrder(order);
-
-        return ResponseEntity.ok("Add product successfully");
+        return ResponseEntity.ok(service.updateOrder(orderDto));
 
     }
 
     @PutMapping("/comfirmOrder/{id}")
-    public ResponseEntity<String> confirmOrder(@PathVariable(name = "id") Long id) throws Exception {
+    public ResponseEntity<Order> confirmOrder(@PathVariable(name = "id") Long id) throws Exception {
 
-        service.confirmOrder(id);
-
-        return ResponseEntity.ok("Confirm product successfully");
+        return ResponseEntity.ok(service.confirmOrder(id));
 
     }
 
@@ -128,7 +121,7 @@ public class OrderController {
 
         service.deleteOrder(orderId, shipperID);
 
-        return ResponseEntity.ok("Add product successfully");
+        return ResponseEntity.ok("Delete order successfully");
 
     }
 

@@ -4,10 +4,15 @@ import com.webapp.backend.common.Constants;
 import com.webapp.backend.common.CustomException;
 import com.webapp.backend.core.entities.User;
 import com.webapp.backend.core.repositories.UserRepository;
+import com.webapp.backend.dto.OrderDto;
 import com.webapp.backend.entity.Order;
+import com.webapp.backend.entity.Product;
 import com.webapp.backend.entity.Warehouse;
 import com.webapp.backend.repository.OrderRepository;
+import com.webapp.backend.repository.ProductRepository;
 import com.webapp.backend.repository.WarehouseRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +26,8 @@ import java.util.Optional;
 @Service
 public class OrderService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderService.class);
+
     @Autowired
     OrderRepository repository;
 
@@ -30,28 +37,42 @@ public class OrderService {
     @Autowired
     WarehouseRepository warehouseRepository;
 
+    @Autowired
+    ProductRepository productRepository;
+
 
     @Transactional
-    public void addOrder(Order order) throws Exception {
+    public Order addOrder(OrderDto orderDto) throws Exception {
 
-        Optional<Order> existedOrderOptional = repository.findById(order.getId());
+        Optional<Product> productOptional = productRepository.findById(orderDto.getProductId());
 
-        if (existedOrderOptional.isPresent()) {
-
-            throw new CustomException("This order is existed");
+        if(!productOptional.isPresent()){
+            throw new CustomException("This product is not existed");
         }
+
+        Optional<User> userOptional = userRepository.findById(orderDto.getShipperId());
+
+        if(!userOptional.isPresent()){
+            throw new CustomException("This product is not existed");
+        }
+
+        Order order = new Order();
+
+        order.setShipper(userOptional.get());
+
+        order.setProduct(productOptional.get());
 
         order.setStatus(Constants.STATUS_NOT_CONFIRM);
 
-        Double totalCashOrder = order.getPrice() * order.getQuantity();
+        Double totalCashOrder = orderDto.getPrice() * orderDto.getQuantity();
 
         order.setTotalCash(totalCashOrder);
 
         order.setCreatedTime(LocalDateTime.now());
 
-        repository.save(order);
-
         updateWarehouse(order);
+
+        return repository.save(order);
 
     }
 
@@ -79,7 +100,7 @@ public class OrderService {
         }
     }
 
-    public void updateOrder(Order updateOrder) throws Exception {
+    public Order updateOrder(OrderDto updateOrder) throws Exception {
 
         Optional<Order> existedOrderOptional = repository.findById(updateOrder.getId());
 
@@ -100,29 +121,23 @@ public class OrderService {
 
         existedOrder.setTotalCash(updateOrder.getPrice() * updateOrder.getQuantity());
 
-        existedOrder.setCreatedTime(updateOrder.getCreatedTime());
-
-        repository.save(existedOrder);
-
-
+        return repository.save(existedOrder);
     }
 
-    public void confirmOrder(Long id) throws Exception {
+    public Order confirmOrder(Long id) throws Exception {
 
         Optional<Order> existedOrderOptional = repository.findById(id);
 
-        if (existedOrderOptional.isPresent()) {
-
-            Order existedOrder = existedOrderOptional.get();
-            existedOrder.setStatus(Constants.STATUS_CONFIRMED);
-
-            repository.save(existedOrder);
-
-        } else {
-
+        if (!existedOrderOptional.isPresent()) {
             throw new CustomException("This order is not existed");
-
         }
+
+        Order existedOrder = existedOrderOptional.get();
+        existedOrder.setStatus(Constants.STATUS_CONFIRMED);
+
+        LOGGER.info("Confirm order " + existedOrder.toString());
+
+        return repository.save(existedOrder);
     }
 
     public void deleteOrder(Long orderId, Long shipperId) throws Exception {
@@ -157,8 +172,27 @@ public class OrderService {
 
     }
 
-    public void deleteAllOrder() {
-        repository.deleteAll();
+    public void deleteAllOrder() throws CustomException {
+        List<Order> allOrder = repository.findAll();
+
+        if(allOrder.isEmpty()){
+            throw new CustomException("There is no order to delete");
+        }
+
+        for (int i = 0; i < allOrder.size(); i++) {
+
+            Order order = allOrder.get(i);
+
+            if(order.getStatus() == Constants.STATUS_NOT_CONFIRM){
+                updateDeleteOrderWarehouse(order);
+            }
+
+            if(order.getStatus() == Constants.STATUS_RETURN) continue;
+
+            repository.deleteById(order.getId());
+        }
+
+
     }
 
 
@@ -193,7 +227,7 @@ public class OrderService {
 
     }
 
-    public void returnOrder(Long orderId) throws CustomException {
+    public Order returnOrder(Long orderId) throws CustomException {
 
         Optional<Order> existedOrderOptional = repository.findById(orderId);
 
@@ -207,7 +241,7 @@ public class OrderService {
 
         order.setStatus(Constants.STATUS_RETURN);
 
-        repository.save(order);
+        return repository.save(order);
 
     }
 
@@ -221,7 +255,7 @@ public class OrderService {
 
     }
 
-    public void confirmReturnOrder(Long orderId) throws CustomException {
+    public Order confirmReturnOrder(Long orderId) throws CustomException {
 
         Optional<Order> existedOrderOptional = repository.findById(orderId);
 
@@ -238,10 +272,11 @@ public class OrderService {
             existedOrder.setStatus(Constants.STATUS_CONFIRMED_RETURN);
 
             updateReturnWarehouse(existedOrder);
-
-            repository.save(existedOrder);
-
         }
+
+        LOGGER.info("Confirm return order " + existedOrder.toString());
+
+       return repository.save(existedOrder);
 
     }
 
