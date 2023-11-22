@@ -2,16 +2,25 @@ package com.webapp.backend.controller;
 
 
 import com.webapp.backend.common.CustomException;
+import com.webapp.backend.core.dto.RoleDto;
+import com.webapp.backend.core.dto.UserDto;
+import com.webapp.backend.core.entities.User;
 import com.webapp.backend.dto.WarehouseDto;
 import com.webapp.backend.entity.Warehouse;
 import com.webapp.backend.service.WarehouseService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/warehouse")
@@ -79,5 +88,4 @@ public class WarehouseController {
         return ResponseEntity.ok(product);
 
     }
-
 }
