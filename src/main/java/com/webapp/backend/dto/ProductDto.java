@@ -13,9 +13,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProductDto {
 
+    private Long id;
+
     private String name;
 
     private Long categoryId;
 
     private String description;
+
+    private Integer quantity;
 }

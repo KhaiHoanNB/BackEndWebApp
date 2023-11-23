@@ -2,8 +2,10 @@ package com.webapp.backend.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.webapp.backend.core.entities.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,16 +15,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "products")
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class Product extends BaseEntity {
 
     @Column(unique = true, length = 255, nullable = false)
     @NotBlank
     private String name;
 
+    @Column(name = "quantity")
+    @NotNull
+    private Integer quantity;
 
     @ManyToOne
     @JoinColumn(name = "category_id")

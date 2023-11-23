@@ -1,6 +1,7 @@
 package com.webapp.backend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.webapp.backend.core.entities.BaseEntity;
 import com.webapp.backend.core.entities.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -16,11 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "orders")
-public class Order {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Order extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "shipper_id", referencedColumnName = "id")
@@ -46,10 +43,6 @@ public class Order {
 
     @Column
     private Integer status;
-
-    @Column(name = "created_time")
-    @NotNull
-    private LocalDateTime createdTime;
 
     @Column(name = "confirm_time")
     private LocalDateTime confirmTime;

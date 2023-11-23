@@ -78,7 +78,6 @@ public class OrderController {
 
     }
 
-    @RolesAllowed("ROLE_SHIPPER")
     @PostMapping("/addOrder")
     public ResponseEntity<Order> addOrder(@RequestBody OrderDto orderDto) throws Exception {
 

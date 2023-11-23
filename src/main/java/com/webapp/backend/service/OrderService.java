@@ -7,14 +7,10 @@ import com.webapp.backend.core.repositories.UserRepository;
 import com.webapp.backend.dto.OrderDto;
 import com.webapp.backend.entity.Order;
 import com.webapp.backend.entity.Product;
-import com.webapp.backend.entity.Warehouse;
 import com.webapp.backend.repository.OrderRepository;
 import com.webapp.backend.repository.ProductRepository;
-import com.webapp.backend.repository.WarehouseRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.Marker;
-import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,9 +32,6 @@ public class OrderService {
 
     @Autowired
     UserRepository userRepository;
-
-    @Autowired
-    WarehouseRepository warehouseRepository;
 
     @Autowired
     ProductRepository productRepository;
@@ -82,8 +75,6 @@ public class OrderService {
 
         order.setCash(totalCashOrder);
 
-        order.setCreatedTime(LocalDateTime.now());
-
         updateWarehouse(order);
 
         return repository.save(order);
@@ -102,15 +93,15 @@ public class OrderService {
 
     private void updateWarehouse(Order order) throws CustomException {
 
-        Warehouse warehouse = warehouseRepository.findByProductId(order.getProduct().getId());
+        Product product = productRepository.findById(order.getProduct().getId()).get();
 
-        Integer theRestQuantity = warehouse.getQuantity() - order.getQuantity();
+        Integer theRestQuantity = product.getQuantity() - order.getQuantity();
 
         if (theRestQuantity < 0) {
-            throw new CustomException("The quantity is too large");
+            throw new CustomException("The quantity you ordered is too large");
         } else {
-            warehouse.setQuantity(theRestQuantity);
-            warehouseRepository.save(warehouse);
+            product.setQuantity(theRestQuantity);
+            productRepository.save(product);
         }
     }
 
@@ -176,17 +167,17 @@ public class OrderService {
             throw new CustomException("You do not have permission to delete this order");
         }
 
-        updateDeleteOrderWarehouse(order);
+        updateDeleteOrderQuantity(order);
 
         repository.deleteById(orderId);
     }
 
-    private void updateDeleteOrderWarehouse(Order order) {
+    private void updateDeleteOrderQuantity(Order order) {
 
-        Warehouse warehouse = warehouseRepository.findByProductId(order.getProduct().getId());
+        Product product = productRepository.findById(order.getProduct().getId()).get();
 
-        warehouse.setQuantity(warehouse.getQuantity() + order.getQuantity());
-        warehouseRepository.save(warehouse);
+        product.setQuantity(product.getQuantity() + order.getQuantity());
+        productRepository.save(product);
 
     }
 
@@ -202,7 +193,7 @@ public class OrderService {
             Order order = allOrder.get(i);
 
             if(order.getStatus() == Constants.STATUS_NOT_CONFIRM){
-                updateDeleteOrderWarehouse(order);
+                updateDeleteOrderQuantity(order);
             }
 
             if(order.getStatus() == Constants.STATUS_RETURN) continue;
@@ -266,13 +257,19 @@ public class OrderService {
 
     }
 
-    private void updateReturnWarehouse(Order order) {
+    private void updateReturnWarehouse(Order order) throws CustomException {
 
-        Warehouse warehouse = warehouseRepository.findByProductId(order.getProduct().getId());
+        Optional<Product> productOptional = productRepository.findById(order.getProduct().getId());
 
-        warehouse.setQuantity(warehouse.getQuantity() + order.getQuantity());
+        if(!productOptional.isPresent()){
+            throw new CustomException("This product is not existed");
+        }
 
-        warehouseRepository.save(warehouse);
+        Product product = productOptional.get();
+
+        product.setQuantity(product.getQuantity() + order.getQuantity());
+
+        productRepository.save(product);
 
     }
 
