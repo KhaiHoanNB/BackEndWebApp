@@ -1145,3 +1145,49 @@ Caused by: java.lang.IllegalArgumentException: org.hibernate.query.SemanticExcep
 	... 80 common frames omitted
 Caused by: org.hibernate.query.SemanticException: Could not resolve attribute 'createdTime' of 'com.webapp.backend.entity.Order'
 	... 132 common frames omitted
+2023-11-23 10:57:50.491 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2023-11-23 10:57:50.539 [restartedMain] INFO  c.w.backend.WebAppBackEndApplication - Starting WebAppBackEndApplication using Java 17.0.9 with PID 22872 (D:\KhaiHoan\WebApp\target\classes started by Innotech in D:\KhaiHoan\WebApp)
+2023-11-23 10:57:50.541 [restartedMain] INFO  c.w.backend.WebAppBackEndApplication - No active profile set, falling back to 1 default profile: "default"
+2023-11-23 10:57:50.607 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-11-23 10:57:50.607 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-11-23 10:57:51.733 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-23 10:57:51.841 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 98 ms. Found 6 JPA repository interfaces.
+2023-11-23 10:57:52.579 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-11-23 10:57:52.587 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-11-23 10:57:52.589 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2023-11-23 10:57:52.589 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.15]
+2023-11-23 10:57:52.661 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-11-23 10:57:52.661 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2053 ms
+2023-11-23 10:57:52.806 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-23 10:57:52.862 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.13.Final
+2023-11-23 10:57:52.865 [restartedMain] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-11-23 10:57:53.143 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-11-23 10:57:53.171 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-11-23 10:57:53.386 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@85bb9aa
+2023-11-23 10:57:53.389 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-11-23 10:57:54.849 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-11-23 10:57:55.037 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 10:57:55.310 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-11-23 10:57:56.402 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-23 10:57:57.680 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@62a1057f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@159b6fc7, org.springframework.security.web.context.SecurityContextHolderFilter@677cdca9, org.springframework.security.web.header.HeaderWriterFilter@6c852aff, org.springframework.security.web.authentication.logout.LogoutFilter@52a49539, com.webapp.backend.security.jwt.JwtRequestFilter@54ae8f6c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@773165f9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@39af8439, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4a86e2b6, org.springframework.security.web.session.SessionManagementFilter@2fb215e1, org.springframework.security.web.access.ExceptionTranslationFilter@38c436e9, org.springframework.security.web.access.intercept.AuthorizationFilter@5d1c33f3]
+2023-11-23 10:57:58.120 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2023-11-23 10:57:58.151 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2023-11-23 10:57:58.179 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2023-11-23 10:57:58.196 [restartedMain] INFO  c.w.backend.WebAppBackEndApplication - Started WebAppBackEndApplication in 8.441 seconds (process running for 9.979)
+2023-11-23 10:58:53.886 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-11-23 10:58:53.887 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-11-23 10:58:53.890 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2023-11-23 10:58:56.099 [http-nio-8080-exec-9] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 1011 ms
+2023-11-23 11:03:49.674 [http-nio-8080-exec-6] ERROR c.w.b.common.GlobalExceptionHandler - This product is not existed
+2023-11-23 11:03:49.676 [http-nio-8080-exec-6] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.webapp.backend.common.CustomException: This product is not existed]
+2023-11-23 11:09:02.475 [http-nio-8080-exec-1] ERROR c.w.b.common.GlobalExceptionHandler - You only can update not_confirmed order.
+2023-11-23 11:09:02.476 [http-nio-8080-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.webapp.backend.common.CustomException: You only can update not_confirmed order.]
+2023-11-23 11:09:40.556 [http-nio-8080-exec-10] ERROR c.w.b.common.GlobalExceptionHandler - You only can update not_confirmed order.
+2023-11-23 11:09:40.557 [http-nio-8080-exec-10] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.webapp.backend.common.CustomException: You only can update not_confirmed order.]
+2023-11-23 11:19:39.409 [http-nio-8080-exec-4] ERROR c.w.b.common.GlobalExceptionHandler - You do not have permission to delete this order
+2023-11-23 11:19:39.410 [http-nio-8080-exec-4] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.webapp.backend.common.CustomException: You do not have permission to delete this order]
+2023-11-23 11:20:29.956 [http-nio-8080-exec-9] ERROR c.w.b.common.GlobalExceptionHandler - The quantity you ordered is too large
+2023-11-23 11:20:29.957 [http-nio-8080-exec-9] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.webapp.backend.common.CustomException: The quantity you ordered is too large]
+2023-11-23 11:32:15.692 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-11-23 11:32:15.720 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-11-23 11:32:15.730 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

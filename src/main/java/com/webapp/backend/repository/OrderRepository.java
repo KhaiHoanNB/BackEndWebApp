@@ -23,4 +23,15 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             @Param("targetDate") LocalDate targetDate,
             @Param("shipperId") Long shipperId
     );
+
+    @Query("SELECT o FROM Order o WHERE FUNCTION('DATE', o.confirmTime) = :targetDate AND o.status = :status")
+    List<Order> findOrdersByDateAndStatus(@Param("targetDate") LocalDate targetDate,
+                                          @Param("status") Integer status);
+
+    @Query("SELECT o FROM Order o WHERE FUNCTION('DATE', o.confirmTime) = :targetDate AND o.shipper.id = :shipperId AND o.status = :status")
+    List<Order> findOrdersByDateAndShipperIdAndStatus(
+            @Param("targetDate") LocalDate targetDate,
+            @Param("shipperId") Long shipperId,
+            @Param("status") Integer status
+    );
 }

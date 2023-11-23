@@ -41,6 +41,22 @@ public class ReportController {
     }
 
 
+    @GetMapping("getTotalAmountByDay/{date}")
+    public ResponseEntity<Double> getTotalAmountByDay(@PathVariable(name = "date") String date){
+
+
+        return ResponseEntity.ok(reportService.getTotalAmountByDay(date));
+    }
+
+
+    @GetMapping("getTotalAmountByDayAndShipper/{date}")
+    public ResponseEntity<Double> getTotalAmountByDayAndShipper(@PathVariable(name = "date") String date,
+                                                                @RequestParam(name = "shipperId") Long shipperId){
+
+
+        return ResponseEntity.ok(reportService.getTotalAmountByDayAndShipper(date, shipperId));
+    }
+
 
 }
 

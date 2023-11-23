@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -133,5 +134,37 @@ public class ReportService {
         }
 
         return reports;
+    }
+
+    public Double getTotalAmountByDay(String date) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+
+        LocalDate dateFormated = LocalDate.parse(date, formatter);
+
+        List<Order> successfulOrders = orderRepository.findOrdersByDateAndStatus(dateFormated, Constants.STATUS_CONFIRMED);
+
+        return successfulOrders.stream()
+                .map(Order::getCash)
+                .filter(Objects::nonNull)
+                .mapToDouble(Double::doubleValue)
+                .sum();
+    }
+
+
+    public Double getTotalAmountByDayAndShipper(String date, Long shipperId) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+
+        LocalDate dateFormated = LocalDate.parse(date, formatter);
+
+        List<Order> successfulOrders = orderRepository.findOrdersByDateAndShipperIdAndStatus(dateFormated, shipperId, Constants.STATUS_CONFIRMED);
+
+        return successfulOrders.stream()
+                .map(Order::getCash)
+                .filter(Objects::nonNull)
+                .mapToDouble(Double::doubleValue)
+                .sum();
+
     }
 }
