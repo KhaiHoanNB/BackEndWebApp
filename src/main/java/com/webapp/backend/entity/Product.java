@@ -3,6 +3,7 @@ package com.webapp.backend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.webapp.backend.core.entities.BaseEntity;
+import com.webapp.backend.dto.ProductDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

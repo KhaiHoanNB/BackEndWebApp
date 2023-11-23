@@ -63,15 +63,15 @@ public class ProductController {
     }
 
     @GetMapping("/all/getAllProduct")
-    public ResponseEntity<List<Product>> getAllProduct() throws Exception {
+    public ResponseEntity<List<ProductDto>> getAllProduct() throws Exception {
 
-        List<Product> products =  service.getAllProduct();
+        List<ProductDto> productDtos =  service.getAllProduct();
 
-        if(products.isEmpty()){
+        if(productDtos.isEmpty()){
             return ResponseEntity.noContent().build();
         }
 
-        return ResponseEntity.ok(products);
+        return ResponseEntity.ok(productDtos);
 
     }
 
