@@ -17,7 +17,7 @@ public class ReportController {
     @Autowired
     ReportService reportService;
 
-    @GetMapping("getAllReport/{date}")
+    @GetMapping("/admin/getAllReport/{date}")
     public ResponseEntity<List<ReportDto>> getSuccessfulOrderByDate(@PathVariable(name = "date") String date){
 
 
@@ -31,7 +31,7 @@ public class ReportController {
 
     }
 
-    @GetMapping("getReportByDateAndShipper/{date}")
+    @GetMapping("/all/getReportByDateAndShipper/{date}")
     public ResponseEntity<ReportDto> getSuccessfulOrderByDateAndShipper(
                                         @PathVariable(name = "date") String date,
                                         @RequestParam(name = "shipperId") Long shipperId) throws CustomException {
@@ -41,7 +41,7 @@ public class ReportController {
     }
 
 
-    @GetMapping("getTotalAmountByDay/{date}")
+    @GetMapping("/admin/getTotalAmountByDay/{date}")
     public ResponseEntity<Double> getTotalAmountByDay(@PathVariable(name = "date") String date){
 
 
@@ -49,7 +49,7 @@ public class ReportController {
     }
 
 
-    @GetMapping("getTotalAmountByDayAndShipper/{date}")
+    @GetMapping("/all/getTotalAmountByDayAndShipper/{date}")
     public ResponseEntity<Double> getTotalAmountByDayAndShipper(@PathVariable(name = "date") String date,
                                                                 @RequestParam(name = "shipperId") Long shipperId){
 

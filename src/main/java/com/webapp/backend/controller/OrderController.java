@@ -20,7 +20,7 @@ public class OrderController {
     @Autowired
     OrderService service;
 
-    @GetMapping("/getOrder/{orderId}")
+    @GetMapping("/all/getOrder/{orderId}")
     public ResponseEntity<Order> getOrder(@PathVariable(name = "orderId") Long orderId) throws Exception {
 
        Order order =  service.getOrder(orderId);
@@ -29,7 +29,7 @@ public class OrderController {
 
     }
 
-    @GetMapping("/getAllOrderByDate/{date}")
+    @GetMapping("/all/getAllOrderByDate/{date}")
     public ResponseEntity<List<Order>> getOrder(@PathVariable(name = "date") String date) throws Exception {
 
         List<Order> orders =  service.getAllOrderByDate(date);
@@ -41,7 +41,7 @@ public class OrderController {
 
     }
 
-    @GetMapping("/getAllOrder")
+    @GetMapping("/all/getAllOrder")
     public ResponseEntity<List<Order>> getAllOrder() throws Exception {
 
         List<Order> orders = service.getAllOrder();
@@ -53,7 +53,7 @@ public class OrderController {
 
     }
 
-    @GetMapping("/getOrdersOfShipper/{shipperId}")
+    @GetMapping("/all/getOrdersOfShipper/{shipperId}")
     public ResponseEntity<List<Order>> getOrdersOfShipper(@PathVariable(name = "shipperId") Long shipperId) throws Exception {
 
         List<Order> orders = service.getOrdersOfShipper(shipperId);
@@ -65,7 +65,7 @@ public class OrderController {
 
     }
 
-    @GetMapping("/getOrdersOfShipperByDate/{date}")
+    @GetMapping("/all/getOrdersOfShipperByDate/{date}")
     public ResponseEntity<List<Order>> getOrdersOfShipper(@PathVariable(name = "date") String date,
                                                           @RequestParam(name = "shipperId") Long shipperId) throws Exception {
 
@@ -78,7 +78,7 @@ public class OrderController {
 
     }
 
-    @PostMapping("/addOrder")
+    @PostMapping("/all/addOrder")
     public ResponseEntity<Order> addOrder(@RequestBody OrderDto orderDto) throws Exception {
 
         Order order = service.addOrder(orderDto);
@@ -87,14 +87,14 @@ public class OrderController {
 
     }
 
-    @PostMapping("/returnOrder/{orderId}")
+    @PostMapping("/all/returnOrder/{orderId}")
     public ResponseEntity<Order> returnOrder(@PathVariable(name = "orderId") Long orderId) throws Exception {
 
         return ResponseEntity.ok(service.returnOrder(orderId));
 
     }
 
-    @PostMapping("/confirmReturnOrder/{orderId}")
+    @PostMapping("/admin/confirmReturnOrder/{orderId}")
     public ResponseEntity<Order> confirmReturnOrder(@PathVariable(name = "orderId") Integer orderId) throws Exception {
 
         return ResponseEntity.ok(service.confirmReturnOrder(orderId));
@@ -102,21 +102,21 @@ public class OrderController {
     }
 
 
-    @PutMapping("/updateOrder")
+    @PutMapping("/all/updateOrder")
     public ResponseEntity<Order> updateOrder(@Valid @RequestBody OrderDto orderDto) throws Exception {
 
         return ResponseEntity.ok(service.updateOrder(orderDto));
 
     }
 
-    @PutMapping("/comfirmOrder/{id}")
+    @PutMapping("/admin/comfirmOrder/{id}")
     public ResponseEntity<Order> confirmOrder(@PathVariable(name = "id") Long id) throws Exception {
 
         return ResponseEntity.ok(service.confirmOrder(id));
 
     }
 
-    @DeleteMapping("/deleteOrder/{id}")
+    @DeleteMapping("/all/deleteOrder/{id}")
     public ResponseEntity<String> deleteOrder(@PathVariable(name = "id") Long orderId,
                                               @RequestParam(name = "shipperId") Long shipperID) throws Exception {
 
@@ -126,7 +126,7 @@ public class OrderController {
 
     }
 
-    @DeleteMapping("/deleteAllOrder")
+    @DeleteMapping("/admin/deleteAllOrder")
     public ResponseEntity<String> deleteAllOrder() throws Exception {
 
         service.deleteAllOrder();

@@ -22,14 +22,14 @@ public class ProductController {
     ProductService service;
 
 
-    @PostMapping("/addProduct")
+    @PostMapping("/admin/addProduct")
     public ResponseEntity<Product> addProduct(@Valid @RequestBody ProductDto productDto) throws CustomException {
 
         return ResponseEntity.ok(service.addProduct(productDto));
 
     }
 
-    @DeleteMapping("/deleteProduct/{id}")
+    @DeleteMapping("/admin/deleteProduct/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable(name = ("id")) Long id) throws Exception {
 
         service.deleteProduct(id);
@@ -38,14 +38,14 @@ public class ProductController {
 
     }
 
-    @PutMapping("/updateProduct")
+    @PutMapping("/admin/updateProduct")
     public ResponseEntity<Product> updateProduct(@RequestBody ProductDto productDto) throws Exception {
 
         return ResponseEntity.ok(service.updateProduct(productDto));
 
     }
 
-    @DeleteMapping("/deleteAllProduct")
+    @DeleteMapping("/admin/deleteAllProduct")
     public ResponseEntity<String> updateProduct() throws Exception {
 
         service.deleteAllProduct();
@@ -54,7 +54,7 @@ public class ProductController {
 
     }
 
-    @GetMapping("/getAllProduct")
+    @GetMapping("/all/getAllProduct")
     public ResponseEntity<List<Product>> getAllProduct() throws Exception {
 
         List<Product> products =  service.getAllProduct();
@@ -67,7 +67,7 @@ public class ProductController {
 
     }
 
-    @GetMapping("/getProduct/{productId}")
+    @GetMapping("/all/getProduct/{productId}")
     public ResponseEntity<Product> getProduct(@PathVariable(name = "productId") Long productId) throws Exception {
 
         Product product =  service.getProduct(productId);

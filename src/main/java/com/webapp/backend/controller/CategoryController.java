@@ -20,14 +20,14 @@ public class CategoryController {
     @Autowired
     CategoryService service;
 
-    @PostMapping("/addCategory")
+    @PostMapping("/admin/addCategory")
     public ResponseEntity<Category> addCategory(@Valid @RequestBody CategoryDto categoryDto) throws Exception {
 
         return ResponseEntity.ok(service.saveCategory(categoryDto));
 
     }
 
-    @DeleteMapping("/deleteCategory/{id}")
+    @DeleteMapping("/admin/deleteCategory/{id}")
     public ResponseEntity<String> deleteCategory(@PathVariable (name = "id") Long id) throws Exception {
 
         service.deleteCategory(id);
@@ -36,7 +36,7 @@ public class CategoryController {
 
     }
 
-    @GetMapping("/getAllCategories")
+    @GetMapping("/all/getAllCategories")
     public ResponseEntity<List<CategoryDto>> getAllCategories() throws Exception {
 
         List<CategoryDto> categorieDtos = service.getAllCategories();
@@ -48,7 +48,7 @@ public class CategoryController {
 
     }
 
-    @GetMapping("/getCategory/{categoryId}")
+    @GetMapping("/all/getCategory/{categoryId}")
     public ResponseEntity<Category> getCategory(@PathVariable(name = "categoryId") Long categoryId) throws Exception {
 
         Category category = service.getCategory(categoryId);

@@ -33,7 +33,8 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
                         req.requestMatchers("/api/v1/auth/**").permitAll()
-                                .requestMatchers("/api/**").hasAnyRole("ADMIN")
+                                .requestMatchers("/api/*/admin/**").hasAnyRole("ADMIN")
+                                .requestMatchers("/api/*/all/**").hasAnyRole("ADMIN", "SHIPPER")
                                 .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/webjars/**").permitAll()
                                 .anyRequest().authenticated()
                 )
