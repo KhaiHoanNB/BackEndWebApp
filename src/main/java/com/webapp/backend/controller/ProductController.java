@@ -8,6 +8,7 @@ import com.webapp.backend.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/warehouse")
-@Validated
 public class ProductController {
 
     @Autowired
@@ -23,7 +23,11 @@ public class ProductController {
 
 
     @PostMapping("/admin/addProduct")
-    public ResponseEntity<Product> addProduct(@Valid @RequestBody ProductDto productDto) throws CustomException {
+    public ResponseEntity<Product> addProduct(@RequestBody @Valid ProductDto productDto, BindingResult bindingResult) throws CustomException {
+
+        if (bindingResult.hasErrors()) {
+            throw new CustomException("Check data payload");
+        }
 
         return ResponseEntity.ok(service.addProduct(productDto));
 
@@ -39,7 +43,11 @@ public class ProductController {
     }
 
     @PutMapping("/admin/updateProduct")
-    public ResponseEntity<Product> updateProduct(@RequestBody ProductDto productDto) throws Exception {
+    public ResponseEntity<Product> updateProduct(@RequestBody @Valid ProductDto productDto, BindingResult bindingResult) throws Exception {
+
+        if (bindingResult.hasErrors()) {
+            throw new CustomException("Check data payload");
+        }
 
         return ResponseEntity.ok(service.updateProduct(productDto));
 

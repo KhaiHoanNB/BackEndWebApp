@@ -1,5 +1,6 @@
 package com.webapp.backend.controller;
 
+import com.webapp.backend.common.CustomException;
 import com.webapp.backend.dto.OrderDto;
 import com.webapp.backend.entity.Order;
 import com.webapp.backend.service.OrderService;
@@ -8,6 +9,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -79,7 +81,11 @@ public class OrderController {
     }
 
     @PostMapping("/all/addOrder")
-    public ResponseEntity<Order> addOrder(@RequestBody OrderDto orderDto) throws Exception {
+    public ResponseEntity<Order> addOrder(@RequestBody @Valid OrderDto orderDto, BindingResult bindingResult) throws Exception {
+
+        if (bindingResult.hasErrors()) {
+            throw new CustomException("Check data payload");
+        }
 
         Order order = service.addOrder(orderDto);
 
@@ -103,7 +109,11 @@ public class OrderController {
 
 
     @PutMapping("/all/updateOrder")
-    public ResponseEntity<Order> updateOrder(@Valid @RequestBody OrderDto orderDto) throws Exception {
+    public ResponseEntity<Order> updateOrder(@Valid @RequestBody OrderDto orderDto, BindingResult bindingResult) throws Exception {
+
+        if (bindingResult.hasErrors()) {
+            throw new CustomException("Check data payload");
+        }
 
         return ResponseEntity.ok(service.updateOrder(orderDto));
 

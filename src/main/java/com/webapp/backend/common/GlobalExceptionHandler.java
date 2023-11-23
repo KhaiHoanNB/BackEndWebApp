@@ -25,13 +25,12 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(CustomException.class)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     public ResponseEntity<String> handleNotFoundException(CustomException e) {
 
         LOGGER.error(e.getMessage());
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
     }
 
 
@@ -41,7 +40,7 @@ public class GlobalExceptionHandler {
 
         LOGGER.error(e.getMessage());
 
-        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Data error");
 
     }
 

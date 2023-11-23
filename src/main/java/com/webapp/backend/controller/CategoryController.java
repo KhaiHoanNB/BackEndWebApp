@@ -1,12 +1,14 @@
 package com.webapp.backend.controller;
 
 
+import com.webapp.backend.common.CustomException;
 import com.webapp.backend.dto.CategoryDto;
 import com.webapp.backend.entity.Category;
 import com.webapp.backend.service.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,14 +16,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/category")
-@Validated
 public class CategoryController {
 
     @Autowired
     CategoryService service;
 
     @PostMapping("/admin/addCategory")
-    public ResponseEntity<Category> addCategory(@Valid @RequestBody CategoryDto categoryDto) throws Exception {
+    public ResponseEntity<Category> addCategory(@RequestBody @Valid CategoryDto categoryDto, BindingResult bindingResult) throws Exception {
+
+        if (bindingResult.hasErrors()) {
+            throw new CustomException("Check data payload");
+        }
 
         return ResponseEntity.ok(service.saveCategory(categoryDto));
 
