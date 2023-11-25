@@ -8,7 +8,6 @@ import com.webapp.backend.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,21 +15,23 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/warehouse")
+@Validated
 public class ProductController {
 
     @Autowired
     ProductService service;
 
 
-    @PostMapping("/admin/addProduct")
-    public ResponseEntity<Product> addProduct(@RequestBody @Valid ProductDto productDto, BindingResult bindingResult) throws CustomException {
-
-        if (bindingResult.hasErrors()) {
-            throw new CustomException("Check data payload");
-        }
-
+//    @PostMapping("/admin/addProduct")
+//    public ResponseEntity<Product> addProduct(@RequestBody @Valid ProductDto productDto, BindingResult bindingResult) throws CustomException {
+//
+//        if (bindingResult.hasErrors()) {
+//            throw new CustomException("Check data payload");
+//        }
+//    }
+    @PostMapping("/addProduct")
+    public ResponseEntity<Product> addProduct(@RequestBody ProductDto productDto) {
         return ResponseEntity.ok(service.addProduct(productDto));
-
     }
 
     @DeleteMapping("/admin/deleteProduct/{id}")
@@ -42,18 +43,14 @@ public class ProductController {
 
     }
 
-    @PutMapping("/admin/updateProduct")
-    public ResponseEntity<Product> updateProduct(@RequestBody @Valid ProductDto productDto, BindingResult bindingResult) throws Exception {
-
-        if (bindingResult.hasErrors()) {
-            throw new CustomException("Check data payload");
-        }
+    @PutMapping("/updateProduct")
+    public ResponseEntity<Product> updateProduct(@RequestBody ProductDto productDto) throws Exception {
 
         return ResponseEntity.ok(service.updateProduct(productDto));
 
     }
 
-    @DeleteMapping("/admin/deleteAllProduct")
+    @DeleteMapping("/deleteAllProduct")
     public ResponseEntity<String> updateProduct() throws Exception {
 
         service.deleteAllProduct();
@@ -62,20 +59,20 @@ public class ProductController {
 
     }
 
-    @GetMapping("/all/getAllProduct")
+    @GetMapping("/getAllProduct")
     public ResponseEntity<List<ProductDto>> getAllProduct() throws Exception {
 
-        List<ProductDto> productDtos =  service.getAllProduct();
+        List<ProductDto> products =  service.getAllProduct();
 
-        if(productDtos.isEmpty()){
+        if(products.isEmpty()){
             return ResponseEntity.noContent().build();
         }
 
-        return ResponseEntity.ok(productDtos);
+        return ResponseEntity.ok(products);
 
     }
 
-    @GetMapping("/all/getProduct/{productId}")
+    @GetMapping("/getProduct/{productId}")
     public ResponseEntity<Product> getProduct(@PathVariable(name = "productId") Long productId) throws Exception {
 
         Product product =  service.getProduct(productId);

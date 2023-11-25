@@ -9,22 +9,20 @@ import lombok.NoArgsConstructor;
 
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class ProductDto {
 
     private Long id;
 
-    @NotNull
-    @NotBlank
     private String name;
-    @NotNull
-    private Long categoryId;
+
+    private long categoryId;
 
     private String description;
-    @NotNull
-    private Integer quantity;
+
+    private int quantity;
 
     private CategoryDto categoryDto;
 
