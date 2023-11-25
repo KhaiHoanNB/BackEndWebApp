@@ -1,9 +1,9 @@
 package com.webapp.backend.dto;
 
-import com.webapp.backend.entity.Category;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -22,4 +22,14 @@ public class ProductDto {
     private String description;
 
     private int quantity;
+
+    private CategoryDto categoryDto;
+
+    public ProductDto(Long id, String name, Long categoryId, String description, Integer quantity) {
+        this.id = id;
+        this.name = name;
+        this.categoryId = categoryId;
+        this.description = description;
+        this.quantity = quantity;
+    }
 }

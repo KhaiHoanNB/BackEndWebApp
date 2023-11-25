@@ -1,12 +1,14 @@
 package com.webapp.backend.controller;
 
 
+import com.webapp.backend.common.CustomException;
 import com.webapp.backend.dto.CategoryDto;
 import com.webapp.backend.entity.Category;
 import com.webapp.backend.service.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,20 +16,23 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/category")
-@Validated
 public class CategoryController {
 
     @Autowired
     CategoryService service;
 
-    @PostMapping("/addCategory")
-    public ResponseEntity<Category> addCategory(@Valid @RequestBody CategoryDto categoryDto) throws Exception {
+    @PostMapping("/admin/addCategory")
+    public ResponseEntity<Category> addCategory(@RequestBody @Valid CategoryDto categoryDto, BindingResult bindingResult) throws Exception {
+
+        if (bindingResult.hasErrors()) {
+            throw new CustomException("Check data payload");
+        }
 
         return ResponseEntity.ok(service.saveCategory(categoryDto));
 
     }
 
-    @DeleteMapping("/deleteCategory/{id}")
+    @DeleteMapping("/admin/deleteCategory/{id}")
     public ResponseEntity<String> deleteCategory(@PathVariable (name = "id") Long id) throws Exception {
 
         service.deleteCategory(id);
@@ -36,7 +41,7 @@ public class CategoryController {
 
     }
 
-    @GetMapping("/getAllCategories")
+    @GetMapping("/all/getAllCategories")
     public ResponseEntity<List<CategoryDto>> getAllCategories() throws Exception {
 
         List<CategoryDto> categorieDtos = service.getAllCategories();
@@ -48,7 +53,7 @@ public class CategoryController {
 
     }
 
-    @GetMapping("/getCategory/{categoryId}")
+    @GetMapping("/all/getCategory/{categoryId}")
     public ResponseEntity<Category> getCategory(@PathVariable(name = "categoryId") Long categoryId) throws Exception {
 
         Category category = service.getCategory(categoryId);

@@ -1,6 +1,7 @@
 package com.webapp.backend.service;
 
 import com.webapp.backend.common.CustomException;
+import com.webapp.backend.core.dto.RoleDto;
 import com.webapp.backend.dto.ProductDto;
 import com.webapp.backend.entity.Category;
 import com.webapp.backend.entity.Product;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -99,9 +101,21 @@ public class ProductService {
         productRepository.deleteAll();
     }
 
-    public List<Product> getAllProduct() {
+    public List<ProductDto> getAllProduct() {
 
-        return productRepository.findAll();
+        List<Product> products = productRepository.findAll();
+
+        List<ProductDto> productDtos = products.stream()
+                .map(product -> ProductDto.builder()
+                                        .name(product.getName())
+                                        .id(product.getId())
+                                        .quantity(product.getQuantity())
+                                        .categoryId(product.getCategory().getId())
+                                        .categoryDto(product.getCategory().mapEntityToDto())
+                                        .description(product.getDescription())
+                        .build()).collect(Collectors.toList());
+
+        return productDtos;
     }
 
     public Product getProduct(Long productId) {

@@ -1,5 +1,6 @@
 package com.webapp.backend.entity;
 
+import com.webapp.backend.dto.CategoryDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -40,5 +41,16 @@ public class Category {
         this.id = id;
         this.name = name;
         this.description = description;
+    }
+
+
+    public CategoryDto mapEntityToDto(){
+        CategoryDto categoryDto = new CategoryDto();
+
+        categoryDto.setId(this.id);
+        categoryDto.setName(this.name);
+        categoryDto.setDescription(this.description);
+
+        return categoryDto;
     }
 }

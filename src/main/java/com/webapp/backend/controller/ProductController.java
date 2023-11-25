@@ -22,14 +22,19 @@ public class ProductController {
     ProductService service;
 
 
+//    @PostMapping("/admin/addProduct")
+//    public ResponseEntity<Product> addProduct(@RequestBody @Valid ProductDto productDto, BindingResult bindingResult) throws CustomException {
+//
+//        if (bindingResult.hasErrors()) {
+//            throw new CustomException("Check data payload");
+//        }
+//    }
     @PostMapping("/addProduct")
     public ResponseEntity<Product> addProduct(@RequestBody ProductDto productDto) {
-
         return ResponseEntity.ok(service.addProduct(productDto));
-
     }
 
-    @DeleteMapping("/deleteProduct/{id}")
+    @DeleteMapping("/admin/deleteProduct/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable(name = ("id")) Long id) throws Exception {
 
         service.deleteProduct(id);
