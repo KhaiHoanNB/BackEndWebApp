@@ -25,7 +25,7 @@ public class ProductService {
     @Autowired
     CategoryRepository categoryRepository;
 
-    public Product addProduct(ProductDto productDto) throws CustomException {
+    public Product addProduct(ProductDto productDto) {
 
         Product product = new Product();
 
@@ -33,11 +33,11 @@ public class ProductService {
         Optional<Category> categoryOptional = categoryRepository.findById(productDto.getCategoryId());
 
         if(!categoryOptional.isPresent()){
-            throw new CustomException("The category is not existed");
+            return null;
         }
 
         if(productDto.getQuantity() <= 0){
-            throw new CustomException("Quantity must be bigger than 0");
+            return null;
         }
 
         product.setCategory(categoryOptional.get());

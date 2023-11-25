@@ -23,7 +23,7 @@ public class ProductController {
 
 
     @PostMapping("/addProduct")
-    public ResponseEntity<Product> addProduct(@Valid @RequestBody ProductDto productDto) throws CustomException {
+    public ResponseEntity<Product> addProduct(@RequestBody ProductDto productDto) {
 
         return ResponseEntity.ok(service.addProduct(productDto));
 
