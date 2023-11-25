@@ -35,6 +35,8 @@ public class CommonController {
                     .collect(Collectors.toList());
             userDto.setRoles(roleDtos);
             userDto.setId(userDetails.getId());
+            userDto.setFirstname(userDetails.getFirstName());
+            userDto.setLastname(userDetails.getLastName());
 
         } else {
             return ResponseEntity.noContent().build();
