@@ -20,11 +20,18 @@ public class OpenAPIConfig {
     @Value("${wepapp.openapi.dev-url}")
     private String devUrl;
 
+    @Value("${wepapp.openapi.product-url}")
+    private String proUrl;
+
     @Bean
     public OpenAPI myOpenAPI() {
         Server devServer = new Server();
         devServer.setUrl(devUrl);
         devServer.setDescription("Server URL in Development environment");
+
+        Server productServer = new Server();
+        productServer.setUrl(proUrl);
+        productServer.setDescription("Server URL in Product environment");
 
 
         License mitLicense = new License().name("MIT License").url("https://choosealicense.com/licenses/mit/");
@@ -40,7 +47,7 @@ public class OpenAPIConfig {
                 addList("Bearer Authentication"))
                 .components(new Components().addSecuritySchemes
                         ("Bearer Authentication", createAPIKeyScheme()))
-                .info(info).servers(List.of(devServer));
+                .info(info).servers(List.of(devServer, productServer));
     }
 
     private SecurityScheme createAPIKeyScheme() {

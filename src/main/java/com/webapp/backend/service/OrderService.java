@@ -71,7 +71,7 @@ public class OrderService {
 
         order.setPrice(orderDto.getPrice());
 
-        Double totalCashOrder = orderDto.getPrice() * orderDto.getQuantity();
+        Long totalCashOrder = orderDto.getPrice() * orderDto.getQuantity();
 
         order.setCash(totalCashOrder);
 

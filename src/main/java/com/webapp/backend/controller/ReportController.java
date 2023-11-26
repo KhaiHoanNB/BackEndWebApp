@@ -42,7 +42,7 @@ public class ReportController {
 
 
     @GetMapping("/admin/getTotalAmountByDay/{date}")
-    public ResponseEntity<Double> getTotalAmountByDay(@PathVariable(name = "date") String date){
+    public ResponseEntity<Long> getTotalAmountByDay(@PathVariable(name = "date") String date){
 
 
         return ResponseEntity.ok(reportService.getTotalAmountByDay(date));
@@ -50,7 +50,7 @@ public class ReportController {
 
 
     @GetMapping("/all/getTotalAmountByDayAndShipper/{date}")
-    public ResponseEntity<Double> getTotalAmountByDayAndShipper(@PathVariable(name = "date") String date,
+    public ResponseEntity<Long> getTotalAmountByDayAndShipper(@PathVariable(name = "date") String date,
                                                                 @RequestParam(name = "shipperId") Long shipperId){
 
 

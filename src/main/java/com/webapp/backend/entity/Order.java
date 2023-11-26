@@ -22,7 +22,6 @@ public class Order extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "shipper_id", referencedColumnName = "id")
     @NotNull
-    @JsonIgnore
     private User shipper;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -36,10 +35,10 @@ public class Order extends BaseEntity {
 
     @Column(name = "price")
     @NotNull
-    private Double price;
+    private Long price;
 
     @Column(name = "total_cash")
-    private Double cash;
+    private Long cash;
 
     @Column
     private Integer status;

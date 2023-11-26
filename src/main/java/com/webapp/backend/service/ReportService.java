@@ -136,7 +136,7 @@ public class ReportService {
         return reports;
     }
 
-    public Double getTotalAmountByDay(String date) {
+    public Long getTotalAmountByDay(String date) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
@@ -147,12 +147,12 @@ public class ReportService {
         return successfulOrders.stream()
                 .map(Order::getCash)
                 .filter(Objects::nonNull)
-                .mapToDouble(Double::doubleValue)
+                .mapToLong(Long::longValue)
                 .sum();
     }
 
 
-    public Double getTotalAmountByDayAndShipper(String date, Long shipperId) {
+    public Long getTotalAmountByDayAndShipper(String date, Long shipperId) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
@@ -163,7 +163,7 @@ public class ReportService {
         return successfulOrders.stream()
                 .map(Order::getCash)
                 .filter(Objects::nonNull)
-                .mapToDouble(Double::doubleValue)
+                .mapToLong(Long::longValue)
                 .sum();
 
     }

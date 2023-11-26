@@ -20,6 +20,6 @@ public class OrderDto {
     @NotNull
     private Integer quantity;
     @NotNull
-    private Double price;
+    private Long price;
 
 }
