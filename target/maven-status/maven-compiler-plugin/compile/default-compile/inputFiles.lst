@@ -1,5 +1,4 @@
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\security\jwt\Token.java
-D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\service\WarehouseService.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\service\OrderService.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\controller\ReportController.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\core\entities\User.java
@@ -10,12 +9,10 @@ D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\core\repositories\RoleReposi
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\core\auditing\AuditListener.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\common\CustomException.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\common\GlobalExceptionHandler.java
-D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\controller\WarehouseController.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\core\auditing\ApplicationAuditAware.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\controller\CategoryController.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\core\repositories\TokenRepository.java
-D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\entity\Warehouse.java
-D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\dto\WarehouseDto.java
+D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\controller\ProductController.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\core\dto\UserDto.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\security\config\SimpleCorsFilter.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\repository\CategoryRepository.java
@@ -28,15 +25,16 @@ D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\security\util\Authentication
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\core\dto\RoleDto.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\service\CategoryService.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\dto\OrderDto.java
+D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\service\ProductService.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\security\config\ApplicationConfig.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\security\jwt\JwtService.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\core\service\UserService.java
-D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\repository\WarehouseRepository.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\security\jwt\JwtRequestFilter.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\entity\Order.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\controller\UserController.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\repository\OrderRepository.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\WebAppBackEndApplication.java
+D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\controller\CommonController.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\core\service\RoleService.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\repository\ProductRepository.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\core\auditing\AuditableEntity.java

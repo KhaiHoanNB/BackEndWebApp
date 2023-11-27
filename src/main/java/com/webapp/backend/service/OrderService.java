@@ -49,7 +49,7 @@ public class OrderService {
         Optional<User> userOptional = userRepository.findById(orderDto.getShipperId());
 
         if(!userOptional.isPresent()){
-            throw new CustomException("This product is not existed");
+            throw new CustomException("This shipper is not existed");
         }
 
         Optional<User> shipper = userRepository.findById(orderDto.getShipperId());
