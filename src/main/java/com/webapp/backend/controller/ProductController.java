@@ -7,6 +7,8 @@ import com.webapp.backend.entity.Product;
 import com.webapp.backend.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,6 +52,7 @@ public class ProductController {
 
     }
 
+//    @Secured({"ADMIN", "SHIPPER"})
     @GetMapping("/getAllProduct")
     public ResponseEntity<List<ProductDto>> getAllProduct() throws Exception {
 
