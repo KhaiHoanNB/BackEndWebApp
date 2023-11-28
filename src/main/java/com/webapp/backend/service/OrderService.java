@@ -144,7 +144,8 @@ public class OrderService {
         existedOrder.setStatus(Constants.STATUS_CONFIRMED);
         existedOrder.setConfirmTime(LocalDateTime.now());
 
-        LOGGER.info("Confirm order " + existedOrder.toString());
+        LOGGER.info("Order confirmed - Product: {}, Shipper: {},  Quantity: {}, Price: {}, Total Cash: {}, Status: {}",
+                existedOrder.getProduct().getName(), existedOrder.getShipper().getUsername(), existedOrder.getQuantity(), existedOrder.getPrice(), existedOrder.getCash(), existedOrder.getStatus());
 
         return repository.save(existedOrder);
     }
@@ -292,9 +293,10 @@ public class OrderService {
             updateReturnWarehouse(existedOrder);
         }
 
-        LOGGER.info("Confirm return order " + existedOrder.toString());
+        LOGGER.info("Return-Order confirmed - Product: {}, Shipper: {},  Quantity: {}, Price: {}, Total Cash: {}, Status: {}",
+                existedOrder.getProduct().getName(), existedOrder.getShipper().getUsername(), existedOrder.getQuantity(), existedOrder.getPrice(), existedOrder.getCash(), existedOrder.getStatus());
 
-       return repository.save(existedOrder);
+        return repository.save(existedOrder);
 
     }
 

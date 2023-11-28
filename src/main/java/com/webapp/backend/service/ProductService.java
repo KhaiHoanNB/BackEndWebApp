@@ -27,7 +27,7 @@ public class ProductService {
     @Autowired
     CategoryRepository categoryRepository;
 
-    public Product addProduct(ProductDto productDto) {
+    public Product addProduct(ProductDto productDto) throws CustomException {
 
         Product product = new Product();
 
@@ -35,11 +35,11 @@ public class ProductService {
         Optional<Category> categoryOptional = categoryRepository.findById(productDto.getCategoryId());
 
         if(!categoryOptional.isPresent()){
-            return null;
+            throw new CustomException("This category is not existed");
         }
 
         if(productDto.getQuantity() <= 0){
-            return null;
+            throw new CustomException("The quantity must not be blank");
         }
 
         product.setCategory(categoryOptional.get());
@@ -47,9 +47,10 @@ public class ProductService {
         product.setDescription(productDto.getDescription());
         product.setQuantity(productDto.getQuantity());
 
+
         Product savedProcduct = productRepository.save(product);
 
-        LOGGER.info("Add " + savedProcduct.toString());
+        LOGGER.info("Add Product: ID = {}, Name = {}, Quantity = {}", savedProcduct.getId(), savedProcduct.getName(), savedProcduct.getQuantity());
 
         return savedProcduct;
 
