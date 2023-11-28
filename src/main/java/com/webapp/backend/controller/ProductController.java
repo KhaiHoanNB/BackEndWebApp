@@ -29,8 +29,8 @@ public class ProductController {
 //            throw new CustomException("Check data payload");
 //        }
 //    }
-    @PostMapping("/addProduct")
-    public ResponseEntity<Product> addProduct(@RequestBody ProductDto productDto) {
+    @PostMapping("/admin/addProduct")
+    public ResponseEntity<Product> addProduct(@RequestBody ProductDto productDto) throws CustomException {
         return ResponseEntity.ok(service.addProduct(productDto));
     }
 

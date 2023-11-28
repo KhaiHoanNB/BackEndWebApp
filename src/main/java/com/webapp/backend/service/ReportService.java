@@ -102,7 +102,7 @@ public class ReportService {
 
             for (int j = 0; j < orderList.size(); j++) {
 
-                Order order = orderList.get(i);
+                Order order = orderList.get(j);
 
                 if (user.getId() == order.getShipper().getId()) {
                     if (order.getStatus().equals(Constants.STATUS_CONFIRMED)) {

@@ -16,3 +16,9 @@
 2023-11-23 11:13:51.710 [http-nio-8080-exec-4] INFO  info_trace - Confirm order Order(shipper=User(username=khaihoan, password=$2a$10$fSswZlw7phsUeFjh7bwtge2QZQKxepSsWwnwjLfsCa39ddE8zOmW6, firstName=tran, lastName=hoan, roles=[com.webapp.backend.core.entities.Role@1ce66916]), product=Product(name=Hoa lan, quantity=600, category=Category(id=1, name=Hoa, products=[], description=Tất cả các loại hoa tươi), description=Màu đỏ), quantity=400, price=5000.0, cash=2000000.0, status=1, confirmTime=2023-11-23T11:13:51.709683900)
 2023-11-23 14:40:18.920 [http-nio-8080-exec-5] INFO  info_trace - Add Product(name=hoa hướng dương, quantity=33000, category=Category(id=1, name=Hoa, products=[], description=Tất cả các loại hoa tươi), description=)
 2023-11-23 15:23:30.952 [http-nio-8080-exec-2] INFO  info_trace - Add Product(name=hoa đồng tiền, quantity=1000, category=Category(id=1, name=Hoa, products=[], description=Tất cả các loại hoa tươi), description=hoa)
+2023-11-28 09:55:13.752 [http-nio-8080-exec-6] INFO  info_trace - Add Product(name=Hoa lan, quantity=1000, category=Category(id=1, name=Hoa, products=[], description=Tất cả các loại hoa tươi), description=màu trắng)
+2023-11-28 15:14:28.420 [http-nio-8080-exec-4] INFO  info_trace - Add Product(name=hoa huệ, quantity=1000, category=Category(id=1, name=Hoa, products=[], description=Tất cả các loại hoa tươi), description=màu trắng)
+2023-11-28 15:48:04.692 [http-nio-8080-exec-1] INFO  info_trace - Add Product: ID = 7, Name = hoa lạc, Quantity = 1000
+2023-11-28 15:48:20.340 [http-nio-8080-exec-4] INFO  info_trace - Add Product: ID = 8, Name = hoa dồng tiền, Quantity = 1000
+2023-11-28 17:43:42.041 [http-nio-8080-exec-1] INFO  info_trace - Add Product: ID = 10, Name = hoa dồng cỏ, Quantity = 1000
+2023-11-28 17:44:31.446 [http-nio-8080-exec-8] INFO  info_trace - Add Product: ID = 16, Name = hoa hhh, Quantity = 1000
