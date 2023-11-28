@@ -26,8 +26,8 @@ public class CommonController {
         UserDto userDto = new UserDto();
         if (authentication != null && authentication.isAuthenticated()) {
             userDto.setUsername(authentication.getName());
-
-            User userDetails = (User) authentication.getPrincipal();
+            Object object = authentication.getPrincipal();
+            User userDetails = (User) object;
 
             Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
             List<RoleDto> roleDtos = authorities.stream()

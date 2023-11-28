@@ -30,13 +30,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
                         req.requestMatchers("/api/v1/auth/**").permitAll()
-//                                .requestMatchers("/api/*/admin/**").hasAnyRole("ADMIN")
-//                                .requestMatchers("/api/*/all/**").hasAnyRole("ADMIN", "SHIPPER")
-//                                .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/webjars/**").permitAll()
-                                .anyRequest().permitAll()
+                                .requestMatchers("/api/common/getCurrentUser").hasAnyRole("ADMIN", "SHIPPER")
+                                .requestMatchers("/api/category/all/getAllCategories").permitAll()
+                                .requestMatchers("/api/*/admin/**").hasAnyRole("ADMIN")
+                                .requestMatchers("/api/*/all/**").hasAnyRole("ADMIN", "SHIPPER")
+                                .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/webjars/**").permitAll()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider)

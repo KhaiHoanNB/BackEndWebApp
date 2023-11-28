@@ -31,7 +31,7 @@ public class Order extends BaseEntity {
 
     @Column(name = "quantity")
     @NotNull
-    private Integer quantity;
+    private int quantity;
 
     @Column(name = "price")
     @NotNull

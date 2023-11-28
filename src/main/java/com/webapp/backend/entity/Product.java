@@ -24,7 +24,7 @@ public class Product extends BaseEntity {
 
     @Column(name = "quantity")
     @NotNull
-    private Integer quantity;
+    private int quantity;
 
     @ManyToOne
     @JoinColumn(name = "category_id")

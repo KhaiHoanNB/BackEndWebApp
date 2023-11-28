@@ -95,7 +95,7 @@ public class OrderService {
 
         Product product = productRepository.findById(order.getProduct().getId()).get();
 
-        Integer theRestQuantity = product.getQuantity() - order.getQuantity();
+        int theRestQuantity = product.getQuantity() - order.getQuantity();
 
         if (theRestQuantity < 0) {
             throw new CustomException("The quantity you ordered is too large");

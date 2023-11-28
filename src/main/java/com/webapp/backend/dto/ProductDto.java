@@ -1,7 +1,5 @@
 package com.webapp.backend.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,7 +24,7 @@ public class ProductDto {
 
     private CategoryDto categoryDto;
 
-    public ProductDto(Long id, String name, Long categoryId, String description, Integer quantity) {
+    public ProductDto(Long id, String name, Long categoryId, String description, int quantity) {
         this.id = id;
         this.name = name;
         this.categoryId = categoryId;

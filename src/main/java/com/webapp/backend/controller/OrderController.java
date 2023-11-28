@@ -81,11 +81,7 @@ public class OrderController {
     }
 
     @PostMapping("/all/addOrder")
-    public ResponseEntity<Order> addOrder(@RequestBody @Valid OrderDto orderDto, BindingResult bindingResult) throws Exception {
-
-        if (bindingResult.hasErrors()) {
-            throw new CustomException("Check data payload");
-        }
+    public ResponseEntity<Order> addOrder(@RequestBody OrderDto orderDto) throws Exception {
 
         Order order = service.addOrder(orderDto);
 
