@@ -5,7 +5,6 @@ import com.webapp.backend.common.CustomException;
 import com.webapp.backend.dto.ProductDto;
 import com.webapp.backend.entity.Product;
 import com.webapp.backend.service.ProductService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -21,14 +20,6 @@ public class ProductController {
     @Autowired
     ProductService service;
 
-
-//    @PostMapping("/admin/addProduct")
-//    public ResponseEntity<Product> addProduct(@RequestBody @Valid ProductDto productDto, BindingResult bindingResult) throws CustomException {
-//
-//        if (bindingResult.hasErrors()) {
-//            throw new CustomException("Check data payload");
-//        }
-//    }
     @PostMapping("/admin/addProduct")
     public ResponseEntity<Product> addProduct(@RequestBody ProductDto productDto) throws CustomException {
         return ResponseEntity.ok(service.addProduct(productDto));
