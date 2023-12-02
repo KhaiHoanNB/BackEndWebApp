@@ -109,28 +109,23 @@ public class OrderService {
     }
 
     public Order updateOrder(OrderDto updateOrder) throws Exception {
-
         Optional<Order> existedOrderOptional = repository.findById(updateOrder.getId());
 
         if (!existedOrderOptional.isPresent()) {
-
             throw new CustomException("This order is not existed");
-
         }
 
         Order existedOrder = existedOrderOptional.get();
 
-        if (!(existedOrder.getStatus() == Constants.STATUS_NOT_CONFIRM)) {
-            throw new CustomException("You only can update not_confirmed order.");
+        if (updateOrder.getStatus() == Constants.STATUS_CONFIRMED) {
+            existedOrder.setConfirmTime(LocalDateTime.now());
         }
 
         existedOrder.setStatus(updateOrder.getStatus());
-
         return repository.save(existedOrder);
     }
 
     public Order confirmOrder(Long id) throws Exception {
-
         Optional<Order> existedOrderOptional = repository.findById(id);
 
         if (!existedOrderOptional.isPresent()) {
@@ -141,8 +136,7 @@ public class OrderService {
         if(!(existedOrder.getStatus() == Constants.STATUS_NOT_CONFIRM)){
             throw new CustomException("Only confirm unconfirmed order");
         }
-        existedOrder.setStatus(Constants.STATUS_CONFIRMED);
-        existedOrder.setConfirmTime(LocalDateTime.now());
+
 
         LOGGER.info("Order confirmed - Product: {}, Shipper: {},  Quantity: {}, Price: {}, Total Cash: {}, Status: {}",
                 existedOrder.getProduct().getName(), existedOrder.getShipper().getUsername(), existedOrder.getQuantity(), existedOrder.getPrice(), existedOrder.getCash(), existedOrder.getStatus());
