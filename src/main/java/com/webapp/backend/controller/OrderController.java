@@ -1,13 +1,12 @@
 package com.webapp.backend.controller;
 
-import com.webapp.backend.common.CustomException;
 import com.webapp.backend.dto.OrderDto;
 import com.webapp.backend.entity.Order;
 import com.webapp.backend.service.OrderService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,17 +39,12 @@ public class OrderController {
 
     }
 
-    @GetMapping("/getAllOrder")
-    public ResponseEntity<List<Order>> getAllOrder() throws Exception {
-
-        List<Order> orders = service.getAllOrder();
-
-        if(orders.isEmpty()){
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(orders);
-
+    @PostMapping(value = "/getAll")
+    public ResponseEntity<List<Order>> getAll(@RequestBody OrderDto orderDto) {
+        List<Order> list = service.getAll(orderDto);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
+
 
     @GetMapping("/all/getOrdersOfShipper/{shipperId}")
     public ResponseEntity<List<Order>> getOrdersOfShipper(@PathVariable(name = "shipperId") Long shipperId) throws Exception {
