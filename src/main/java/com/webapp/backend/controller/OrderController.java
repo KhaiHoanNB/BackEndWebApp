@@ -4,13 +4,10 @@ import com.webapp.backend.common.CustomException;
 import com.webapp.backend.dto.OrderDto;
 import com.webapp.backend.entity.Order;
 import com.webapp.backend.service.OrderService;
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,7 +40,7 @@ public class OrderController {
 
     }
 
-    @GetMapping("/all/getAllOrder")
+    @GetMapping("/getAllOrder")
     public ResponseEntity<List<Order>> getAllOrder() throws Exception {
 
         List<Order> orders = service.getAllOrder();
@@ -104,12 +101,8 @@ public class OrderController {
     }
 
 
-    @PutMapping("/all/updateOrder")
+    @PutMapping("/updateOrder")
     public ResponseEntity<Order> updateOrder(@Valid @RequestBody OrderDto orderDto, BindingResult bindingResult) throws Exception {
-
-        if (bindingResult.hasErrors()) {
-            throw new CustomException("Check data payload");
-        }
 
         return ResponseEntity.ok(service.updateOrder(orderDto));
 

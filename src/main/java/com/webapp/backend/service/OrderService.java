@@ -121,10 +121,7 @@ public class OrderService {
             throw new CustomException("You only can update not_confirmed order.");
         }
 
-        existedOrder.setQuantity(updateOrder.getQuantity());
-        existedOrder.setPrice(updateOrder.getPrice());
-
-        existedOrder.setCash(updateOrder.getPrice() * updateOrder.getQuantity());
+        existedOrder.setStatus(updateOrder.getStatus());
 
         return repository.save(existedOrder);
     }
