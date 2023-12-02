@@ -32,11 +32,10 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
                         req.requestMatchers("/api/v1/auth/**").permitAll()
-                                .requestMatchers("/api/common/getCurrentUser").hasAnyRole("ADMIN", "SHIPPER")
+                                .requestMatchers("/api/common/getCurrentUser").authenticated()
                                 .requestMatchers("/api/category/all/getAllCategories").permitAll()
+//                                .requestMatchers("/api/**").authenticated()
                                 .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/webjars/**").permitAll()
-                                .requestMatchers("/api/*/admin/**").hasAnyRole("ADMIN")
-                                .requestMatchers("/api/*/all/**").hasAnyRole("ADMIN", "SHIPPER")
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))

@@ -49,21 +49,30 @@ public class ProductController {
         service.deleteAllProduct();
 
         return ResponseEntity.ok("Deleted all products successfully");
-
     }
 
-//    @Secured({"ADMIN", "SHIPPER"})
     @GetMapping("/getAllProduct")
     public ResponseEntity<List<ProductDto>> getAllProduct() throws Exception {
 
-        List<ProductDto> products =  service.getAllProduct();
+        List<ProductDto> products =  service.getAllProduct(null);
 
         if(products.isEmpty()){
             return ResponseEntity.noContent().build();
         }
 
         return ResponseEntity.ok(products);
+    }
 
+    @GetMapping("/getAllProduct/{id}")
+    public ResponseEntity<List<ProductDto>> getAllProduct(@PathVariable(name = "id") Long categoryID) throws Exception {
+
+        List<ProductDto> products =  service.getAllProduct(categoryID);
+
+        if(products.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(products);
     }
 
     @GetMapping("/getProduct/{productId}")

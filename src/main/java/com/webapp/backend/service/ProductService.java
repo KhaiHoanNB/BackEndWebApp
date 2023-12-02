@@ -1,7 +1,6 @@
 package com.webapp.backend.service;
 
 import com.webapp.backend.common.CustomException;
-import com.webapp.backend.core.dto.RoleDto;
 import com.webapp.backend.dto.ProductDto;
 import com.webapp.backend.entity.Category;
 import com.webapp.backend.entity.Product;
@@ -13,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -102,11 +102,12 @@ public class ProductService {
         productRepository.deleteAll();
     }
 
-    public List<ProductDto> getAllProduct() {
+    public List<ProductDto> getAllProduct(Long categoryID) {
 
         List<Product> products = productRepository.findAll();
 
-        List<ProductDto> productDtos = products.stream()
+        return products.stream()
+                .filter(product -> categoryID == null || Objects.equals(product.getCategory().getId(), categoryID))
                 .map(product -> ProductDto.builder()
                                         .name(product.getName())
                                         .id(product.getId())
@@ -115,8 +116,6 @@ public class ProductService {
                                         .categoryDto(product.getCategory().mapEntityToDto())
                                         .description(product.getDescription())
                         .build()).collect(Collectors.toList());
-
-        return productDtos;
     }
 
     public Product getProduct(Long productId) {
