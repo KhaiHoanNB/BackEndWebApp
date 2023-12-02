@@ -22,3 +22,6 @@
 2023-11-28 15:48:20.340 [http-nio-8080-exec-4] INFO  info_trace - Add Product: ID = 8, Name = hoa dồng tiền, Quantity = 1000
 2023-11-28 17:43:42.041 [http-nio-8080-exec-1] INFO  info_trace - Add Product: ID = 10, Name = hoa dồng cỏ, Quantity = 1000
 2023-11-28 17:44:31.446 [http-nio-8080-exec-8] INFO  info_trace - Add Product: ID = 16, Name = hoa hhh, Quantity = 1000
+2023-11-28 17:55:59.453 [http-nio-8080-exec-3] INFO  info_trace - Add Product: ID = 19, Name = hoa lan k, Quantity = 1000
+2023-11-28 17:56:04.211 [http-nio-8080-exec-4] INFO  info_trace - Add Product: ID = 20, Name = hoa lan  2k, Quantity = 1000
+2023-11-28 17:56:07.260 [http-nio-8080-exec-2] INFO  info_trace - Add Product: ID = 21, Name = hoa l dan  2k, Quantity = 1000

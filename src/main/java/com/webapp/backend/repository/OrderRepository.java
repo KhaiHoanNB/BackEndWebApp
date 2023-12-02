@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
@@ -15,7 +16,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("SELECT o FROM Order o WHERE o.shipper.id = :shipperId")
     List<Order> findOrderByShipperId(@Param("shipperId") Long shipperId);
 
-    @Query("SELECT o FROM Order o WHERE FUNCTION('DATE', o.confirmTime) = :targetDate")
+    @Query("SELECT o FROM Order o WHERE FUNCTION('DATE', o.confirmTime) = FUNCTION('DATE', :targetDate)")
     List<Order> findOrdersByDate(@Param("targetDate") LocalDate targetDate);
 
 

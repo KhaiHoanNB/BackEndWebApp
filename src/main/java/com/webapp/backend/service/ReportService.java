@@ -95,6 +95,9 @@ public class ReportService {
 
             User user = users.get(i);
 
+            if(user.getRoles().stream().anyMatch(role -> role.getName().equals("ROLE_ADMIN")))
+                continue;
+
             report.setShipperName(user.getUsername());
             report.setShipperId(user.getId());
 
