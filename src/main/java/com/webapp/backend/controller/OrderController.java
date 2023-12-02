@@ -102,7 +102,7 @@ public class OrderController {
 
 
     @PutMapping("/updateOrder")
-    public ResponseEntity<Order> updateOrder(@Valid @RequestBody OrderDto orderDto, BindingResult bindingResult) throws Exception {
+    public ResponseEntity<Order> updateOrder(@Valid @RequestBody OrderDto orderDto) throws Exception {
 
         return ResponseEntity.ok(service.updateOrder(orderDto));
 
