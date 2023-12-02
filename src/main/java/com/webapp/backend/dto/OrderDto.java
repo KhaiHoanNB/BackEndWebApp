@@ -22,6 +22,8 @@ public class OrderDto {
     @NotNull
     private Long price;
 
-    private int status;
+    private Integer date;
+
+    private Integer status;
 
 }

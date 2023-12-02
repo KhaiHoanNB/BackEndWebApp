@@ -9,6 +9,8 @@ import com.webapp.backend.entity.Order;
 import com.webapp.backend.entity.Product;
 import com.webapp.backend.repository.OrderRepository;
 import com.webapp.backend.repository.ProductRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +37,8 @@ public class OrderService {
 
     @Autowired
     ProductRepository productRepository;
-
+    @Autowired
+    public EntityManager manager;
 
     @Transactional
     public Order addOrder(OrderDto orderDto) throws Exception {
@@ -218,8 +221,23 @@ public class OrderService {
         }
     }
 
-    public List<Order> getAllOrder() {
-        return repository.findAll();
+    public List<Order> getAll(OrderDto orderDto) {
+
+        String sql = "Select e from Order e where 1=1 ";
+        if (orderDto.getShipperId() != null) {
+            sql += "and e.shipper.id = " + orderDto.getShipperId() ;
+        }
+
+        if (orderDto.getStatus() != null) {
+            sql += "and e.status = " + orderDto.getStatus() ;
+        }
+        if (orderDto.getDate() != null) {
+            sql += "and TO_CHAR(e.createDate, 'YYYYMMDD') = '" + orderDto.getDate() + "'" ;
+        }
+
+        Query query = manager.createQuery(sql);
+
+        return query.getResultList();
     }
 
     public List<Order> getOrdersOfShipper(Long shipperId) throws Exception {
