@@ -61,7 +61,7 @@ public class ReportService {
             if (order.getStatus().equals(Constants.STATUS_CONFIRMED)) {
                 report.getSuccessfulOrder().add(order);
                 totalCash += order.getCash();
-            } else if (order.getStatus().equals(Constants.STATUS_CONFIRMED_RETURN)) {
+            } else if (order.getStatus().equals(Constants.STATUS_RETURN)) {
                 report.getReturnedOrder().add(order);
             } else {
                 report.getPendingOrder().add(order);
@@ -111,7 +111,7 @@ public class ReportService {
                     if (order.getStatus().equals(Constants.STATUS_CONFIRMED)) {
                         report.getSuccessfulOrder().add(order);
                         totalCash += order.getCash();
-                    } else if (order.getStatus().equals(Constants.STATUS_CONFIRMED_RETURN)) {
+                    } else if (order.getStatus().equals(Constants.STATUS_RETURN)) {
                         report.getReturnedOrder().add(order);
                     } else {
                         report.getPendingOrder().add(order);

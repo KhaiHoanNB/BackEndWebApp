@@ -56,8 +56,6 @@ public class ReportController {
 
         return ResponseEntity.ok(reportService.getTotalAmountByDayAndShipper(date, shipperId));
     }
-
-
 }
 
 

@@ -259,7 +259,7 @@ public class OrderService {
         if(!(order.getStatus() == Constants.STATUS_CONFIRMED)){
             throw new CustomException("Only return confirmed order");
         }
-//        updateReturnWarehouse(order);
+        updateReturnWarehouse(order);
 
         order.setStatus(Constants.STATUS_RETURN);
 
@@ -283,31 +283,6 @@ public class OrderService {
 
     }
 
-    public Order confirmReturnOrder(Integer orderId) throws CustomException {
-
-        Optional<Order> existedOrderOptional = repository.findById(Long.valueOf(orderId));
-
-        if (!existedOrderOptional.isPresent()) {
-
-            throw new CustomException("This order is not existed");
-
-        }
-
-        Order existedOrder = existedOrderOptional.get();
-
-        if(existedOrder.getStatus() == Constants.STATUS_RETURN){
-
-            existedOrder.setStatus(Constants.STATUS_CONFIRMED_RETURN);
-
-            updateReturnWarehouse(existedOrder);
-        }
-
-        LOGGER.info("Return-Order confirmed - Product: {}, Shipper: {},  Quantity: {}, Price: {}, Total Cash: {}, Status: {}",
-                existedOrder.getProduct().getName(), existedOrder.getShipper().getUsername(), existedOrder.getQuantity(), existedOrder.getPrice(), existedOrder.getCash(), existedOrder.getStatus());
-
-        return repository.save(existedOrder);
-
-    }
 
     public List<Order> getOrdersOfShipperByDate(Long shipperId, String date) {
 

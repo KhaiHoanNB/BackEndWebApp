@@ -87,14 +87,6 @@ public class OrderController {
 
     }
 
-    @PostMapping("/admin/confirmReturnOrder/{orderId}")
-    public ResponseEntity<Order> confirmReturnOrder(@PathVariable(name = "orderId") Integer orderId) throws Exception {
-
-        return ResponseEntity.ok(service.confirmReturnOrder(orderId));
-
-    }
-
-
     @PutMapping("/updateOrder")
     public ResponseEntity<Order> updateOrder(@Valid @RequestBody OrderDto orderDto) throws Exception {
 
