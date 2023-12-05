@@ -138,7 +138,6 @@ public class OrderService {
             throw new CustomException("Only confirm unconfirmed order");
         }
 
-
         LOGGER.info("Order confirmed - Product: {}, Shipper: {},  Quantity: {}, Price: {}, Total Cash: {}, Status: {}",
                 existedOrder.getProduct().getName(), existedOrder.getShipper().getUsername(), existedOrder.getQuantity(), existedOrder.getPrice(), existedOrder.getCash(), existedOrder.getStatus());
 
@@ -297,11 +296,15 @@ public class OrderService {
 
     public Order updateOrder(UpdateStatusOrder updateOrder) throws Exception {
 
-        if(updateOrder.getStatus() == Constants.STATUS_CONFIRMED){
-            return confirmOrder(updateOrder.getId());
-        } else if(updateOrder.getStatus() == Constants.STATUS_RETURN){
-            return returnOrder(updateOrder.getId());
+        Order order = repository.getById(updateOrder.getId());
+
+        if(order == null){
+            throw new CustomException("Order was not existed");
         }
+
+        order.setStatus(updateOrder.getStatus());
+
+        repository.save(order);
 
         return null;
     }
