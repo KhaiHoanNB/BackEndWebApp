@@ -1,1 +1,2 @@
 2023-12-02 23:03:24.410 [http-nio-8080-exec-3] INFO  info_trace - Add Product: ID = 8, Name = hoa mướp, Quantity = 112
+2023-12-04 21:53:47.759 [http-nio-8080-exec-5] INFO  info_trace - Order confirmed - Product: bof, Shipper: admin,  Quantity: 1, Price: 12, Total Cash: 12, Status: 0

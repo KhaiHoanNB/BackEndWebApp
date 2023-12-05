@@ -45,6 +45,7 @@ com\webapp\backend\security\jwt\Token$TokenBuilder.class
 com\webapp\backend\common\GlobalExceptionHandler.class
 com\webapp\backend\core\entities\Role.class
 com\webapp\backend\service\ReportService.class
+com\webapp\backend\dto\UpdateStatusOrder.class
 com\webapp\backend\core\service\RoleService.class
 com\webapp\backend\common\CustomException.class
 com\webapp\backend\core\auditing\AuditableEntity.class

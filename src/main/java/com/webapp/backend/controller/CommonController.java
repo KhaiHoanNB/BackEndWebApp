@@ -34,6 +34,18 @@ public class CommonController {
                     .map(authority -> RoleDto.builder().name(authority.getAuthority()).build())
                     .collect(Collectors.toList());
             userDto.setRoles(roleDtos);
+
+            boolean isAdmin = roleDtos.stream()
+                    .anyMatch(roleDto -> "ROLE_ADMIN".equals(roleDto.getName()));
+
+            if(isAdmin){
+                userDto.setAdmin(true);
+                userDto.setShipper(true);
+            } else {
+                userDto.setAdmin(false);
+                userDto.setShipper(true);
+            }
+
             userDto.setId(userDetails.getId());
             userDto.setFirstname(userDetails.getFirstName());
             userDto.setLastname(userDetails.getLastName());

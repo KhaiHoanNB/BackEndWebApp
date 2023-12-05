@@ -1,6 +1,7 @@
 package com.webapp.backend.controller;
 
 import com.webapp.backend.dto.OrderDto;
+import com.webapp.backend.dto.UpdateStatusOrder;
 import com.webapp.backend.entity.Order;
 import com.webapp.backend.service.OrderService;
 import jakarta.validation.Valid;
@@ -39,11 +40,11 @@ public class OrderController {
 
     }
 
-    @PostMapping(value = "/getAll")
-    public ResponseEntity<List<Order>> getAll(@RequestBody OrderDto orderDto) {
-        List<Order> list = service.getAll(orderDto);
-        return new ResponseEntity<>(list, HttpStatus.OK);
-    }
+//    @PostMapping(value = "/getAll")
+//    public ResponseEntity<List<Order>> getAll(@RequestBody OrderDto orderDto) {
+//        List<Order> list = service.getAll(orderDto);
+//        return new ResponseEntity<>(list, HttpStatus.OK);
+//    }
 
 
     @GetMapping("/all/getOrdersOfShipper/{shipperId}")
@@ -80,14 +81,14 @@ public class OrderController {
 
     }
 
-    @PostMapping("/all/returnOrder/{orderId}")
+    @PostMapping("/admin/returnOrder/{orderId}")
     public ResponseEntity<Order> returnOrder(@PathVariable(name = "orderId") Long orderId) throws Exception {
 
         return ResponseEntity.ok(service.returnOrder(orderId));
 
     }
 
-    @PutMapping("/updateOrder")
+    @PutMapping("/all/updateOrder")
     public ResponseEntity<Order> updateOrder(@Valid @RequestBody OrderDto orderDto) throws Exception {
 
         return ResponseEntity.ok(service.updateOrder(orderDto));
@@ -117,6 +118,19 @@ public class OrderController {
         service.deleteAllOrder();
 
         return ResponseEntity.ok("Add product successfully");
+
+    }
+
+    @PutMapping("/admin/updateOrder")
+    public ResponseEntity<Order> updateOrder(@RequestBody UpdateStatusOrder updateOrder) throws Exception {
+
+        Order order = service.updateOrder(updateOrder);
+
+        if(order == null){
+            return ResponseEntity.badRequest().build();
+        }
+
+        return ResponseEntity.ok(order);
 
     }
 

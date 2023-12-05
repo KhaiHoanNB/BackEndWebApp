@@ -15,6 +15,7 @@ D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\core\repositories\TokenRepos
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\controller\ProductController.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\core\dto\UserDto.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\security\config\SimpleCorsFilter.java
+D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\dto\UpdateStatusOrder.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\repository\CategoryRepository.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\security\jwt\TokenType.java
 D:\KhaiHoan\WebApp\src\main\java\com\webapp\backend\service\GenericService.java

@@ -5,6 +5,7 @@ import com.webapp.backend.common.CustomException;
 import com.webapp.backend.core.entities.User;
 import com.webapp.backend.core.repositories.UserRepository;
 import com.webapp.backend.dto.OrderDto;
+import com.webapp.backend.dto.UpdateStatusOrder;
 import com.webapp.backend.entity.Order;
 import com.webapp.backend.entity.Product;
 import com.webapp.backend.repository.OrderRepository;
@@ -37,8 +38,8 @@ public class OrderService {
 
     @Autowired
     ProductRepository productRepository;
-    @Autowired
-    public EntityManager manager;
+//    @Autowired
+//    public EntityManager manager;
 
     @Transactional
     public Order addOrder(OrderDto orderDto) throws Exception {
@@ -215,24 +216,24 @@ public class OrderService {
         }
     }
 
-    public List<Order> getAll(OrderDto orderDto) {
-
-        String sql = "Select e from Order e where 1=1 ";
-        if (orderDto.getShipperId() != null) {
-            sql += "and e.shipper.id = " + orderDto.getShipperId() ;
-        }
-
-        if (orderDto.getStatus() != null) {
-            sql += "and e.status = " + orderDto.getStatus() ;
-        }
-        if (orderDto.getDate() != null) {
-            sql += "and TO_CHAR(e.createDate, 'YYYYMMDD') = '" + orderDto.getDate() + "'" ;
-        }
-
-        Query query = manager.createQuery(sql);
-
-        return query.getResultList();
-    }
+//    public List<Order> getAll(OrderDto orderDto) {
+//
+//        String sql = "Select e from Order e where 1=1 ";
+//        if (orderDto.getShipperId() != null) {
+//            sql += "and e.shipper.id = " + orderDto.getShipperId() ;
+//        }
+//
+//        if (orderDto.getStatus() != null) {
+//            sql += "and e.status = " + orderDto.getStatus() ;
+//        }
+//        if (orderDto.getDate() != null) {
+//            sql += "and TO_CHAR(e.createDate, 'YYYYMMDD') = '" + orderDto.getDate() + "'" ;
+//        }
+//
+//        Query query = manager.createQuery(sql);
+//
+//        return query.getResultList();
+//    }
 
     public List<Order> getOrdersOfShipper(Long shipperId) throws Exception {
 
@@ -292,6 +293,17 @@ public class OrderService {
 
         return repository.findOrdersByDateAndShipperId(dateFormated, shipperId);
 
+    }
+
+    public Order updateOrder(UpdateStatusOrder updateOrder) throws Exception {
+
+        if(updateOrder.getStatus() == Constants.STATUS_CONFIRMED){
+            return confirmOrder(updateOrder.getId());
+        } else if(updateOrder.getStatus() == Constants.STATUS_RETURN){
+            return returnOrder(updateOrder.getId());
+        }
+
+        return null;
     }
 }
 
