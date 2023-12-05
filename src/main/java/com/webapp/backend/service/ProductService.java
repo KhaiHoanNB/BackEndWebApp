@@ -80,19 +80,11 @@ public class ProductService {
         product.setDescription(productDto.getDescription());
         product.setName(productDto.getName());
 
-        Optional<Category> categoryOptional = categoryRepository.findById(productDto.getCategoryId());
-
-        if(!categoryOptional.isPresent()){
-            throw new CustomException("The category is not existed");
-        }
-
-        product.setCategory(categoryOptional.get());
-
         product.setQuantity(productDto.getQuantity());
 
         Product savedProduct = productRepository.save(product);
 
-        LOGGER.info("Change warehouse" + savedProduct);
+        LOGGER.info("Change warehouse" + savedProduct.getId());
 
         return savedProduct;
 

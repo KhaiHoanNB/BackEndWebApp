@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/warehouse")
+@RequestMapping("/api")
 @Validated
 public class ProductController {
 
@@ -36,14 +36,14 @@ public class ProductController {
 
     }
 
-    @PutMapping("/updateProduct")
+    @PutMapping("/admin/updateProduct")
     public ResponseEntity<Product> updateProduct(@RequestBody ProductDto productDto) throws Exception {
 
         return ResponseEntity.ok(service.updateProduct(productDto));
 
     }
 
-    @DeleteMapping("/deleteAllProduct")
+    @DeleteMapping("/admin/deleteAllProduct")
     public ResponseEntity<String> updateProduct() throws Exception {
 
         service.deleteAllProduct();
@@ -51,7 +51,7 @@ public class ProductController {
         return ResponseEntity.ok("Deleted all products successfully");
     }
 
-    @GetMapping("/getAllProduct")
+    @GetMapping("/all/getAllProduct")
     public ResponseEntity<List<ProductDto>> getAllProduct() throws Exception {
 
         List<ProductDto> products =  service.getAllProduct(null);
@@ -63,7 +63,7 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
-    @GetMapping("/getAllProduct/{id}")
+    @GetMapping("/all/getAllProduct/{id}")
     public ResponseEntity<List<ProductDto>> getAllProduct(@PathVariable(name = "id") Long categoryID) throws Exception {
 
         List<ProductDto> products =  service.getAllProduct(categoryID);
@@ -75,7 +75,7 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
-    @GetMapping("/getProduct/{productId}")
+    @GetMapping("/all/getProduct/{productId}")
     public ResponseEntity<Product> getProduct(@PathVariable(name = "productId") Long productId) throws Exception {
 
         Product product =  service.getProduct(productId);
