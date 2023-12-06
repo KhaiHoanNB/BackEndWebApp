@@ -24,8 +24,7 @@ public class Order extends BaseEntity {
     @NotNull
     private User shipper;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    @ManyToOne
     @NotNull
     private Product product;
 

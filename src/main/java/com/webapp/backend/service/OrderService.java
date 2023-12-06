@@ -118,11 +118,20 @@ public class OrderService {
 
         Order existedOrder = existedOrderOptional.get();
 
-        if (updateOrder.getStatus() == Constants.STATUS_CONFIRMED) {
-            existedOrder.setConfirmTime(LocalDateTime.now());
+        if (existedOrder.getStatus() != Constants.STATUS_NOT_CONFIRM) {
+            throw new CustomException("Can not change confirmed order");
         }
 
-        existedOrder.setStatus(updateOrder.getStatus());
+        updateReturnWarehouse(existedOrder);
+
+        existedOrder.setQuantity(updateOrder.getQuantity());
+
+        updateWarehouse(existedOrder);
+
+        existedOrder.setPrice(updateOrder.getPrice());
+
+        existedOrder.setCash(existedOrder.getPrice()*existedOrder.getQuantity());
+
         return repository.save(existedOrder);
     }
 
@@ -290,7 +299,7 @@ public class OrderService {
 
         LocalDate dateFormated = LocalDate.parse(date, formatter);
 
-        return repository.findOrdersByDateAndShipperId(dateFormated, shipperId);
+        return repository.findOrdersByDateAndShipperIdForDisplay(dateFormated, shipperId);
 
     }
 
@@ -304,9 +313,8 @@ public class OrderService {
 
         order.setStatus(updateOrder.getStatus());
 
-        repository.save(order);
+        return repository.save(order);
 
-        return null;
     }
 }
 
