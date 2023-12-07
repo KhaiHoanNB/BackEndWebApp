@@ -60,7 +60,7 @@ public class ProductService {
 
         Optional<Product> existingProductOptional = productRepository.findById(id);
 
-        if (!existingProductOptional.isPresent()) {
+        if (!(existingProductOptional.isPresent())) {
 
             throw new CustomException("This product is not existed");
         }

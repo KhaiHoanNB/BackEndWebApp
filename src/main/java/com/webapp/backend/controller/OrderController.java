@@ -28,7 +28,7 @@ public class OrderController {
 
     }
 
-    @GetMapping("/all/getAllOrderByDate/{date}")
+    @GetMapping("/admin/getAllOrderByDate/{date}")
     public ResponseEntity<List<Order>> getOrder(@PathVariable(name = "date") String date) throws Exception {
 
         List<Order> orders =  service.getAllOrderByDate(date);

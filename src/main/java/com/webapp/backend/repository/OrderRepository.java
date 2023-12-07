@@ -16,11 +16,17 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("SELECT o FROM Order o WHERE o.shipper.id = :shipperId")
     List<Order> findOrderByShipperId(@Param("shipperId") Long shipperId);
 
-    @Query("SELECT o FROM Order o WHERE FUNCTION('DATE', o.confirmTime) = FUNCTION('DATE', :targetDate)")
+    @Query("SELECT o FROM Order o WHERE FUNCTION('DATE', o.createDate) = FUNCTION('DATE', :targetDate)")
     List<Order> findOrdersByDate(@Param("targetDate") LocalDate targetDate);
 
 
-    @Query("SELECT o FROM Order o WHERE FUNCTION('DATE', o.confirmTime) = :targetDate AND o.shipper.id = :shipperId")
+    @Query("SELECT o FROM Order o WHERE (FUNCTION('DATE', o.createDate) = :targetDate OR FUNCTION('DATE', o.confirmTime) = :targetDate) AND o.shipper.id = :shipperId")
+    List<Order> findOrdersByDateAndShipperIdForDisplay(
+            @Param("targetDate") LocalDate targetDate,
+            @Param("shipperId") Long shipperId
+    );
+
+    @Query("SELECT o FROM Order o WHERE FUNCTION('DATE', o.createDate) = :targetDate AND o.shipper.id = :shipperId AND o.status = 1")
     List<Order> findOrdersByDateAndShipperId(
             @Param("targetDate") LocalDate targetDate,
             @Param("shipperId") Long shipperId

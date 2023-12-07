@@ -27,7 +27,6 @@ public class Product extends BaseEntity {
     private int quantity;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
     @JsonIgnore
     private Category category;
 

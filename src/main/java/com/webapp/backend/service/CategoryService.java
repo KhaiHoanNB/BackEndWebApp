@@ -4,7 +4,9 @@ package com.webapp.backend.service;
 import com.webapp.backend.common.CustomException;
 import com.webapp.backend.dto.CategoryDto;
 import com.webapp.backend.entity.Category;
+import com.webapp.backend.entity.Product;
 import com.webapp.backend.repository.CategoryRepository;
+import com.webapp.backend.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,9 @@ public class CategoryService {
 
     @Autowired
     CategoryRepository repository;
+
+    @Autowired
+    ProductRepository productRepository;
 
     public Category saveCategory(CategoryDto categoryDto) throws Exception {
 
@@ -62,11 +67,16 @@ public class CategoryService {
     public Category getCategory(Long categoryId) {
         Optional<Category> categoryOptional = repository.findById(categoryId);
 
-        if(categoryOptional.isPresent()){
-            return categoryOptional.get();
+        if(!categoryOptional.isPresent()){
+            return null;
         }
+        Category category = categoryOptional.get();
 
-        return null;
+        List<Product> products = productRepository.findByCategoryId(categoryId);
+
+        category.setProducts(products);
+
+        return category;
     }
 
     public CategoryDto convertToDto(Category category) {

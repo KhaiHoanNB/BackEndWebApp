@@ -1,3 +1,12 @@
 2023-12-02 23:03:24.410 [http-nio-8080-exec-3] INFO  info_trace - Add Product: ID = 8, Name = hoa mướp, Quantity = 112
 2023-12-04 21:53:47.759 [http-nio-8080-exec-5] INFO  info_trace - Order confirmed - Product: bof, Shipper: admin,  Quantity: 1, Price: 12, Total Cash: 12, Status: 0
 2023-12-05 22:38:05.030 [http-nio-8080-exec-1] INFO  info_trace - Change warehouse5
+2023-12-05 23:48:23.636 [http-nio-8080-exec-3] INFO  info_trace - Add Product: ID = 1, Name = hoa hồng, Quantity = 1000
+2023-12-06 00:09:55.989 [http-nio-8080-exec-5] INFO  info_trace - Order confirmed - Product: hoa hồng, Shipper: khaihoan,  Quantity: 1000, Price: 500, Total Cash: 500000, Status: 0
+2023-12-06 00:14:16.739 [http-nio-8080-exec-8] INFO  info_trace - Order confirmed - Product: hoa hồng, Shipper: khaihoan,  Quantity: 1000, Price: 500, Total Cash: 500000, Status: 0
+2023-12-06 21:41:56.051 [http-nio-8080-exec-5] INFO  info_trace - Add Product: ID = 2, Name = hoa cúc, Quantity = 1000
+2023-12-06 21:43:01.894 [http-nio-8080-exec-8] INFO  info_trace - Change warehouse1
+2023-12-06 22:53:15.893 [http-nio-8080-exec-10] INFO  info_trace - Add Product: ID = 1, Name = hoa hồng, Quantity = 1000
+2023-12-06 22:53:31.237 [http-nio-8080-exec-9] INFO  info_trace - Add Product: ID = 2, Name = hoa cúc, Quantity = 1000
+2023-12-06 22:53:44.436 [http-nio-8080-exec-2] INFO  info_trace - Add Product: ID = 3, Name = hoa huệ, Quantity = 1000
+2023-12-06 22:54:38.312 [http-nio-8080-exec-3] INFO  info_trace - Change warehouse1
