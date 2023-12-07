@@ -129,9 +129,9 @@ public class ReportService {
 
             ReportDto report = reports.get(i);
 
-            if(report.getPendingOrder().size() == 0
-                    && report.getSuccessfulOrder().size() == 0
-                    && report.getReturnedOrder().size() == 0) {
+            if(report.getPendingOrder().isEmpty()
+                    && report.getSuccessfulOrder().isEmpty()
+                    && report.getReturnedOrder().isEmpty()) {
                 reports.remove(i);
             }
         }
