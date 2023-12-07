@@ -9902,6 +9902,7 @@ Caused by: org.hibernate.query.sqm.ParsingException: line 1:110 mismatched input
 2023-12-06 23:09:35.325 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2023-12-06 23:09:35.331 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2023-12-06 23:09:35.339 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+<<<<<<< HEAD
 2023-12-06 23:09:44.198 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
 2023-12-06 23:09:44.252 [restartedMain] INFO  c.w.backend.WebAppBackEndApplication - Starting WebAppBackEndApplication using Java 17.0.9 with PID 17016 (D:\KhaiHoan\WebApp\target\classes started by Innotech in D:\KhaiHoan\WebApp)
 2023-12-06 23:09:44.254 [restartedMain] INFO  c.w.backend.WebAppBackEndApplication - No active profile set, falling back to 1 default profile: "default"
@@ -11407,3 +11408,26 @@ Caused by: org.springframework.beans.factory.BeanCreationNotAllowedException: Er
 	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:771)
 	... 19 common frames omitted
 2023-12-07 22:08:18.655 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+=======
+2023-12-07 21:41:20.121 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2023-12-07 21:41:20.143 [main] INFO  c.w.b.WebAppBackEndApplicationTests - Starting WebAppBackEndApplicationTests using Java 17.0.9 with PID 18864 (started by hbgia in F:\workspace\sources\giang\WebApp\WebApp)
+2023-12-07 21:41:20.143 [main] INFO  c.w.b.WebAppBackEndApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2023-12-07 21:41:21.173 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-07 21:41:21.234 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 56 ms. Found 6 JPA repository interfaces.
+2023-12-07 21:41:22.005 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-07 21:41:22.072 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.2.13.Final
+2023-12-07 21:41:22.074 [main] INFO  org.hibernate.cfg.Environment - HHH000406: Using bytecode reflection optimizer
+2023-12-07 21:41:22.419 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-07 21:41:22.450 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-12-07 21:41:35.716 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1de30c31
+2023-12-07 21:41:35.718 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-12-07 21:41:40.538 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-07 21:41:45.468 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-07 21:41:45.711 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-12-07 21:41:46.674 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-07 21:41:46.790 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@47ce059f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@17b4d5ab, org.springframework.security.web.context.SecurityContextHolderFilter@40b0c9be, org.springframework.security.web.header.HeaderWriterFilter@29abec7e, org.springframework.security.web.authentication.logout.LogoutFilter@53c1f4ae, com.webapp.backend.security.jwt.JwtRequestFilter@79414283, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1448e2b6, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@69a0e285, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3531c23a, org.springframework.security.web.session.SessionManagementFilter@2db6d66d, org.springframework.security.web.access.ExceptionTranslationFilter@29ee8374, org.springframework.security.web.access.intercept.AuthorizationFilter@287f1aaf]
+2023-12-07 21:41:48.005 [main] INFO  c.w.b.WebAppBackEndApplicationTests - Started WebAppBackEndApplicationTests in 28.175 seconds (process running for 29.626)
+2023-12-07 21:41:52.868 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-07 21:41:52.870 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-12-07 21:41:57.934 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+>>>>>>> ea9160ec4a6bb5618440e52132964d600bfe51c6
