@@ -74,7 +74,7 @@ public class OrderController {
 
     }
 
-    @PostMapping("/all/addOrder")
+    @PostMapping("/addOrder")
     public ResponseEntity<Order> addOrder(@RequestBody OrderDto orderDto) throws Exception {
 
         Order order = service.addOrder(orderDto);
