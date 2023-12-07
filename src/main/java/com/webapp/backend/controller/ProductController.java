@@ -15,14 +15,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/warehouse")
 @Validated
 public class ProductController {
 
     @Autowired
     ProductService service;
 
-    @PostMapping("/admin/addProduct")
+    @PreAuthorize(value = "ADMIN")
+    @PostMapping("/addProduct")
     public ResponseEntity<Product> addProduct(@RequestBody ProductDto productDto) throws CustomException {
         return ResponseEntity.ok(service.addProduct(productDto));
     }
