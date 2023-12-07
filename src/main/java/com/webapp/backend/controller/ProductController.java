@@ -22,13 +22,14 @@ public class ProductController {
     @Autowired
     ProductService service;
 
-    @PreAuthorize(value = "ADMIN")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/addProduct")
     public ResponseEntity<Product> addProduct(@RequestBody ProductDto productDto) throws CustomException {
         return ResponseEntity.ok(service.addProduct(productDto));
     }
 
-    @DeleteMapping("/admin/deleteProduct/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/deleteProduct/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable(name = ("id")) Long id) throws Exception {
 
         service.deleteProduct(id);
