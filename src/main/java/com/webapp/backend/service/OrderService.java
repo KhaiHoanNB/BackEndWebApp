@@ -38,8 +38,8 @@ public class OrderService {
 
     @Autowired
     ProductRepository productRepository;
-//    @Autowired
-//    public EntityManager manager;
+    @Autowired
+    public EntityManager manager;
 
     @Transactional
     public Order addOrder(OrderDto orderDto) throws Exception {
@@ -215,24 +215,24 @@ public class OrderService {
         }
     }
 
-//    public List<Order> getAll(OrderDto orderDto) {
-//
-//        String sql = "Select e from Order e where 1=1 ";
-//        if (orderDto.getShipperId() != null) {
-//            sql += "and e.shipper.id = " + orderDto.getShipperId() ;
-//        }
-//
-//        if (orderDto.getStatus() != null) {
-//            sql += "and e.status = " + orderDto.getStatus() ;
-//        }
-//        if (orderDto.getDate() != null) {
-//            sql += "and TO_CHAR(e.createDate, 'YYYYMMDD') = '" + orderDto.getDate() + "'" ;
-//        }
-//
-//        Query query = manager.createQuery(sql);
-//
-//        return query.getResultList();
-//    }
+    public List<Order> getAll(OrderDto orderDto) {
+
+        String sql = "Select e from Order e where 1=1 ";
+        if (orderDto.getShipperId() != null) {
+            sql += "and e.shipper.id = " + orderDto.getShipperId() ;
+        }
+
+        if (orderDto.getStatus() != null) {
+            sql += "and e.status = " + orderDto.getStatus() ;
+        }
+        if (orderDto.getDate() != null) {
+            sql += "and TO_CHAR(e.createDate, 'YYYYMMDD') = '" + orderDto.getDate() + "'" ;
+        }
+
+        Query query = manager.createQuery(sql);
+
+        return query.getResultList();
+    }
 
     public List<Order> getOrdersOfShipper(Long shipperId) throws Exception {
 

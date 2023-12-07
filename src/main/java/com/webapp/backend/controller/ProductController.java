@@ -51,7 +51,7 @@ public class ProductController {
         return ResponseEntity.ok("Deleted all products successfully");
     }
 
-    @GetMapping("/all/getAllProduct")
+    @GetMapping("/getAllProduct")
     public ResponseEntity<List<ProductDto>> getAllProduct() throws Exception {
 
         List<ProductDto> products =  service.getAllProduct(null);

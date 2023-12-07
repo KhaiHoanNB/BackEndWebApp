@@ -40,11 +40,13 @@ public class OrderController {
 
     }
 
-//    @PostMapping(value = "/getAll")
-//    public ResponseEntity<List<Order>> getAll(@RequestBody OrderDto orderDto) {
-//        List<Order> list = service.getAll(orderDto);
-//        return new ResponseEntity<>(list, HttpStatus.OK);
-//    }
+    @PostMapping(value = "/getAll")
+    public ResponseEntity<List<Order>> getAll(@RequestBody OrderDto orderDto) {
+
+        List<Order> list = service.getAll(orderDto);
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
 
 
     @GetMapping("/all/getOrdersOfShipper/{shipperId}")
