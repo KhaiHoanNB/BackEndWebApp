@@ -66,7 +66,7 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
-    @GetMapping("/all/getAllProduct/{id}")
+    @GetMapping("/getAllProduct/{id}")
     public ResponseEntity<List<ProductDto>> getAllProduct(@PathVariable(name = "id") Long categoryID) throws Exception {
 
         List<ProductDto> products =  service.getAllProduct(categoryID);
