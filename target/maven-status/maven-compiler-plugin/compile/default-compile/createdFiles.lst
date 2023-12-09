@@ -22,8 +22,13 @@ com\webapp\backend\repository\CategoryRepository.class
 com\webapp\backend\core\entities\User$UserBuilder.class
 com\webapp\backend\service\CategoryService.class
 com\webapp\backend\entity\Product.class
+<<<<<<< HEAD
+com\webapp\backend\controller\OrderController.class
+com\webapp\backend\security\jwt\JwtService.class
+=======
 com\webapp\backend\security\jwt\JwtService.class
 com\webapp\backend\controller\OrderController.class
+>>>>>>> ea9160ec4a6bb5618440e52132964d600bfe51c6
 com\webapp\backend\core\entities\BaseEntity.class
 com\webapp\backend\core\service\UserService.class
 com\webapp\backend\core\repositories\TokenRepository.class
@@ -34,9 +39,15 @@ com\webapp\backend\entity\Order.class
 com\webapp\backend\controller\ReportController.class
 com\webapp\backend\controller\CommonController.class
 com\webapp\backend\core\repositories\UserRepository.class
+<<<<<<< HEAD
+com\webapp\backend\controller\UserController.class
+com\webapp\backend\core\auditing\ApplicationAuditAware.class
+com\webapp\backend\core\entities\Role$RoleBuilder.class
+=======
 com\webapp\backend\core\auditing\ApplicationAuditAware.class
 com\webapp\backend\core\entities\Role$RoleBuilder.class
 com\webapp\backend\controller\UserController.class
+>>>>>>> ea9160ec4a6bb5618440e52132964d600bfe51c6
 com\webapp\backend\dto\OrderDto.class
 com\webapp\backend\common\Constants.class
 com\webapp\backend\repository\OrderRepository.class

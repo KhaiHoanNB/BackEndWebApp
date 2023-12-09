@@ -40,7 +40,7 @@ public class CommonController {
 
             if(isAdmin){
                 userDto.setAdmin(true);
-                userDto.setShipper(true);
+                userDto.setShipper(false);
             } else {
                 userDto.setAdmin(false);
                 userDto.setShipper(true);
