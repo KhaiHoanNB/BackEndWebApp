@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/category")
+@RequestMapping("/api/public")
 public class CategoryController {
 
     @Autowired
@@ -41,7 +41,7 @@ public class CategoryController {
 
     }
 
-    @GetMapping("/all/getAllCategories")
+    @GetMapping("/getAllCategories")
     public ResponseEntity<List<CategoryDto>> getAllCategories() throws Exception {
 
         List<CategoryDto> categorieDtos = service.getAllCategories();

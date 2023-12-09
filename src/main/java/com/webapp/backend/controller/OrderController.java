@@ -104,11 +104,10 @@ public class OrderController {
 
     }
 
-    @DeleteMapping("/all/deleteOrder/{id}")
-    public ResponseEntity<String> deleteOrder(@PathVariable(name = "id") Long orderId,
-                                              @RequestParam(name = "shipperId") Long shipperID) throws Exception {
+    @DeleteMapping("/deleteOrder/{id}")
+    public ResponseEntity<String> deleteOrder(@PathVariable(name = "id") Long orderId) throws Exception {
 
-        service.deleteOrder(orderId, shipperID);
+        service.deleteOrder(orderId);
 
         return ResponseEntity.ok("Delete order successfully");
 
@@ -123,7 +122,7 @@ public class OrderController {
 
     }
 
-    @PutMapping("/admin/updateOrder")
+    @PutMapping("/updateOrder")
     public ResponseEntity<Order> updateOrder(@RequestBody UpdateStatusOrder updateOrder) throws Exception {
 
         Order order = service.updateOrder(updateOrder);

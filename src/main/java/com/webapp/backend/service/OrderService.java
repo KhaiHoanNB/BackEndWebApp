@@ -15,6 +15,8 @@ import jakarta.persistence.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -153,9 +155,12 @@ public class OrderService {
         return repository.save(existedOrder);
     }
 
-    public void deleteOrder(Long orderId, Long shipperId) throws Exception {
+    public void deleteOrder(Long orderId) throws Exception {
 
         Optional<Order> existedOrderOptional = repository.findById(orderId);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object object = authentication.getPrincipal();
+        User userDetails = (User) object;
 
         if (!existedOrderOptional.isPresent()) {
             throw new CustomException("This order is not existed");
@@ -167,7 +172,7 @@ public class OrderService {
             throw new CustomException("You do not have permission to delete this order");
         }
 
-        if(!(order.getShipper().getId() == shipperId)){
+        if(!order.getShipper().getId().equals(userDetails.getId())){
             throw new CustomException("You do not have permission to delete this order");
         }
 
