@@ -324,7 +324,8 @@ public class OrderService {
 
         order.setStatus(updateOrder.getStatus());
 //        order.setFreeShip(updateOrder.getFreeShip());
-        order.setStatus(updateOrder.getNumReturn());
+
+        order.setNumReturn(updateOrder.getNumReturn());
 
         return repository.save(order);
 
