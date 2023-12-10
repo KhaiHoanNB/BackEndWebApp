@@ -323,14 +323,14 @@ public class OrderService {
         }
 
 
-        if(order.getQuantity() - updateOrder.getNumReturn() > order.getFreeShip()){
-            throw new CustomException("Check input data");
-        }
-
         order.setStatus(updateOrder.getStatus());
 
         if(updateOrder.getFreeShip() > 0){
             order.setFreeShip(updateOrder.getFreeShip());
+        }
+
+        if(order.getQuantity() - updateOrder.getNumReturn() > order.getFreeShip()){
+            throw new CustomException("Check input data");
         }
 
         order.setNumReturn(updateOrder.getNumReturn());
