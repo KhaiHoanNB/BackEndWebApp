@@ -42,6 +42,12 @@ public class Order extends BaseEntity {
     @Column
     private Integer status;
 
+    @Column
+    private int freeShip;
+
+    @Column
+    private int numReturn;
+
     @Column(name = "confirm_time")
     private LocalDateTime confirmTime;
 

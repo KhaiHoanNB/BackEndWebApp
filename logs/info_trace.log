@@ -10,3 +10,4 @@
 2023-12-06 22:53:31.237 [http-nio-8080-exec-9] INFO  info_trace - Add Product: ID = 2, Name = hoa cúc, Quantity = 1000
 2023-12-06 22:53:44.436 [http-nio-8080-exec-2] INFO  info_trace - Add Product: ID = 3, Name = hoa huệ, Quantity = 1000
 2023-12-06 22:54:38.312 [http-nio-8080-exec-3] INFO  info_trace - Change warehouse1
+2023-12-09 21:39:54.307 [http-nio-8080-exec-3] INFO  info_trace - Add Product: ID = 2, Name = hoa cúc, Quantity = 1000

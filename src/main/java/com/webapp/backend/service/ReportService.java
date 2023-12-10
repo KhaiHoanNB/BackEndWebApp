@@ -112,6 +112,7 @@ public class ReportService {
                         report.getSuccessfulOrder().add(order);
                         totalCash += order.getCash();
                     } else if (order.getStatus().equals(Constants.STATUS_RETURN)) {
+                        totalCash -= order.getNumReturn()*order.getPrice();
                         report.getReturnedOrder().add(order);
                     } else {
                         report.getPendingOrder().add(order);

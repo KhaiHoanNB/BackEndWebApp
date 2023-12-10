@@ -65,6 +65,10 @@ public class OrderService {
             throw new CustomException("The shipper is not existed");
         }
 
+        if(orderDto.getFreeShip() < 0 || orderDto.getPrice() < 0){
+            throw new CustomException("Check input data");
+        }
+
         Order order = new Order();
 
         order.setShipper(userOptional.get());
@@ -77,7 +81,9 @@ public class OrderService {
 
         order.setPrice(orderDto.getPrice());
 
-        Long totalCashOrder = orderDto.getPrice() * orderDto.getQuantity();
+        order.setFreeShip(orderDto.getFreeShip());
+
+        Long totalCashOrder = (orderDto.getPrice() * orderDto.getQuantity()) - (orderDto.getFreeShip()*Constants.VALUE_FREE_SHIP);
 
         order.setCash(totalCashOrder);
 
@@ -317,6 +323,8 @@ public class OrderService {
         }
 
         order.setStatus(updateOrder.getStatus());
+//        order.setFreeShip(updateOrder.getFreeShip());
+        order.setStatus(updateOrder.getNumReturn());
 
         return repository.save(order);
 

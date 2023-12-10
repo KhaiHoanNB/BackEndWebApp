@@ -21,9 +21,10 @@ public class OrderDto {
     private Integer quantity;
     @NotNull
     private Long price;
+    @NotNull
+    private int freeShip;
 
     private Integer date;
 
     private Integer status;
-
 }

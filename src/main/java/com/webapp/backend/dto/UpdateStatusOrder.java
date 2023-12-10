@@ -13,4 +13,7 @@ public class UpdateStatusOrder {
 
     private Integer status;
 
+    private Integer numReturn;
+
+//    private Integer freeShip;
 }
