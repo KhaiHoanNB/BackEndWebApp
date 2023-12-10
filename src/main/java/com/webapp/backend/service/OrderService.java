@@ -322,8 +322,16 @@ public class OrderService {
             throw new CustomException("Order was not existed");
         }
 
+
+        if(order.getQuantity() - updateOrder.getNumReturn() > order.getFreeShip()){
+            throw new CustomException("Check input data");
+        }
+
         order.setStatus(updateOrder.getStatus());
-//        order.setFreeShip(updateOrder.getFreeShip());
+
+        if(updateOrder.getFreeShip() > 0){
+            order.setFreeShip(updateOrder.getFreeShip());
+        }
 
         order.setNumReturn(updateOrder.getNumReturn());
 
