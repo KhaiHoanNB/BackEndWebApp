@@ -316,12 +316,13 @@ public class OrderService {
 
     public Order updateOrder(UpdateStatusOrder updateOrder) throws Exception {
 
-        Order order = repository.getById(updateOrder.getId());
+        Optional<Order> orderOptional = repository.findById(updateOrder.getId());
 
-        if(order == null){
+        if(!orderOptional.isPresent()){
             throw new CustomException("Order was not existed");
         }
 
+        Order order = orderOptional.get();
 
         order.setStatus(updateOrder.getStatus());
 
@@ -329,7 +330,7 @@ public class OrderService {
             order.setFreeShip(updateOrder.getFreeShip());
         }
 
-        if(order.getQuantity() - updateOrder.getNumReturn() > order.getFreeShip()){
+        if(order.getQuantity() - updateOrder.getNumReturn() < order.getFreeShip()){
             throw new CustomException("Check input data");
         }
 
