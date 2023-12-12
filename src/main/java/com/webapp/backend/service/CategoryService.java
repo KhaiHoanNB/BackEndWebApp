@@ -26,13 +26,14 @@ public class CategoryService {
     ProductRepository productRepository;
 
     public Category saveCategory(CategoryDto categoryDto) throws Exception {
-
-        if(categoryDto.getId() != null && repository.findById(categoryDto.getId()).isPresent()){
-            throw new CustomException("The id of category is existed");
+        Category category = null;
+        if (categoryDto.getId()!= null) {
+            Optional<Category> categoryOptional = repository.findById(categoryDto.getId());
+            category = categoryOptional.orElseGet(Category::new);
         }
 
-        Category category = new Category();
-        category.setId(categoryDto.getId());
+        if (category == null) category = new Category();
+
         category.setName(categoryDto.getName());
         category.setDescription(categoryDto.getDescription());
 

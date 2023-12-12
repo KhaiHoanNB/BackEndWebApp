@@ -8,6 +8,7 @@ import com.webapp.backend.service.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -15,24 +16,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/public")
+@RequestMapping("/api/category")
 public class CategoryController {
 
     @Autowired
     CategoryService service;
 
-    @PostMapping("/admin/addCategory")
-    public ResponseEntity<Category> addCategory(@RequestBody @Valid CategoryDto categoryDto, BindingResult bindingResult) throws Exception {
-
-        if (bindingResult.hasErrors()) {
-            throw new CustomException("Check data payload");
-        }
-
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/addCategory")
+    public ResponseEntity<Category> addCategory(@RequestBody CategoryDto categoryDto) throws Exception {
         return ResponseEntity.ok(service.saveCategory(categoryDto));
-
     }
 
-    @DeleteMapping("/admin/deleteCategory/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/deleteCategory/{id}")
     public ResponseEntity<String> deleteCategory(@PathVariable (name = "id") Long id) throws Exception {
 
         service.deleteCategory(id);

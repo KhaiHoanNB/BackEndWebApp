@@ -60,12 +60,12 @@ public class OrderService {
 
         Optional<User> shipper = userRepository.findById(orderDto.getShipperId());
 
-        if(!shipper.isPresent() || !shipper.get().getRoles().stream()
+        if(shipper.isEmpty() || !shipper.get().getRoles().stream()
                 .anyMatch(role -> role.getAuthority().equals("ROLE_SHIPPER"))){
             throw new CustomException("The shipper is not existed");
         }
 
-        if(orderDto.getFreeShip() < 0 || orderDto.getPrice() < 0){
+            if(orderDto.getFreeShip() < 0 || orderDto.getPrice() < 0){
             throw new CustomException("Check input data");
         }
 
