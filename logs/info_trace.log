@@ -11,3 +11,7 @@
 2023-12-06 22:53:44.436 [http-nio-8080-exec-2] INFO  info_trace - Add Product: ID = 3, Name = hoa huệ, Quantity = 1000
 2023-12-06 22:54:38.312 [http-nio-8080-exec-3] INFO  info_trace - Change warehouse1
 2023-12-09 21:39:54.307 [http-nio-8080-exec-3] INFO  info_trace - Add Product: ID = 2, Name = hoa cúc, Quantity = 1000
+2023-12-16 22:59:33.080 [http-nio-8080-exec-2] INFO  info_trace - Update-Order: Product: hoa hồng, Shipper: admin,  Quantity: 10, Price: 100000, Total Cash: 910000, Status: 1
+2023-12-16 22:59:53.897 [http-nio-8080-exec-10] INFO  info_trace - Update-Order: Product: hoa hồng, Shipper: admin,  Quantity: 10, Price: 100000, Total Cash: 910000, Status: 1
+2023-12-16 23:01:36.871 [http-nio-8080-exec-3] INFO  info_trace - Update-Order: Product: hoa hồng, Shipper: admin,  Quantity: 10, Price: 100000, Total Cash: 910000, Status: 1
+2023-12-16 23:03:27.848 [http-nio-8080-exec-9] INFO  info_trace - Update-Order: Product: hoa hồng, Shipper: admin,  Quantity: 10, Price: 100000, Total Cash: 910000, Status: 1

@@ -4,10 +4,10 @@ import com.webapp.backend.dto.OrderDto;
 import com.webapp.backend.dto.UpdateStatusOrder;
 import com.webapp.backend.entity.Order;
 import com.webapp.backend.service.OrderService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -83,24 +83,19 @@ public class OrderController {
 
     }
 
-    @PostMapping("/admin/returnOrder/{orderId}")
-    public ResponseEntity<Order> returnOrder(@PathVariable(name = "orderId") Long orderId) throws Exception {
 
-        return ResponseEntity.ok(service.returnOrder(orderId));
+//    @PutMapping("/all/updateOrder")
+//    public ResponseEntity<Order> updateOrder(@RequestBody OrderDto orderDto) throws Exception {
+//
+//        return ResponseEntity.ok(service.updateOrder(orderDto));
+//
+//    }
 
-    }
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/comfirmOrder")
+    public ResponseEntity<Order> confirmOrder(@RequestBody UpdateStatusOrder updateOrder) throws Exception {
 
-    @PutMapping("/all/updateOrder")
-    public ResponseEntity<Order> updateOrder(@Valid @RequestBody OrderDto orderDto) throws Exception {
-
-        return ResponseEntity.ok(service.updateOrder(orderDto));
-
-    }
-
-    @PutMapping("/admin/comfirmOrder/{id}")
-    public ResponseEntity<Order> confirmOrder(@PathVariable(name = "id") Long id) throws Exception {
-
-        return ResponseEntity.ok(service.confirmOrder(id));
+        return ResponseEntity.ok(service.confirmOrder(updateOrder));
 
     }
 
@@ -134,6 +129,14 @@ public class OrderController {
         return ResponseEntity.ok(order);
 
     }
+
+//    @PreAuthorize("hasRole('ADMIN')")
+//    @PostMapping("/admin/confirmReturnOrder/{orderId}")
+//    public ResponseEntity<Order> confirmReturnOrder(@PathVariable(name = "orderId") Integer orderId) throws Exception {
+//
+//        return ResponseEntity.ok(service.confirmReturnOrder(orderId));
+//
+//    }
 
 
 }

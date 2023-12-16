@@ -130,8 +130,6 @@ public class OrderService {
             throw new CustomException("Can not change confirmed order");
         }
 
-        updateReturnWarehouse(existedOrder);
-
         existedOrder.setQuantity(updateOrder.getQuantity());
 
         updateWarehouse(existedOrder);
@@ -143,22 +141,53 @@ public class OrderService {
         return repository.save(existedOrder);
     }
 
-    public Order confirmOrder(Long id) throws Exception {
-        Optional<Order> existedOrderOptional = repository.findById(id);
+    public Order confirmOrder(UpdateStatusOrder updateOrder) throws Exception {
+        Optional<Order> existedOrderOptional = repository.findById(updateOrder.getId());
 
         if (!existedOrderOptional.isPresent()) {
             throw new CustomException("This order is not existed");
         }
 
         Order existedOrder = existedOrderOptional.get();
-        if(!(existedOrder.getStatus() == Constants.STATUS_NOT_CONFIRM)){
-            throw new CustomException("Only confirm unconfirmed order");
+
+        if(updateOrder.getStatus() == Constants.STATUS_CONFIRMED_RETURN
+                && existedOrder.getStatus() != Constants.STATUS_CONFIRMED_RETURN){
+
+            existedOrder.setStatus(updateOrder.getStatus());
+
+            updateReturnWarehouse(existedOrder);
+
+        } else if (updateOrder.getStatus() == Constants.STATUS_CONFIRMED
+                && existedOrder.getStatus() != Constants.STATUS_CONFIRMED_RETURN) {
+
+            existedOrder.setStatus(updateOrder.getStatus());
+
+        } else if(existedOrder.getStatus() == Constants.STATUS_CONFIRMED_RETURN
+                && updateOrder.getStatus() != Constants.STATUS_CONFIRMED_RETURN) {
+
+            existedOrder.setStatus(updateOrder.getStatus());
+            updateWarehouseFromConfirnReturn(existedOrder);
         }
 
-        LOGGER.info("Order confirmed - Product: {}, Shipper: {},  Quantity: {}, Price: {}, Total Cash: {}, Status: {}",
+        LOGGER.info("Update-Order: Product: {}, Shipper: {},  Quantity: {}, Price: {}, Total Cash: {}, Status: {}",
                 existedOrder.getProduct().getName(), existedOrder.getShipper().getUsername(), existedOrder.getQuantity(), existedOrder.getPrice(), existedOrder.getCash(), existedOrder.getStatus());
 
         return repository.save(existedOrder);
+    }
+
+    private void updateWarehouseFromConfirnReturn(Order existedOrder) throws CustomException {
+
+        Optional<Product> productOptional = productRepository.findById(existedOrder.getProduct().getId());
+
+        if(!productOptional.isPresent()){
+            throw new CustomException("This product is not existed");
+        }
+
+        Product product = productOptional.get();
+
+        product.setQuantity(product.getQuantity() - existedOrder.getNumReturn());
+
+        productRepository.save(product);
     }
 
     public void deleteOrder(Long orderId) throws Exception {
@@ -266,22 +295,25 @@ public class OrderService {
 
     }
 
-    public Order returnOrder(Long orderId) throws CustomException {
+    public Order returnOrder(UpdateStatusOrder updateOrder) throws CustomException {
 
-        Optional<Order> existedOrderOptional = repository.findById(orderId);
+        Optional<Order> orderOptional = repository.findById(updateOrder.getId());
 
-        if (!existedOrderOptional.isPresent()) {
-            throw new CustomException("This order is not existed");
+        if(!orderOptional.isPresent()){
+            throw new CustomException("Order was not existed");
         }
 
-        Order order = existedOrderOptional.get();
+        Order order = orderOptional.get();
 
-        if(!(order.getStatus() == Constants.STATUS_CONFIRMED)){
-            throw new CustomException("Only return confirmed order");
+        if(updateOrder.getFreeShip() > 0){
+            order.setFreeShip(updateOrder.getFreeShip());
         }
-        updateReturnWarehouse(order);
 
-        order.setStatus(Constants.STATUS_RETURN);
+        if(order.getQuantity() - updateOrder.getNumReturn() < order.getFreeShip()){
+            throw new CustomException("Check input data");
+        }
+
+        order.setNumReturn(updateOrder.getNumReturn());
 
         return repository.save(order);
 
@@ -297,7 +329,7 @@ public class OrderService {
 
         Product product = productOptional.get();
 
-        product.setQuantity(product.getQuantity() + order.getQuantity());
+        product.setQuantity(product.getQuantity() + order.getNumReturn());
 
         productRepository.save(product);
 
@@ -324,17 +356,28 @@ public class OrderService {
 
         Order order = orderOptional.get();
 
-        order.setStatus(updateOrder.getStatus());
+//        if(updateOrder.getFreeShip() > 0
+//                && order.getStatus() != Constants.STATUS_CONFIRMED_RETURN
+//                && order.getStatus() != Constants.STATUS_CONFIRMED){
+//            order.setFreeShip(updateOrder.getFreeShip());
+//        }
 
-        if(updateOrder.getFreeShip() > 0){
-            order.setFreeShip(updateOrder.getFreeShip());
+//        if(order.getStatus() != Constants.STATUS_CONFIRMED_RETURN){
+//            order.setNumReturn(updateOrder.getNumReturn());
+//        }
+
+        if ((order.getStatus() == Constants.STATUS_NOT_CONFIRM || order.getStatus() == Constants.STATUS_RETURN) &&
+                (updateOrder.getStatus() == Constants.STATUS_RETURN || updateOrder.getStatus() == Constants.STATUS_NOT_CONFIRM)){
+            order.setStatus(updateOrder.getStatus());
+            order.setNumReturn(updateOrder.getNumReturn());
+            if(updateOrder.getFreeShip() > 0){
+                order.setFreeShip(updateOrder.getFreeShip());
+            }
         }
 
         if(order.getQuantity() - updateOrder.getNumReturn() < order.getFreeShip()){
             throw new CustomException("Check input data");
         }
-
-        order.setNumReturn(updateOrder.getNumReturn());
 
         return repository.save(order);
 
