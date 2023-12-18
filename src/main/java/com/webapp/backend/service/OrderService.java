@@ -366,7 +366,7 @@ public class OrderService {
 //            order.setNumReturn(updateOrder.getNumReturn());
 //        }
 
-        if ((order.getStatus() == Constants.STATUS_NOT_CONFIRM || order.getStatus() == Constants.STATUS_RETURN) &&
+        if ((order.getStatus() == Constants.STATUS_NOT_CONFIRM || order.getStatus() == Constants.STATUS_CONFIRMED) &&
                 (updateOrder.getStatus() == Constants.STATUS_RETURN || updateOrder.getStatus() == Constants.STATUS_NOT_CONFIRM)){
             order.setStatus(updateOrder.getStatus());
             order.setNumReturn(updateOrder.getNumReturn());
@@ -381,6 +381,27 @@ public class OrderService {
 
         return repository.save(order);
 
+    }
+
+    public Order confirmOrder(Long id) throws Exception {
+        Optional<Order> existedOrderOptional = repository.findById(id);
+
+        if (!existedOrderOptional.isPresent()) {
+            throw new CustomException("This order is not existed");
+        }
+
+        Order existedOrder = existedOrderOptional.get();
+
+        LOGGER.info("Order confirmed - Product: {}, Shipper: {},  Quantity: {}, Price: {}, Total Cash: {}, Status: {}",
+                existedOrder.getProduct().getName(), existedOrder.getShipper().getUsername(), existedOrder.getQuantity(), existedOrder.getPrice(), existedOrder.getCash(), existedOrder.getStatus());
+
+        if(existedOrder.getStatus() == Constants.STATUS_NOT_CONFIRM){
+            existedOrder.setStatus(Constants.STATUS_CONFIRMED);
+        } else if (existedOrder.getStatus() == Constants.STATUS_RETURN){
+            existedOrder.setStatus(Constants.STATUS_CONFIRMED_RETURN);
+        }
+
+        return repository.save(existedOrder);
     }
 }
 

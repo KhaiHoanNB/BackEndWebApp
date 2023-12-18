@@ -129,6 +129,13 @@ public class OrderController {
         return ResponseEntity.ok(order);
 
     }
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/confirmOrder/{id}")
+    public ResponseEntity<Order> confirmOrder(@PathVariable(name = "id") Long id) throws Exception {
+
+        return ResponseEntity.ok(service.confirmOrder(id));
+
+    }
 
 //    @PreAuthorize("hasRole('ADMIN')")
 //    @PostMapping("/admin/confirmReturnOrder/{orderId}")
