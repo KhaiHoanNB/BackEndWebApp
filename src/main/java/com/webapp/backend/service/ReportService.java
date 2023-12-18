@@ -111,9 +111,9 @@ public class ReportService {
                 if (user.getId() == order.getShipper().getId()) {
                     if (order.getStatus().equals(Constants.STATUS_CONFIRMED)) {
                         report.getSuccessfulOrder().add(order);
-                        totalCash = order.getQuantity()*order.getPrice()- order.getFreeShip()*Constants.VALUE_FREE_SHIP;
+                        totalCash += order.getQuantity()*order.getPrice()- order.getFreeShip()*Constants.VALUE_FREE_SHIP;
                     } else if (order.getStatus().equals(Constants.STATUS_CONFIRMED_RETURN)) {
-                        totalCash = order.getQuantity()*order.getPrice() - order.getNumReturn()*order.getPrice() - order.getFreeShip()*Constants.VALUE_FREE_SHIP;
+                        totalCash += order.getQuantity()*order.getPrice() - order.getNumReturn()*order.getPrice() - order.getFreeShip()*Constants.VALUE_FREE_SHIP;
                         report.getReturnedOrder().add(order);
                     } else {
                         report.getPendingOrder().add(order);
