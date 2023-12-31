@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
@@ -42,4 +44,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             @Param("shipperId") Long shipperId,
             @Param("status") Integer status
     );
+
+    @Query("SELECT o.product.id as productId, SUM(o.quantity) as totalQuantity, SUM(o.cash) as totalCash FROM Order o WHERE FUNCTION('DATE', o.createDate) = FUNCTION('DATE', :targetDate) AND o.status IN (1, 3) AND o.product.id = :productId GROUP BY o.product.id")
+    Map<String, Object> getReportByProduct(@Param("targetDate") LocalDate targetDate, @Param("productId") Long productId);
+
 }

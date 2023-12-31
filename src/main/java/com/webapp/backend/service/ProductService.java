@@ -3,13 +3,16 @@ package com.webapp.backend.service;
 import com.webapp.backend.common.CustomException;
 import com.webapp.backend.dto.ProductDto;
 import com.webapp.backend.entity.Category;
+import com.webapp.backend.entity.ImportProduct;
 import com.webapp.backend.entity.Product;
 import com.webapp.backend.repository.CategoryRepository;
+import com.webapp.backend.repository.ImportProductRepository;
 import com.webapp.backend.repository.ProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -27,6 +30,10 @@ public class ProductService {
     @Autowired
     CategoryRepository categoryRepository;
 
+    @Autowired
+    ImportProductRepository importProductRepository;
+
+    @Transactional
     public Product addProduct(ProductDto productDto) throws CustomException {
 
         Product product = new Product();
@@ -50,6 +57,13 @@ public class ProductService {
 
         Product savedProcduct = productRepository.save(product);
 
+
+        ImportProduct importProduct = new ImportProduct();
+        importProduct.setProduct(savedProcduct);
+        importProduct.setQuantity(savedProcduct.getQuantity());
+
+        importProductRepository.save(importProduct);
+
         LOGGER.info("Add Product: ID = {}, Name = {}, Quantity = {}", savedProcduct.getId(), savedProcduct.getName(), savedProcduct.getQuantity());
 
         return savedProcduct;
@@ -68,6 +82,7 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
+    @Transactional
     public Product updateProduct(ProductDto productDto) throws Exception {
 
         Optional<Product> productOptional = productRepository.findById(productDto.getId());
@@ -80,9 +95,15 @@ public class ProductService {
         product.setDescription(productDto.getDescription());
         product.setName(productDto.getName());
 
-        product.setQuantity(productDto.getQuantity());
+        product.setQuantity(product.getQuantity() + productDto.getQuantity());
 
         Product savedProduct = productRepository.save(product);
+
+        ImportProduct importProduct = new ImportProduct();
+        importProduct.setProduct(savedProduct);
+        importProduct.setQuantity(productDto.getQuantity());
+
+        importProductRepository.save(importProduct);
 
         LOGGER.info("Change warehouse" + savedProduct.getId());
 

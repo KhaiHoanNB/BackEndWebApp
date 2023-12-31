@@ -5,18 +5,19 @@ import com.webapp.backend.common.Constants;
 import com.webapp.backend.common.CustomException;
 import com.webapp.backend.core.entities.User;
 import com.webapp.backend.core.repositories.UserRepository;
+import com.webapp.backend.dto.ReportByProductDto;
 import com.webapp.backend.dto.ReportDto;
 import com.webapp.backend.entity.Order;
+import com.webapp.backend.entity.Product;
+import com.webapp.backend.repository.ImportProductRepository;
 import com.webapp.backend.repository.OrderRepository;
+import com.webapp.backend.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ReportService {
@@ -26,6 +27,12 @@ public class ReportService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ProductRepository productRepository;
+
+    @Autowired
+    ImportProductRepository importProductRepository;
 
     public ReportDto getOrdersByDateAndShipper(String date, Long shipperId) throws CustomException {
 
@@ -170,6 +177,50 @@ public class ReportService {
                 .filter(Objects::nonNull)
                 .mapToLong(Long::longValue)
                 .sum();
+
+    }
+
+    public List<ReportByProductDto> getReportByProduct(String date) {
+
+        List<ReportByProductDto> listReport = new ArrayList<>();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+
+        LocalDate dateFormated = LocalDate.parse(date, formatter);
+
+
+        List<Product> products = productRepository.findAll();
+
+        if(products.isEmpty()){
+            return List.of();
+        }
+
+        int length = products.size();
+
+        for (int i = 0; i < length; i++) {
+
+            ReportByProductDto reportByProductDto = new ReportByProductDto();
+
+            reportByProductDto.setProduct(products.get(i));
+
+            Map<String, Object> resultFromOrderTable = orderRepository.getReportByProduct(dateFormated, products.get(i).getId());
+
+            if(!resultFromOrderTable.isEmpty()){
+
+                reportByProductDto.setTotalAmountByProduct((Long) resultFromOrderTable.get("totalCash"));
+                reportByProductDto.setTotalQuantitySaled((Long) resultFromOrderTable.get("totalQuantity"));
+            }
+
+            Map<String, Object> resultFromImportTable = importProductRepository.getDailyImport(dateFormated, products.get(i).getId());
+            if(!resultFromImportTable.isEmpty()) {
+                reportByProductDto.setDailyImportQuantity((Long) resultFromImportTable.get("totalQuantity"));
+            }
+
+            listReport.add(reportByProductDto);
+
+        }
+
+        return listReport;
 
     }
 }

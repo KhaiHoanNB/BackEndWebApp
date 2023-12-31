@@ -2,6 +2,7 @@ package com.webapp.backend.controller;
 
 
 import com.webapp.backend.common.CustomException;
+import com.webapp.backend.dto.ReportByProductDto;
 import com.webapp.backend.dto.ReportDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,23 @@ public class ReportController {
 
     }
 
+
+    @GetMapping("/admin/getAllReportByProduct/{date}")
+    public ResponseEntity<List<ReportByProductDto>> getReportByProduct(@PathVariable(name = "date") String date){
+
+
+        List<ReportByProductDto> listOrder = reportService.getReportByProduct(date);
+
+        if(listOrder.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(listOrder);
+
+    }
+
+
+
     @GetMapping("/all/getReportByDateAndShipper/{date}")
     public ResponseEntity<ReportDto> getSuccessfulOrderByDateAndShipper(
                                         @PathVariable(name = "date") String date,
@@ -56,6 +74,8 @@ public class ReportController {
 
         return ResponseEntity.ok(reportService.getTotalAmountByDayAndShipper(date, shipperId));
     }
+
+
 }
 
 
