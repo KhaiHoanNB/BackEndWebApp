@@ -103,9 +103,9 @@ public class ProductService {
         importProduct.setProduct(savedProduct);
         importProduct.setQuantity(productDto.getQuantity());
 
-        importProductRepository.save(importProduct);
+        ImportProduct savedImportProduct = importProductRepository.save(importProduct);
 
-        LOGGER.info("Change warehouse" + savedProduct.getId());
+        LOGGER.info("Import Product: ID = {}, Name = {}, Quantity = {}", savedImportProduct.getId(), savedProduct.getName(), savedImportProduct.getQuantity());
 
         return savedProduct;
 
