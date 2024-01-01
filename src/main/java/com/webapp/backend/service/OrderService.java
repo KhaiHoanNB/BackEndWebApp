@@ -399,12 +399,12 @@ public class OrderService {
 
         if(existedOrder.getStatus() == Constants.STATUS_NOT_CONFIRM){
             existedOrder.setStatus(Constants.STATUS_CONFIRMED);
-            existedOrder.setCash(existedOrder.getPrice()*existedOrder.getQuantity() - existedOrder.getPrice()*existedOrder.getNumReturn());
-
         } else if (existedOrder.getStatus() == Constants.STATUS_RETURN){
-            existedOrder.setStatus(Constants.STATUS_CONFIRMED_RETURN);
             existedOrder.setCash(existedOrder.getPrice()*existedOrder.getQuantity() - existedOrder.getPrice()*existedOrder.getNumReturn() - existedOrder.getFreeShip()*Constants.VALUE_FREE_SHIP);
+            existedOrder.setStatus(Constants.STATUS_CONFIRMED_RETURN);
+            updateReturnWarehouse(existedOrder);
         }
+
 
         return repository.save(existedOrder);
     }
