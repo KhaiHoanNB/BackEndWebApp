@@ -155,6 +155,8 @@ public class OrderService {
 
             existedOrder.setStatus(updateOrder.getStatus());
 
+            existedOrder.setCash(existedOrder.getPrice()*existedOrder.getQuantity() - existedOrder.getPrice()*existedOrder.getNumReturn() - existedOrder.getFreeShip()*Constants.VALUE_FREE_SHIP);
+
             updateReturnWarehouse(existedOrder);
 
         } else if (updateOrder.getStatus() == Constants.STATUS_CONFIRMED
@@ -397,8 +399,11 @@ public class OrderService {
 
         if(existedOrder.getStatus() == Constants.STATUS_NOT_CONFIRM){
             existedOrder.setStatus(Constants.STATUS_CONFIRMED);
+            existedOrder.setCash(existedOrder.getPrice()*existedOrder.getQuantity() - existedOrder.getPrice()*existedOrder.getNumReturn());
+
         } else if (existedOrder.getStatus() == Constants.STATUS_RETURN){
             existedOrder.setStatus(Constants.STATUS_CONFIRMED_RETURN);
+            existedOrder.setCash(existedOrder.getPrice()*existedOrder.getQuantity() - existedOrder.getPrice()*existedOrder.getNumReturn() - existedOrder.getFreeShip()*Constants.VALUE_FREE_SHIP);
         }
 
         return repository.save(existedOrder);

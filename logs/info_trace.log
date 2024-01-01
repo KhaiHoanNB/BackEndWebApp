@@ -1,0 +1,4 @@
+2024-01-01 10:32:03.177 [http-nio-8080-exec-4] INFO  info_trace - Update-Order: Product: hoa huệ, Shipper: admin,  Quantity: 100, Price: 100000, Total Cash: 9910000, Status: 3
+2024-01-01 10:36:14.544 [http-nio-8080-exec-2] INFO  info_trace - Update-Order: Product: hoa huệ, Shipper: admin,  Quantity: 100, Price: 100000, Total Cash: 9910000, Status: 3
+2024-01-01 10:39:44.194 [http-nio-8080-exec-1] INFO  info_trace - Update-Order: Product: hoa huệ, Shipper: admin,  Quantity: 100, Price: 100000, Total Cash: 9910000, Status: 3
+2024-01-01 10:41:04.439 [http-nio-8080-exec-2] INFO  info_trace - Update-Order: Product: hoa huệ, Shipper: admin,  Quantity: 100, Price: 100000, Total Cash: 9410000, Status: 3

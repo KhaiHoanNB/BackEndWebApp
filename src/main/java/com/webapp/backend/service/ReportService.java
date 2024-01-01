@@ -208,7 +208,10 @@ public class ReportService {
             if(!resultFromOrderTable.isEmpty()){
 
                 reportByProductDto.setTotalAmountByProduct((Long) resultFromOrderTable.get("totalCash"));
-                reportByProductDto.setTotalQuantitySaled((Long) resultFromOrderTable.get("totalQuantity"));
+
+                Long returnedQuantity = (Long) resultFromOrderTable.get("totalQuantityReturn");
+
+                reportByProductDto.setTotalQuantitySaled(((Long) resultFromOrderTable.get("totalQuantity")) - returnedQuantity);
             }
 
             Map<String, Object> resultFromImportTable = importProductRepository.getDailyImport(dateFormated, products.get(i).getId());

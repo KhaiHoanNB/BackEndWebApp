@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Service
 public class ProductService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger("info_trace");
+    private static final Logger  LOGGER = LoggerFactory.getLogger("info_trace");
 
     @Autowired
     ProductRepository productRepository;
