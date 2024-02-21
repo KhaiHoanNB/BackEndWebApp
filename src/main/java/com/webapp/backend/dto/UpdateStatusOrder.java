@@ -15,5 +15,5 @@ public class UpdateStatusOrder {
 
     private int numReturn;
 
-    private int freeShip;
+    private int returnFreeShip;
 }

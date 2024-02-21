@@ -297,29 +297,6 @@ public class OrderService {
 
     }
 
-    public Order returnOrder(UpdateStatusOrder updateOrder) throws CustomException {
-
-        Optional<Order> orderOptional = repository.findById(updateOrder.getId());
-
-        if(!orderOptional.isPresent()){
-            throw new CustomException("Order was not existed");
-        }
-
-        Order order = orderOptional.get();
-
-        if(updateOrder.getFreeShip() > 0){
-            order.setFreeShip(updateOrder.getFreeShip());
-        }
-
-        if(order.getQuantity() - updateOrder.getNumReturn() < order.getFreeShip()){
-            throw new CustomException("Check input data");
-        }
-
-        order.setNumReturn(updateOrder.getNumReturn());
-
-        return repository.save(order);
-
-    }
 
     private void updateReturnWarehouse(Order order) throws CustomException {
 
@@ -358,26 +335,21 @@ public class OrderService {
 
         Order order = orderOptional.get();
 
-//        if(updateOrder.getFreeShip() > 0
-//                && order.getStatus() != Constants.STATUS_CONFIRMED_RETURN
-//                && order.getStatus() != Constants.STATUS_CONFIRMED){
-//            order.setFreeShip(updateOrder.getFreeShip());
-//        }
-
-//        if(order.getStatus() != Constants.STATUS_CONFIRMED_RETURN){
-//            order.setNumReturn(updateOrder.getNumReturn());
-//        }
-
-        if ((order.getStatus() == Constants.STATUS_NOT_CONFIRM || order.getStatus() == Constants.STATUS_CONFIRMED) &&
+        if ((order.getStatus() == Constants.STATUS_NOT_CONFIRM || order.getStatus() == Constants.STATUS_CONFIRMED || order.getStatus() == Constants.STATUS_RETURN) &&
                 (updateOrder.getStatus() == Constants.STATUS_RETURN || updateOrder.getStatus() == Constants.STATUS_NOT_CONFIRM)){
             order.setStatus(updateOrder.getStatus());
             order.setNumReturn(updateOrder.getNumReturn());
-            if(updateOrder.getFreeShip() > 0){
-                order.setFreeShip(updateOrder.getFreeShip());
+
+            int newFreeShip = order.getFreeShip() - updateOrder.getReturnFreeShip();
+            if(newFreeShip < 0){
+                throw new CustomException("Check input data");
             }
+            order.setFreeShip(newFreeShip);
         }
 
-        if(order.getQuantity() - updateOrder.getNumReturn() < order.getFreeShip()){
+        order.setCash(order.getQuantity()*order.getPrice() - order.getNumReturn()*order.getPrice() - order.getFreeShip()*Constants.VALUE_FREE_SHIP);
+
+        if(order.getCash() < 0){
             throw new CustomException("Check input data");
         }
 

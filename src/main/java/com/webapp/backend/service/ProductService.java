@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -121,6 +122,7 @@ public class ProductService {
 
         return products.stream()
                 .filter(product -> categoryID == null || Objects.equals(product.getCategory().getId(), categoryID))
+                .sorted(Comparator.comparing(Product::getQuantity).reversed())
                 .map(product -> ProductDto.builder()
                                         .name(product.getName())
                                         .id(product.getId())
