@@ -208,16 +208,16 @@ public class ReportService {
 
                 if (!resultFromOrderTable.isEmpty()) {
 
-                    reportByProductDto.setTotalAmountByProduct((Long) resultFromOrderTable.get("totalCash"));
+                    reportByProductDto.setTotalAmountByProduct( (double)resultFromOrderTable.get("totalCash"));
 
-                    Long returnedQuantity = (Long) resultFromOrderTable.get("totalQuantityReturn");
+                    double returnedQuantity = (double) resultFromOrderTable.get("totalQuantityReturn");
 
-                    reportByProductDto.setTotalQuantitySaled(((Long) resultFromOrderTable.get("totalQuantity")) - returnedQuantity);
+                    reportByProductDto.setTotalQuantitySaled(((double) resultFromOrderTable.get("totalQuantity")) - returnedQuantity);
                 }
 
                 Map<String, Object> resultFromImportTable = importProductRepository.getDailyImport(dateFormated, products.get(i).getId());
                 if (!resultFromImportTable.isEmpty()) {
-                    reportByProductDto.setDailyImportQuantity((Long) resultFromImportTable.get("totalQuantity"));
+                    reportByProductDto.setDailyImportQuantity((double) resultFromImportTable.get("totalQuantity"));
                 }
 
                 listReport.add(reportByProductDto);

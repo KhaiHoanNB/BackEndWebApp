@@ -15,10 +15,10 @@ public class ReportByProductDto {
 
     private Product product;
 
-    private long dailyImportQuantity;;
+    private double dailyImportQuantity;;
 
-    private long totalAmountByProduct;
+    private double totalAmountByProduct;
 
-    private long totalQuantitySaled;
+    private double totalQuantitySaled;
 
 }
