@@ -180,14 +180,13 @@ public class ReportService {
 
     }
 
-    public List<ReportByProductDto> getReportByProduct(String date) {
+    public List<ReportByProductDto> getReportByProduct(String date, int categoryId) {
 
         List<ReportByProductDto> listReport = new ArrayList<>();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
         LocalDate dateFormated = LocalDate.parse(date, formatter);
-
 
         List<Product> products = productRepository.findAll();
 
@@ -199,28 +198,31 @@ public class ReportService {
 
         for (int i = 0; i < length; i++) {
 
-            ReportByProductDto reportByProductDto = new ReportByProductDto();
+            if (products.get(i).getCategory().getId() == categoryId || categoryId == 0) {
 
-            reportByProductDto.setProduct(products.get(i));
+                ReportByProductDto reportByProductDto = new ReportByProductDto();
 
-            Map<String, Object> resultFromOrderTable = orderRepository.getReportByProduct(dateFormated, products.get(i).getId());
+                reportByProductDto.setProduct(products.get(i));
 
-            if(!resultFromOrderTable.isEmpty()){
+                Map<String, Object> resultFromOrderTable = orderRepository.getReportByProduct(dateFormated, products.get(i).getId());
 
-                reportByProductDto.setTotalAmountByProduct((Long) resultFromOrderTable.get("totalCash"));
+                if (!resultFromOrderTable.isEmpty()) {
 
-                Long returnedQuantity = (Long) resultFromOrderTable.get("totalQuantityReturn");
+                    reportByProductDto.setTotalAmountByProduct((Long) resultFromOrderTable.get("totalCash"));
 
-                reportByProductDto.setTotalQuantitySaled(((Long) resultFromOrderTable.get("totalQuantity")) - returnedQuantity);
+                    Long returnedQuantity = (Long) resultFromOrderTable.get("totalQuantityReturn");
+
+                    reportByProductDto.setTotalQuantitySaled(((Long) resultFromOrderTable.get("totalQuantity")) - returnedQuantity);
+                }
+
+                Map<String, Object> resultFromImportTable = importProductRepository.getDailyImport(dateFormated, products.get(i).getId());
+                if (!resultFromImportTable.isEmpty()) {
+                    reportByProductDto.setDailyImportQuantity((Long) resultFromImportTable.get("totalQuantity"));
+                }
+
+                listReport.add(reportByProductDto);
+
             }
-
-            Map<String, Object> resultFromImportTable = importProductRepository.getDailyImport(dateFormated, products.get(i).getId());
-            if(!resultFromImportTable.isEmpty()) {
-                reportByProductDto.setDailyImportQuantity((Long) resultFromImportTable.get("totalQuantity"));
-            }
-
-            listReport.add(reportByProductDto);
-
         }
 
         return listReport;
