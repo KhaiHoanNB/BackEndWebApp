@@ -47,7 +47,7 @@ public class DataInitializer implements CommandLineRunner {
 
     private void initializeUser() {
         if (userRepository.count() == 0) {
-            for (int i = 0; i < 2; i++) {
+            for (int i = 0; i < 4; i++) {
                 User user;
                 if (i == 0) {
                     user = User.builder()
@@ -56,12 +56,27 @@ public class DataInitializer implements CommandLineRunner {
                             .username("tranviet")
                             .password(passwordEncoder.encode("tranviet@1983"))
                             .build();
-                } else {
+                } else if(i ==1) {
                     user = User.builder()
                             .firstName("Tran")
                             .lastName("Phuong")
                             .username("vietphuong")
                             .password(passwordEncoder.encode("vietphuong@123"))
+                            .build();
+                } else if(i ==2) {
+                    user = User.builder()
+                            .firstName("Hanh")
+                            .lastName("Linh")
+                            .username("hanhlinh")
+                            .password(passwordEncoder.encode("hanhlinh@1984"))
+                            .build();
+                } else {
+
+                    user = User.builder()
+                            .firstName("Mai")
+                            .lastName("MeoChuot")
+                            .username("MaiMeoChuot")
+                            .password(passwordEncoder.encode("meochuot@123"))
                             .build();
                 }
 
