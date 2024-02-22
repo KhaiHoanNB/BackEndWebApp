@@ -18,11 +18,11 @@ public class OrderDto {
     @NotNull
     private Long productId;
     @NotNull
-    private Integer quantity;
+    private double quantity;
     @NotNull
     private Long price;
     @NotNull
-    private int freeShip;
+    private double freeShip;
 
     private Integer date;
 

@@ -20,11 +20,11 @@ public class ProductDto {
 
     private String description;
 
-    private int quantity;
+    private double quantity;
 
     private CategoryDto categoryDto;
 
-    public ProductDto(Long id, String name, Long categoryId, String description, int quantity) {
+    public ProductDto(Long id, String name, Long categoryId, String description, double quantity) {
         this.id = id;
         this.name = name;
         this.categoryId = categoryId;

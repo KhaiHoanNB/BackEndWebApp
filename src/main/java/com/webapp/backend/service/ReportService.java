@@ -148,37 +148,37 @@ public class ReportService {
         return reports;
     }
 
-    public Long getTotalAmountByDay(String date) {
+//    public Long getTotalAmountByDay(String date) {
+//
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+//
+//        LocalDate dateFormated = LocalDate.parse(date, formatter);
+//
+//        List<Order> successfulOrders = orderRepository.findOrdersByDateAndStatus(dateFormated, Constants.STATUS_CONFIRMED);
+//
+//        return successfulOrders.stream()
+//                .map(Order::getCash)
+//                .filter(Objects::nonNull)
+//                .mapToLong(Long::longValue)
+//                .sum();
+//    }
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
-        LocalDate dateFormated = LocalDate.parse(date, formatter);
-
-        List<Order> successfulOrders = orderRepository.findOrdersByDateAndStatus(dateFormated, Constants.STATUS_CONFIRMED);
-
-        return successfulOrders.stream()
-                .map(Order::getCash)
-                .filter(Objects::nonNull)
-                .mapToLong(Long::longValue)
-                .sum();
-    }
-
-
-    public Long getTotalAmountByDayAndShipper(String date, Long shipperId) {
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-
-        LocalDate dateFormated = LocalDate.parse(date, formatter);
-
-        List<Order> successfulOrders = orderRepository.findOrdersByDateAndShipperIdAndStatus(dateFormated, shipperId, Constants.STATUS_CONFIRMED);
-
-        return successfulOrders.stream()
-                .map(Order::getCash)
-                .filter(Objects::nonNull)
-                .mapToLong(Long::longValue)
-                .sum();
-
-    }
+//    public Long getTotalAmountByDayAndShipper(String date, Long shipperId) {
+//
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+//
+//        LocalDate dateFormated = LocalDate.parse(date, formatter);
+//
+//        List<Order> successfulOrders = orderRepository.findOrdersByDateAndShipperIdAndStatus(dateFormated, shipperId, Constants.STATUS_CONFIRMED);
+//
+//        return successfulOrders.stream()
+//                .map(Order::getCash)
+//                .filter(Objects::nonNull)
+//                .mapToLong(Long::longValue)
+//                .sum();
+//
+//    }
 
     public List<ReportByProductDto> getReportByProduct(String date, int categoryId) {
 

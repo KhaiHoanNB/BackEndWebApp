@@ -21,6 +21,6 @@ public class ImportProduct extends BaseEntity {
     Product product;
 
     @Column
-    Integer quantity;
+    double quantity;
 
 }

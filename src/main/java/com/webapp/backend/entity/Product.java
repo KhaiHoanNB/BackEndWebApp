@@ -24,7 +24,7 @@ public class Product extends BaseEntity {
 
     @Column(name = "quantity")
     @NotNull
-    private int quantity;
+    private double quantity;
 
     @ManyToOne
     @JsonIgnore

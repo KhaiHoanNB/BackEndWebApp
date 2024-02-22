@@ -83,7 +83,7 @@ public class OrderService {
 
         order.setFreeShip(orderDto.getFreeShip());
 
-        Long totalCashOrder = (orderDto.getPrice() * orderDto.getQuantity()) - (orderDto.getFreeShip()*Constants.VALUE_FREE_SHIP);
+        double totalCashOrder = (orderDto.getPrice() * orderDto.getQuantity()) - (orderDto.getFreeShip()*Constants.VALUE_FREE_SHIP);
 
         order.setCash(totalCashOrder);
 
@@ -107,7 +107,7 @@ public class OrderService {
 
         Product product = productRepository.findById(order.getProduct().getId()).get();
 
-        int theRestQuantity = product.getQuantity() - order.getQuantity();
+        double theRestQuantity = product.getQuantity() - order.getQuantity();
 
         if (theRestQuantity < 0) {
             throw new CustomException("The quantity you ordered is too large");
@@ -340,7 +340,7 @@ public class OrderService {
             order.setStatus(updateOrder.getStatus());
             order.setNumReturn(updateOrder.getNumReturn());
 
-            int newFreeShip = order.getFreeShip() - updateOrder.getReturnFreeShip();
+            double newFreeShip = order.getFreeShip() - updateOrder.getReturnFreeShip();
             if(newFreeShip < 0){
                 throw new CustomException("Check input data");
             }

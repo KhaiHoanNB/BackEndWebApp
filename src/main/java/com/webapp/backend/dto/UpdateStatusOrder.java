@@ -13,7 +13,7 @@ public class UpdateStatusOrder {
 
     private Integer status;
 
-    private int numReturn;
+    private double numReturn;
 
-    private int returnFreeShip;
+    private double returnFreeShip;
 }

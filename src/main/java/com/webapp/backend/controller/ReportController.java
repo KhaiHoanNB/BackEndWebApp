@@ -62,21 +62,21 @@ public class ReportController {
     }
 
 
-    @GetMapping("/admin/getTotalAmountByDay/{date}")
-    public ResponseEntity<Long> getTotalAmountByDay(@PathVariable(name = "date") String date){
-
-
-        return ResponseEntity.ok(reportService.getTotalAmountByDay(date));
-    }
-
-
-    @GetMapping("/all/getTotalAmountByDayAndShipper/{date}")
-    public ResponseEntity<Long> getTotalAmountByDayAndShipper(@PathVariable(name = "date") String date,
-                                                                @RequestParam(name = "shipperId") Long shipperId){
-
-
-        return ResponseEntity.ok(reportService.getTotalAmountByDayAndShipper(date, shipperId));
-    }
+//    @GetMapping("/admin/getTotalAmountByDay/{date}")
+//    public ResponseEntity<Long> getTotalAmountByDay(@PathVariable(name = "date") String date){
+//
+//
+//        return ResponseEntity.ok(reportService.getTotalAmountByDay(date));
+//    }
+//
+//
+//    @GetMapping("/all/getTotalAmountByDayAndShipper/{date}")
+//    public ResponseEntity<Long> getTotalAmountByDayAndShipper(@PathVariable(name = "date") String date,
+//                                                                @RequestParam(name = "shipperId") Long shipperId){
+//
+//
+//        return ResponseEntity.ok(reportService.getTotalAmountByDayAndShipper(date, shipperId));
+//    }
 
 
 }

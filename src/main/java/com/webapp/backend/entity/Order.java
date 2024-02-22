@@ -29,23 +29,23 @@ public class Order extends BaseEntity {
 
     @Column(name = "quantity")
     @NotNull
-    private int quantity;
+    private double quantity;
 
     @Column(name = "price")
     @NotNull
-    private Long price;
+    private double price;
 
     @Column(name = "total_cash")
-    private Long cash;
+    private double cash;
 
     @Column
     private Integer status;
 
     @Column
-    private int freeShip;
+    private double freeShip;
 
     @Column
-    private int numReturn;
+    private double numReturn;
 
     @Column(name = "confirm_time")
     private LocalDateTime confirmTime;
